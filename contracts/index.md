@@ -11,8 +11,8 @@ The first step to writing a recipient is to inherit from our BaseRelayRecipient 
 ```solidity
 import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
 
-contract MyContract is BaseRelayRecipient, ... {
-
+contract MyContract is BaseRelayRecipient {
+    ...
 }
 ```
 
@@ -44,7 +44,7 @@ A reference implementation exists in the
 [TokenPaymaster](https://github.com/opengsn/gsn-paymasters/blob/master/contracts/TokenPaymaster.sol)
 contract.
 
-<img src="images/paymaster_flow.png" alt="" width="80%" />
+<img src="./images/paymaster_flow.png" alt="" width="80%" />
 
 #### Rejecting meta-transactions and alternative gas charging methods
 Unlike regular contract function calls, each relayed call has an additional number of steps it must go through, which are functions of the `Paymaster` interface that `RelayHub` will call before and after calling your contract.
@@ -63,7 +63,7 @@ Your `Paymaster` will be charged for the transaction after it consumes this amou
 Make sure you understand the logic before overriding the default values from the `BasePaymaster`.
 {% endhint %}
 
-```solidity
+```javascript
 function getGasLimits()
 external
 view
@@ -78,7 +78,7 @@ returns (
 
 Next, RelayHub will ask your `Paymaster` contract if it wants to receive a relayed call. Recall that you will be charged for incurred gas costs by the relayer, so you should only accept calls that you're willing to pay for!
 
-```solidity
+```javascript
 function preRelayedCall(
     GSNTypes.RelayRequest relayRequest,
     bytes approvalData,
@@ -106,7 +106,7 @@ The parameter called `maxPossibleGas` defines the absolute maximum the entire op
 
 After a relayed call is accepted, RelayHub will give your `Paymaster` contract another opportunity to charge your user for their call, perform some bookkeeping, etc. after the actual relayed call is made. This function is aptly named `postRelayedCall`.
 
-```solidity
+```javascript
 function postRelayedCall(
     bytes context,
     bool success,

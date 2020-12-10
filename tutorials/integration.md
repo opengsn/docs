@@ -1,8 +1,4 @@
 # Simple Integration Walkthrough
-Ori Pomerantz <qbzzt1@gmail.com>
-
-{author} -- {email}
-
 
 ## Introduction <a id="introduction"></a>
 
@@ -23,46 +19,38 @@ To accept transactions that are paid for by a separate entity you have to do sev
 
 1. If necessary modify your configuration file (in truffle, `truffle.js` or `truffle-config.js`)
   to require Solidity version 0.6.10 or higher:
-+
-[source.javascript]
-```
-module.exports = {
-  networks: {
-    .
-    .
-    .
-  },
-  compilers: {
-    solc: {
-      version: "^0.6.10"
-   }
- }
-};
-```
-1. Add `@opengsn/gsn` in the dependencies, version 2.0.0 or higher.
-+
+  ```javascript
+  module.exports = {
+    networks: {
+        ...
+    },
+    compilers: {
+      solc: {
+        version: "^0.6.10"
+      }
+    }
+  };
+  ```
+2. Add `@opengsn/gsn` in the dependencies, version 2.0.0 or higher.
 ```bash
 npm install @opengsn/gsn@"^2.0.0" --save
 ```
-1. Import two solidity files:
-** `@opengsn/gsn/contracts/BaseRelayRecipient.sol`
-** `@opengsn/gsn/contracts/interfaces/IKnowForwarderAddress.sol`
-
-1. Inherit from `BaseRelayRecipient` and `IKnowForwarderAddress`.
-
-1. Create a constructor that sets `trustedForwarder` to the address of a trusted forwarder. 
+3. Import the base contract, and inherit from it:
+  ```javascript
+  import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
+  contract MyContract is BaseRelayRecipient { ... }
+  ```
+4. Create a constructor that sets `trustedForwarder` to the address of a trusted forwarder. 
 The purpose is to have a tiny (and therefore easily audited) contract that proxies the 
 relayed messages so a security audit of the GSN aware contract doesn’t require a security 
 audit of the full `RelayHub` contract. 
-[You can look here](https://docs.opengsn.org/gsn-provider/networks.html) to see the addresses 
+[You can look here](../deployments/networks.md) to see the addresses 
 to use on mainnet and various test networks.
 
 1. Create a `versionRecipient()` function to return the current version of the contract.
 
-1. Create a `getTrustedForwarder()` function to return the value of `trustedForwarder`.
-
 1. Replace `msg.sender` in your code, and in any libraries your code uses, 
-with `_msgSender()`. If you receive a normal Ethereum transaction from an entity that 
+with `_msgSender()`. If you receive a normal Ethereum transaction (from another contract or external account that 
 pays for its own gas, this value is identical to `msg.sender`. If you receive an etherless 
 transaction, `_msgSender()` gives you the correct sender whereas `msg.sender` would be the 
 above forwarder.
@@ -76,15 +64,14 @@ As a demonstration,
 is an extremely simple capture the flag game](https://github.com/qbzzt/opengsn/blob/master/01_SimpleUse/contracts/01_CaptureTheFlag.sol) that, when called, captures the flag and emits
 an event with the old and new holders. 
 
-```solidity
+```javascript
 pragma solidity ^0.6.10;
 
 // SPDX-License-Identifier: MIT OR Apache-2.0
 
 import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
-import "@opengsn/gsn/contracts/interfaces/IKnowForwarderAddress.sol";
 
-contract CaptureTheFlag is BaseRelayRecipient, IKnowForwarderAddress {
+contract CaptureTheFlag is BaseRelayRecipient {
 	string public override versionRecipient = "2.0.0";
 
 	event FlagCaptured(address _from, address _to);
@@ -93,7 +80,7 @@ contract CaptureTheFlag is BaseRelayRecipient, IKnowForwarderAddress {
 
         // Get the forwarder address for the network
         // you are using from
-        // https://docs.opengsn.org/gsn-provider/networks.html
+        // https://docs.opengsn.org/deployments/networks.html
 	constructor(address _forwarder) public {
 		trustedForwarder = _forwarder;
 	}
@@ -107,11 +94,6 @@ contract CaptureTheFlag is BaseRelayRecipient, IKnowForwarderAddress {
 
 		emit FlagCaptured(previous, flagHolder); 
 	}
-
-	function getTrustedForwarder() public view
-	override returns(address) {
-		return trustedForwarder;
-	}
 }
 ```
 
@@ -119,15 +101,15 @@ contract CaptureTheFlag is BaseRelayRecipient, IKnowForwarderAddress {
 ### How does it Work?
 
 Obviously, blockchain access is still not free. You get these GSN transactions
-with the help of two entities. The user's application talks to a *_relay server_*, one of 
+with the help of two entities. The user's application talks to a **_relay server_**, one of 
 a number of servers that offer to send messages into the chain. The relay 
-then talks to a *_paymaster_*, a contract that decides which transactions to 
+then talks to a **_paymaster_**, a contract that decides which transactions to 
 finance based on the sender, the target contract, and possibly additional information.
 
 Paymasters are contracts, so they are always available, similar to any other 
 Ethereum contract. Relays are internet sites which get paid by paymasters for 
 their services. Running a new relay is cheap and easy 
-([see directions here](https://docs.opengsn.org/gsn-provider/running-own-relay.html)). 
+([see directions here](../javascript-client/running-own-relay.md)). 
 We expect that anybody who opens a dapp for relayed calls will also set up a relay or 
 two, so there will be enough that they can't all be censored.
 
@@ -135,12 +117,11 @@ Note that everything the relays do is verified. They cannot cheat, and if a rela
 attempts to censor a client at most it can delay the message by a few seconds before 
 the client selects to go through a different relay.
 
-<img src="images/https://docs.opengsn.org/learn/_images/paymaster_needs_gas.png" alt="" width="80%" />
+<img src="../images/paymaster_needs_gas.png" alt="" width="80%" />
 
 To know what relays are available you consult a special contract called RelayHub. 
 This hub also checks up on relays and paymasters to ensure nobody is cheating. 
-[You can read 
-more about it here](https://docs.opengsn.org/gsn-provider/interacting-with-relayhub.html).
+[You can read more about it here](../javascript-client/interacting-with-relayhub.md).
 
 
 ## Creating a Paymaster <a id="creating_a_paymaster"></a>
@@ -151,7 +132,7 @@ pay for your users’ transactions is you. In this section you learn how to crea
 paymaster to accomplish this.
 
 Complete documentation of how to write a paymaster is beyond the scope of this tutorial, 
-[you can read about it here](https://docs.opengsn.org/contracts/index.html#token_paymaster). 
+[you can read about it here](../contracts/index.md#token_paymaster). 
 For the purpose of this tutorial, I am going to present a simple paymaster that accepts 
 all requests to a specific contract, and nothing else. This can be an onboarding contract, 
 which calls other contracts.
@@ -326,7 +307,7 @@ If you have already deployed the contract and know the address, do this:
 paymaster = await <paymaster contract>.at(<address>)
 ```
 1. Specify the address of `RelayHub` on the network you’re using. 
-[You can get that information here](https://docs.opengsn.org/gsn-provider/networks.html).
+[You can get that information here](../deployments/networks.md).
 +
 ```javascript
 paymaster.setRelayHub(<RelayHub address>)
@@ -349,7 +330,7 @@ because you need to go through a relay and you have no ether.
 
 This tutorial only explains the basics of using GSN from a webapp.
 [For more detailed 
-documentation, look here](https://docs.opengsn.org/gsn-provider/getting-started.html).
+documentation, look here](../javascript-client/getting-started.md).
 
 
 ### Using npm Packages

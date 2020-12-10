@@ -4,7 +4,7 @@
 After your contract is changed to inherit `BaseRelayRecipient`, and you are satisfied with your implementation of `BasePaymaster`, it is time to wrap it all together.
 
 
-### Configuring a [Forwarder](../learn/index.md#trusted_forwarder)
+### Configuring a [Forwarder](../contracts/index.md#trusted_forwarder)
 
 Your Recipient will only accept relayed transactions coming from a specific dedicated address.
 You can choose to deploy the default `Forwarder` from your Recipient's solidity code, or using the Truffle migrations or equivalent.
@@ -14,7 +14,7 @@ You can choose to deploy the default `Forwarder` from your Recipient's solidity 
 It is up to the contract with accepts relayed transactions, the one that inherits from `BaseRelayRecipient`, 
 {% endhint %}
 to initialize the `trustedForwarder` field correctly.
-### Configuring a [Paymaster](../learn/index.md#paymaster) <a id="paymaster"></a>
+### Configuring a [Paymaster](../contracts/index.md#paymaster) <a id="paymaster"></a>
 
 The Paymaster contract has to be deployed the same way the rest of your contracts are. If you are new to dapp development we recommend getting familiar with [Truffle](https://www.trufflesuite.com/truffle).
 

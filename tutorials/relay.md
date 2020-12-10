@@ -1,8 +1,4 @@
 # Running Relays and Fun and (Maybe Someday) Profit
-Ori Pomerantz <qbzzt1@gmail.com>
-
-{author} -- {email}
-
 
 ## Introduction <a id="introduction"></a>
 
@@ -13,47 +9,34 @@ running a relay or two. Also, if you buy and hold ether as an investment you mig
 and earn a bit extra (see explanation)
 
 In this article you learn how to run a relay on a cloud VM using
-[Google Cloud Platform Compute](https://cloud.google.com/compute) (it's just a suggestion, you can
-use any hosting or cloud provider).
-
-Behind the scenes the relay server also uses 
-[Let's Encrypt Certificate Authority](https://letsencrypt.org/certificates/) to get a 
-certificate, but you do not need to worry about that process.
-
-
+[Google Cloud Platform Compute](https://cloud.google.com/compute),
+though your can use any other hosting provider.
 
 ## Relays as an investment <a id="relays_as_an_investment"></a>
 
 If you are going to buy and hold ether as an investment, you might as well run a 
 GSN relay with it.
 Relays get reimbursed by paymasters for the gas they spend sending transactions for 
-users, plus a 
-little bit more. It isn't an impressive interest rate, but it's better than nothing and 
-it is a low risk
-investment. [
-GCP does not charge you for running a single micro instance](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits).
+users, plus a little bit more. 
+It isn't an impressive interest rate, but it's better than nothing and  it is a low risk investment. 
+[GCP does not charge you for running a single micro instance](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits).
 
 When you want to get your investment back you use the same account you used to 
 register the relay to unstake (deregister) it. After the unstake period, which is about
-a week, you can request all your unlocked funds.
-
-
+a week, you can request all your locked funds.
 
 ### How much do you get paid?
 
 When you configure the `gsn-relay-config.json` file later, you will see two variables, 
 `baseRelayFee` and `pctRelayFee`. 
-For every transaction you relay you can expect to earn `baseRelayFee` 
+For every transaction you relay you can expect to earn `baseRelayFee` (wei) 
 plus `pctRelayFee`% of the cost of the gas for the transaction (in addition to being
 reimbursed for gas used).
 
-{% hint style="note" %}
-### NOTE:
-The client code selects relays based on price. If your fees are too 
+{% hint style="info" %}
+The client code selects relays based on price. If your fees are too high, you will not get anything. 
+[Click here to see what other relays are charging](https://relays.opengsn.org/).
 {% endhint %}
-high, you will not
-get anything. [Click here to see what other 
-relays are charging](https://relays.opengsn.org/).
 
 
 
@@ -69,49 +52,27 @@ First you need to set up the virtual machine (VM) that will run the relay server
 1. Go to [the GCP console](https://console.cloud.google.com/compute/instances).
 1. Click **CREATE INSTANCE**.
 1. Set these parameters (you can accept the default for all the others):
-+
-|===
-| Heading | Parameter | Value
 
-| Name
-|
-| Select a meaningful name
-
-| Machine configuration 
-| Machine type 
-| e2-micro
-
-| Container 
-| Deploy a container image to this VM instance
-| Selected
-
-| Container image
-|
-| * (it does not matter, you just need to type something)
-
-| Firewall 
-| Allow HTTPS traffic 
-| Selected
-
-| Firewall 
-| Allow HTTP traffic 
-| Selected (you need it to create the certificate,
-  and for reissuing it periodically)
-|===
+| Heading        | Parameter    | Value
+|----------------|--------------|--------
+| Name                  |              | Select a meaningful name
+| Machine configuration | Machine type | e2-micro
+| Container | Deploy a container image to this VM instance | Selected
+| Container image |     | * (it does not matter, you just need to type something)
+| Firewall      | Allow HTTPS traffic | Selected
+| Firewall      | Allow HTTP traffic  | Selected
 
 1. Click **Create**.
-1. Obtain a DNS entry for your service. You can use a free entry from a service such as
-  [DuckDNS](https://www.duckdns.org)
-1. Configure the external IP of the relay in the DNS. As long as you do not have to
-  reboot the relay, the IP value does not change.
-
+1. Obtain a DNS entry for your service. Use your favorite DNS service, e.g. as [Namecheap](http://www.namecheap.com), [GoDaddy](http://www.godaddy.com), or even a free service,
+   such as [DuckDNS](https://www.duckdns.org)
+1. Configure the external IP of the relay in the DNS. Note: by default, public IP is "ephemeral" and might change after reboot.
+   
 #### The Docker Container
 
 Now that the VM is running and has a DNS entry, the next step is to actually 
 run the relay software. It runs inside a docker container. You configure it using 
 a script called `rdc`, which needs to run with more permissions than
-[the GCP
-container-optimized OS](https://cloud.google.com/container-optimized-os/docs/concepts/security) allows. 
+[the GCP container-optimized OS](https://cloud.google.com/container-optimized-os/docs/concepts/security) allows. 
 
 One easy solution is to create a temporary management VM. This VM can run in the
 same GCP account, and that way be able to ssh to the relay VM.
@@ -119,22 +80,12 @@ same GCP account, and that way be able to ssh to the relay VM.
 1. Go to [the GCP console](https://console.cloud.google.com/compute/instances).
 1. Click **CREATE INSTANCE**.
 1. Set these parameters (accept the default for all the others):
-+
-|===
+
 | Heading | Parameter | Value
-
-| Machine configuration 
-| Machine type 
-| e2-micro
-
-| Boot disk
-| Images
-| Debian GNU/Linux 10 (buster)
-
-| Identity and API access
-| Access scopes
-| All full access to all Cloud APIs
-|===
+|---------|-----------|-------
+| Machine configuration | Machine type | e2-micro
+| Boot disk | Images | Debian GNU/Linux 10 (buster)
+| Identity and API access | Access scopes | All full access to all Cloud APIs
 
 1. Open SSH to the management VM to download the relay configuration setup and 
   put it on the relay VM:
@@ -182,7 +133,7 @@ nano .env
 
 | versionRegistryAddress
 | The address for the version registry on the network you are using. 
-  [See this list](https://docs.opengsn.org/gsn-provider/networks.html).
+  [See this list](../deployments/networks.md).
 
 | ethereumNodeUrl
 | The URL to a node on the network you wish to use. If you do not know what to put here,

@@ -10,16 +10,19 @@
 * [GSN Frequently Asked Questions](javascript-client/gsn-faq.md)
 * [GSN Helpers](javascript-client/gsn-helpers.md)
 * [Interacting with RelayHub](javascript-client/interacting-with-relayhub.md)
-* [Relay Deployment](javascript-client/running-own-relay.md)
 * [Testing GSN Applications](javascript-client/testing-gsn-applications.md)
 
 ## Contracts
 
 * [Writing GSN-capable contracts](contracts/index.md)
 
+## Relayer
+
+* [Relay Deployment](javascript-client/running-own-relay.md)
+
 ## Tutorials
 
-* [Integration Tutorial](tutorials/index.md)
+* [Integration Tutorial](tutorials/integration.md)
 * [Running Relays and Fun and (Maybe Someday) Profit](tutorials/relay.md)
 
 ## Deployments
