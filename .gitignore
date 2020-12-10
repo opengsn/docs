@@ -1,1 +1,3 @@
 *.adoc
+_book
+node_modules

@@ -1,0 +1,15 @@
+{
+  "name": "newdoc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:opengsn/newdocs.git",
+  "author": "Dror Tirosh <dror@opengsn.org>",
+  "license": "MIT",
+  "dependencies": {
+    "gitbook-cli": "^2.3.2"
+  },
+  "scripts": {
+    "serve": "gitbook serve",
+    "build": "gitbook build"
+  }
+}
