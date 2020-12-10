@@ -7,7 +7,6 @@
 * [Getting Started](javascript-client/getting-started.md)
 * [Preparing the environment](javascript-client/devops.md)
 * [Advanced configuration](javascript-client/advanced.md)
-* [API Reference](javascript-client/api.md)
 * [GSN Frequently Asked Questions](javascript-client/gsn-faq.md)
 * [GSN Helpers](javascript-client/gsn-helpers.md)
 * [Interacting with RelayHub](javascript-client/interacting-with-relayhub.md)

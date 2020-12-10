@@ -9,10 +9,10 @@ decentralized system that improves dapp usability without sacrificing security.
 
 Example use cases for GSN:
 
-1. *Pay gas in any token*: Allow users to pay for gas in any token
-1. *Pay gas in fiat*: Allow users to pay for gas in fiat without having to go through KYC
-1. *Privacy*: Enabling ETH-less withdrawal of tokens sent to stealth addresses
-1. *Onboarding*: Allow dapps to subsidize the onboarding process for new users
+1. **Pay gas in any token**: Allow users to pay for gas in any token
+2. **Pay gas in fiat**: Allow users to pay for gas in fiat without having to go through KYC
+3. **Privacy**: Enabling ETH-less withdrawal of tokens sent to stealth addresses
+4. **Onboarding**: Allow dapps to subsidize the onboarding process for new users
 
 
 ## The problem <a id="the_problem"></a>
@@ -34,12 +34,13 @@ of dollars in their wallet.
 
 *Components*:
 
-* [*Client*: signs & sends meta transaction to relay server](#client)
-* [*Relay servers*: one for all and all for one](#relayservers)
-* [*Paymaster*: agrees to refund relay server for gas fees](#paymaster)
-* [*Trusted Forwarder*: verifies sender signature and nonce](#forwarder)
-* [*Recipient contract*: sees original sender](#recipient)
-* [*RelayHub*: connecting participants trustlessly](#relayhub)
+* [**Client**: signs & sends meta transaction to relay server](#client)
+* [**Relay servers**: one for all and all for one](#relayservers)
+* [**Paymaster**: agrees to refund relay server for gas fees](#paymaster)
+* [**Trusted Forwarder**: verifies sender signature and nonce](#forwarder)
+* [**Recipient contract**: sees original sender](#recipient)
+* [**RelayHub**: connecting participants trustlessly](#relayhub)
+
 ### Client: signs & sends meta transaction to relay server <a id="client"></a>
 
 A meta-transaction is a fancy name for a simple idea: a relay server can send a
@@ -48,6 +49,7 @@ Ethereum transaction, which would require ETH for gas, a user signs a message
 containing information about a transaction they would like to execute and sends
 it to a relay server. Before the relay server pays for gas it verifies it will
 get refunded by a Paymaster contract.
+
 ### Relay servers: one for all, all for one <a id="relayservers"></a>
 
 The best practice is for every dapp to deploy their own relay servers that will
@@ -61,6 +63,7 @@ are willing to serve it in exchange for an extra fee.
 This creates a "one for all and all for one" effect where taking down the
 frontend of any dapp is as hard as taking down the entire network. The more
 dapps participate the more robust the availability guarantee.
+
 ### Paymaster: agrees to refund relay server for gas fees <a id="paymaster"></a>
 
 In the GSN, all access control and gas refund logic is implemented inside
