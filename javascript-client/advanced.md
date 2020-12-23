@@ -6,137 +6,122 @@ GSN aims to be a generic solution to all meta-transaction needs, and provides a 
 * Injecting [Approval Data](#injecting-approval-data)
 * Changing the GSN behaviour with [configuration](#gsnconfig)
 
+## RelayProvider Configuration Parameters
+
+- **paymasterAddress** - The most important (and only mandatory) configuration parameter. The paymaster contract is the one who actually pays for the request.
+  It also the one that select which network (RelayHub contract) to use.
+- **preferredRelays** - list of relays to use first. Without this parameter, the client would 
+  select a relayer from the available registered relays on the RelayHub    
+    Note that "preferred relayers" are tried in their explicit order, regardless of their transaction fee (relayers fetched from the RelayHub are sorted with cheaper relayers first)
+- **relayLookupWindowBlocks** - when lookup up for relayers, how many blocks back is considered "active" relayer.
+  By default, a relayer that sent any transaction in the past 60000 blocks (roughly 1 week on ethereum mainnet) is considered "active"
+- **sliceSize** - after selcting relayers and sorting them, how many relayers to ping in parallel.
+- **loggerConfiguration** - set of configuration for logging server:
+    - **logLevel** - what level to log : `debug`/`info`/`warn`/`error`. defaults to `info`
+    - **loggerUrl** - URL of log server. default to none (don't send logs to centralized server)
+        for troubleshooting, set to `logger.opengsn.org`, and also give your loggerClient to GSN support.
+    - **loggerUserId** - name current client in each log. by default, a unique "gsnUser###" is assigned
+- **gasPriceFactorPercent** - by default, the client will query the `getGasPrice()` from the provider, and add
+  this value. defaults to "10", which means request gas price is 10% above the `getGasPrice()` value
+- **minGasPrice** - with above calculation, don't use gas price below this value.
+
+
+## Advanced Configuration Parameters
+
+In most cases, you don't need to modify the defaults for these values.
+
+- **relayLookupWindowParts** - when scanning `relayLookupWindowBlocks` blocks back, this parameter is used to chunk down
+  into smaller request, to avoid overwhelming the getPastLogs API. Even without specifying this parameter, if the lookup
+  seems to break because of too many returned events, it will automatically increase the value for future calls.
+
+- **methodSuffix** - when suffix of the "eth_signTypedData" to use. for Metamask, the default is "_v4"
+- **jsonStringifyRequest** - when calling eth_signTypedData, should we pass a the object value as a single string or as a JSON object.
+    for Metamask, this value is "true" (use a single string)
+- **relayTimeoutGrace** - much much time (in seconds) a relayer that failed a request should be "downscored". (defaults to 1800 seconds=half an hour)
+
+- **auditorsCount** After relaying a request, the client selects at random other relayer(s) as "auditors"
+    to validate the original relayer didn't attempt to cheat on the client. defaults to 1 (if there are more than 1 registered relayers)
+   
+  The auditors check the request, and will submit a "penalize" request if the original relayer indeed attempted a cheat.
+
+  Set to "0" to disable auditing (e.g. on testnets, to avoid the "All auditors failed" error log)
+
+- **maxRelayNonceGap** - how far "into the future" the client accepts its request to be set. default to 3, 
+  which means the client accepts that the relayer will put its request with 3 pending requests before it.
+  Set to "0" if you only "immediate" transaction.
+  
+  **Note** that this value can't be enforced by the framework, but the relayer will probably lose if it doesn't honor it:
+  If the client specifies "0", and the relayer put the transaction after (say 3) 
+  requests, the client will simply re-send the request through another relayer (and downgrading this one for future requests)
+  The request will eventually get mined by the other relayer first - and rejected for this relayer (And after signing, the relayer can't simply sign another transaction with the same nonce, since it will get penalized)
+
+
 ## Using an Ephemeral Signing Key <a id="using-an-offline-signing-key"></a>
 
-Usually in web-dapps, holding user private keys is delegated to browser extensions like MetaMask. This extensions inject the page with web3 objects and web3 providres.
-
-The snippet above uses the same technique, delegating to the underlying `web3.currentProvider` signing of the meta-transactions to send.
-This will only work if the provider has an account, which is not the case if you choose not to rely on any extension, and to use public nodes, such as infura, instead.
+Usually in web-dapps, the provider holds the account and user's private key.
+With GSN, you can create an "ephemeral" account and manage the private key in the browser.
+The underlying `web3.currentProvider` is still used to show the user with a "sign" dialog to confirm sending the transaction.
 
 In order to support it, the GSN provider also provides the following `accountManager` API:
 
 ```javascript
 const { RelayProvider } = require('@opengsn/gsn');
-const provider = new RelayProvider(web3.currentProvider, configuration)
+const provider = RelayProvider.newProvider({ provider: web3.currentProvider, config })
 
-const keypair = provider.newAccount()
+const fromAddress = provider.newAccount().address
 ```
 
 or
 
 ```javascript
-provider.addAccount(knownKeypair)
+provider.addAccount(privateKey)
 ```
 
-From now on, you will be able to use this `keypair` to sign transactions:
+From now on, you will be able to use this `fromAddress` to sign transactions:
 
 ```javascript
-await myRecipient.methods.myFunction().send({ from: keypair.address, paymaster, forwarder });
+await myRecipient.methods.myFunction().send({ from: fromAddress });
 ```
 
 {% hint style="warning" %}
-### WARNING:
 It is up to you to implement safe storage of this keypair if needed. `RelayProvider` will not store it and it will be lost on the next page refresh.
 {% endhint %}
-### Injecting Approval Data <a id="injecting-approval-data"></a>
 
-The GSN protocol allows you to supply an arbitrary `approveData` bytes array that can be checked on the recipient contract. This allows to implement off-chain approvals that are verified on-chain: for instance, you could have your users go through a captcha, and only then sign an approval for a transaction on your backend.
+## Injecting Approval Data <a id="injecting-approval-data"></a>
 
-To support this, the [GSN Dependencies](#dependencies) accepts an `asyncApprovalData` callback that receives all transaction parameters, and should return the approval data.
+The GSN protocol provides a method for a Paymaster to verify an external `approvalData` (usually a signature).
+This allows to implement off-chain approvals that are verified on-chain: for instance, you could have your users go through a captcha, and only then sign an approval for a transaction on your backend.
+You can see an example [VerifyingPaymaster](https://github.com/opengsn/gsn-paymasters/blob/master/contracts/VerifyingPaymater.sol) which can verify a signature made by an external server, using [VerifyingPaymasterUtils.ts](https://github.com/opengsn/gsn-paymasters/blob/master/src/VerifyingPaymasterUtils.ts)
+
 
 ```javascript
 const asyncApprovalData = async function (relayRequest: RelayRequest) {
   return Promise.resolve('0x1234567890')
 }
-const provider = new RelayProvider(web3.currentProvider, configuration, { asyncApprovalData })
+const provider = RelayProvider.newProvider( { 
+            provider: web3.currentProvider, 
+            config, 
+            overrideDependencies:{ asyncApprovalData })
 ```
 
-### GSNDependencies <a id="dependencies"></a>
+## Tweaking Relay selection algoritm
 
-```typescript
-pingFilter: PingFilter
-```
+Below are some functions (passed in `overrideDependencies`, like asyncApprovalData, above) that allows you to customize the
+relay selection algoritm 
 
-Allows filtering the relay servers by their advertised ping info.
+### Custom Relay Score Calculation
 
-```typescript
-relayFilter: RelayFilter
-```
+By default, relays are sorted based on the following algorithm:
+- calculate the gas fee the relayer requests.
+- sort lower fee first.
+- if a relayer failed a transaction lately, lower its score so it moves to the end of the list.
 
-Allows filtering the relay servers by their advertised event info.
+It is possible to override this score calculation, by providing `scoreCalculator` function. see [DefaultRelayScore](https://github.com/opengsn/gsn/blob/master/src/relayclient/KnownRelaysManager.ts#L25) for the default
+implementation.
 
-```typescript
-asyncApprove: AsyncApprove
-```
 
-Allows injecting custom byte array for every relayed transaction.
+### Filter out relayers
 
-```typescript
-scoreCalculator: AsyncScoreCalculator
-```
+* `pingFilter` function let you filter out relays based on the ping response. The default [GasPricePingFilter](https://github.com/opengsn/gsn/blob/master/src/relayclient/RelayClient.ts#L45) filters out relayers that require gasPrice higher than client's allowed gas.
 
-Allows overriding the function by which the relay scores are calculated.
-### GSNConfig <a id="gsnconfig"></a>
 
-```javascript
-relayHubAddress (string)
-```
-
-Address of the `RelayHub`.
-
-```javascript
-stakeManagerAddress (string)
-```
-
-Address of the `StakeManager`.
-
-```javascript
-verbose (boolean)
-```
-
-Verbose log mode, on/off.
-
-```javascript
-preferredRelays (string[])
-```
-
-An array of URLs of relay servers to be attempted first. GSN will exhaust this list before attempting any other registered relays. +
-The relay still has to be registered with the `RelayHub` in order to relay transactions.
-
-```javascript
-relayLookupWindowBlocks (number)
-```
-
-Relay Server is considered active if it has had an interaction within the last `relayLookupWindowBlocks` blocks.
-
-```javascript
-relayTimeoutGrace (number)
-```
-
-If the relay server failed to respond, it will be graylisted for the `relayTimeoutGrace` seconds.
-
-```javascript
-sliceSize (number)
-```
-
-`RelayProvider` will ping this number of relay servers simultaneously to determine the fastest relay to respond.
-
-```javascript
-gasPriceFactorPercent (number)
-```
-
-Percent of change to the average gas price as reported by the Ethereum node you are connected to. Negative value means lower-then-average gas price.
-
-```javascript
-minGasPrice (number)
-```
-
-`RelayProvider` will not try to use gas price lower than `minGasPrice` even if the average gas price is lower.
-
-```javascript
-chainId (number)
-```
-
-```javascript
-maxRelayNonceGap (number)
-```
