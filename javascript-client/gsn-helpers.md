@@ -1,62 +1,65 @@
-# GSN Helpers
+# Command-Line tools
 
-In order to help developers interact with the network, both locally and on real networks, the GNS library includes a set of command-line tools.
+In order to help developers interact with the network, both locally and on real networks, the GSN library includes a set of command-line tools.
 
+### Installing CLI
 
-## CLI commands <a id="cli_commands"></a>
+The CLI commands are part of the `@opengsn/gsn` package
 
-The `gsn` tool provides the following commands:
+### start <a id="start"></a>
 
+Run GSN on a local test network.
+This commands deploy GSN contracts, and then starts a relay server
 
-### start
-Both [runs](../deploy[deploys] GSN contracts and xref/index.md#run) a local Relay process.
 ```bash
 npx gsn start [--workdir <directory>]
 ```
+
+Contract addresses are written into `<directory>`, which is `./build/gsn` by default.
+From a test script, use
+```
+const { paymasterAddress, forwarderAddress } = GsnTestEnvironment.loadDeployments()
+```
+
+To load the deployed addresses into a test application.
+
+{% hint style="note" %}
+GSN is already deployed on most [public test and mainnet networks](../deployments/networks.md), so you don't need to deploy it there
+{% endhint %}
+
 ### deploy <a id="deploy"></a>
+
 Deploy the singleton RelayHub instance, as well as other required GSN contracts (StakeManager, Penalizer, TestPaymaster). Saves the deployment results to the <workdir> directory.
 
 ```bash
 npx gsn deploy [--from <account>] [--workdir <directory>] [--network <url>]
 ```
 
-|===
-|Parameter|Default value|Description
+|Parameter|Default value|Description|
+|---|---|---|
 |from|first account with balance|account to send transactions from
-|workdir|build/gsn|relative work directory
-|network|'http://localhost:8545'|url to the local Ethereum node'
-|===
-### relayer-run <a id="run"></a>
-Starts a process of a Relay Server
+|workdir|build/gsn|where to write json files with addresses
+|network|'http://localhost:8545'|url to the local Ethereum node
 
-|===
-|Parameter|Default value|Description
-|BaseFee||Base fee (in wei) to charge on every transaction
-|PercentFee||% of gas used by a relayed tx to charge as fee
-|Url||Public URL to advertise on RelayHub
-|RelayHubAddress||Address of RelayHub
-|GasPricePercent||Change gas price compared to network average by this %
-|EthereumNodeUrl|| URL of the Ethereum node to connect
-|Workdir||Directory to store relay data in
-|===
+### relayer-register <a id="register"></a>
+Fund and register the relay server.
 
-
-
-### relayer-register
-Fund and register the relay server
+You need to run it after you start your own relayer on a public network
 
 ```bash
-npx gsn relayer-register [--from <account>]  [--relayUrl <url>] [--hub <address>] [--stake <stake>] [--unstakeDelay <delay>] [--funds <funds>] [--network <url>]
+npx gsn relayer-register [--from <account>]  [--relayUrl <url>] [--stake <stake>] [--unstakeDelay <delay>] [--funds <funds>] [--network <url>] [ --gasPrice <gasPrice>] [--mnemonic <mnemonic-file>]
 ```
 
-|===
+
 |Parameter|Default value|Description
-|relayUrl|http://localhost:8090|url to advertise the relayer
-|hub|address from build/gsn/RelayHub.json if exists|address of the RelayHub contract
-|stake|1 Ether|amount to stake for the relayer, in wei
-|unstakeDelay|one week|time to wait between deregistering and withdrawing the stake, in seconds
-|funds|5 Ether|amount to transfer to the relayer to pay for relayed transactions, in wei
-|===
+|---|---|---|
+|relayUrl|http://localhost:8090|relayer to register.
+|stake|1 Ether|amount to stake for the relayer
+|unstakeDelay|1000|time to wait between deregistering and withdrawing the stake, in blocks
+|funds|2 Ether|amount to transfer to the relayer to pay for relayed transactions
+|network|localhost|network to connect to (name or rpc url)
+|gasPrice|1 gwei|gas price for registration transactions
+|mnemonic||Mnemonic file for the relayer "owner" account (with ether)
 
 
 ### paymaster-fund
@@ -64,14 +67,16 @@ npx gsn relayer-register [--from <account>]  [--relayUrl <url>] [--hub <address>
 Fund a paymaster contract so that it can receive relayed calls.
 
 ```bash
-npx gsn paymaster-fund [--from <account>] [--hub <address>]  [--paymaster <address>] [--amount <amount>] [--network <url>]
+npx gsn paymaster-fund [--from <account>] [--hub <address>]  [--paymaster <address>] [--amount <amount>] [--network <url>] [ --gasPrice <gasPrice>] [--mnemonic <mnemonic-file>]
 ```
 
-|===
 |Parameter|Default value|Description
+|---|---|---|
 |paymaster|address from build/gsn/Paymaster.json if exists|address of the paymaster contract
 |amount|1 Ether|amount of funds to deposit for the paymaster contract, in wei
-|===
+|network|localhost|network to connect to (name or rpc url)
+|gasPrice|1 gwei|gas price for registration transactions
+|mnemonic||Mnemonic file for the relayer "owner" account (with ether)
 
 
 ### paymaster-balance

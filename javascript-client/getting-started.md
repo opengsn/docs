@@ -100,12 +100,19 @@ are relayed through GSN
 ```javascript
 const { RelayProvider } = require('@opengsn/gsn')
 
-const config = { paymasterAddress }
+const config = { 
+    paymasterAddress,
+    loggerConfiguration: {
+        logLevel: 'debug',
+        // loggerUrl: 'logger.opengsn.org',
+    }
+}
 const provider = await RelayProvider.newProvider({ provider: web3.currentProvider, config }).init()
 const web3 = new Web3(provider);
 ```
 
 With these changes, your application will route the requests through GSN.
+The "loggerUrl" is optional: setting it, will send the logs to opengsn global logger, to help troubleshooting by the GSN support. 
 
 To see that the sender address doesn't have to have eth, you can create a new one:
 ```
@@ -133,3 +140,9 @@ await myRecipient.methods.myFunction().send({ from, useGSN: false });
 ```
 
 
+### Running GSN on a local network
+
+GSN is deployed on all major test and public [networks](../deployments/networks.md). 
+In order to test it locally with ganache, you need to deploy it locally.
+
+See [gsn start](gsn-helpers.md#start) on how to start it locally, on your ganache instance.
