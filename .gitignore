@@ -1,3 +1,4 @@
 *.adoc
 _book
 node_modules
+/.vuepress/dist/

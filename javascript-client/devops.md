@@ -9,10 +9,9 @@ After your contract is changed to inherit `BaseRelayRecipient`, and you are sati
 Your Recipient will only accept relayed transactions coming from a specific dedicated address.
 You can choose to deploy the default `Forwarder` from your Recipient's solidity code, or using the Truffle migrations or equivalent.
 
-{% hint style="warning" %}
-#### WARNING:
+::: warning
 It is up to the contract with accepts relayed transactions, the one that inherits from `BaseRelayRecipient`, 
-{% endhint %}
+:::
 to initialize the `trustedForwarder` field correctly.
 ### Configuring a [Paymaster](../contracts/index.md#paymaster) <a id="paymaster"></a>
 

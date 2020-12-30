@@ -3,11 +3,10 @@
 
 ## Current latest deployment ([v.2.0.1 commit: 9856bdd](https://github.com/opengsn/gsn/releases/tag/v2.0.1)) <a id="current_latest_deployment_([v.2.0.1_commit:_9856bdd](https://github.com/opengsn/gsn/releases/tag/v2.0.1))"></a>
 
-{% hint style="note" %}
-### NOTE:
-For the currently active relayers on each network, see the following status page: https://relays.opengsn.org
-{% endhint %}
+::: tip Note:
+For the currently active relayers on each network, see the following status page: [https://relays.opengsn.org](https://relays.opengsn.org)
 
+:::
 
 ### Ethereum Mainnet
 
@@ -137,10 +136,9 @@ TestPaymasterEverythingAccepted: [0x663946D7Ea17FEd07BF1420559F9FB73d85B5B03](ht
 
 ### GSN 1.0
 
-{% hint style="note" %}
-### NOTE:
+::: tip Note
 Addresses for all `RelayHub` instances across all supported networks are same for GSN1. This is not guaranteed for GSN2.
-{% endhint %}
+:::
 
 #### Ethereum Mainnet
 RelayHub: [0xD216153c06E857cD7f72665E0aF1d7D82172F494](https://etherscan.io/address/0xd216153c06e857cd7f72665e0af1d7d82172f494)

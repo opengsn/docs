@@ -1,6 +1,6 @@
 # Ethereum Gas Station Network (GSN)
 
-<img src="images/paymaster_needs_gas.png" alt="" width="80%" />
+<img src="./images/paymaster_needs_gas.png" alt="" width="100%" />
 
 Ethereum Gas Station Network (GSN) abstracts away gas to minimize onboarding &
 UX friction for dapps. With GSN, gasless clients can interact with Ethereum
@@ -30,7 +30,7 @@ of dollars in their wallet.
 
 ## Architecture <a id="architecture"></a>
 
-<img src="images/gsn_flow_full_layered.jpg" alt="" width="80%" />
+<img src="./images/gsn_flow_full_layered.jpg" alt="" width="100%" />
 
 *Components*:
 

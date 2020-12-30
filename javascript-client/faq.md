@@ -59,7 +59,7 @@ Thankfully, Ganache lately a new version (v6.11.0) that fixes their [bug](https:
 
 Start ganache with this command line (good for Linux and Mac)
 
-```
+```sh
 net=`date "+%j%H%M%S"` ganache-cli --networkId $net --chainId $net
 ```
 
@@ -110,7 +110,7 @@ contract('mytest', ()=> {
 ## Using Gatsby framework, I get an error: Can't resolve 'fs' 
 
 Add this configuration file `gatsby-node.js` in the root of your project:
-```
+```js
 exports.onCreateWebpackConfig = ({
   stage,
   rules,

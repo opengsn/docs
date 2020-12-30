@@ -21,10 +21,9 @@ contract MyContract is BaseRelayRecipient {
 
 There's only one extra detail you need to take care of when working with GSN recipient contracts: _you must never use `msg.sender` or `msg.data` directly_. On relayed calls, `msg.sender` will be the `Forwarder` contract instead of your user! This doesn't mean however you won't be able to retrieve your users' addresses: `BaseRelayRecipient` provides `_msgSender()`, which is a drop-in replacement for `msg.sender` that takes care of the low-level details. As long as you use this function instead of the original `msg.sender`, you're good to go!
 
-{% hint style="warning" %}
-### WARNING:
+::: warning
 Third-party contracts you inherit from may not use these replacement functions, making them unsafe to use when mixed with `BaseRelayRecipient`. If in doubt, head on over to our [Telegram support group](https://t.me/joinchat/F_BETUjG0Crb2s6mFx1LWA).
-{% endhint %}
+:::
 ## Paying for your user's meta-transaction <a id="paymaster"></a>
 
 
@@ -58,10 +57,9 @@ First, RelayHub will ask your `Paymaster` contract how much gas does it require 
 But by far the most important value returned by this method is `GasLimits.acceptanceBudget`.
 Your `Paymaster` will be charged for the transaction after it consumes this amount of gas, even if it reverts the calls to either `preRelayedCall` or `postRelayedCall`.
 
-{% hint style="warning" %}
-### WARNING:
+::: warning
 Make sure you understand the logic before overriding the default values from the `BasePaymaster`.
-{% endhint %}
+:::
 
 ```javascript
 function getGasLimits()
@@ -140,4 +138,4 @@ The GSN project provides you with a default implementation of the `Forwarder` co
 
 You can read more about the security considerations in our [forwarder ERC draft](https://github.com/ethereum/EIPs/pull/2770).
 
-<img src="images/forwarder_flow.png" alt="" width="80%" />
+<img src="./images/forwarder_flow.png" alt="" width="80%" />

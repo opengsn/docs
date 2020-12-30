@@ -33,10 +33,10 @@ For every transaction you relay you can expect to earn `baseRelayFee` (wei)
 plus `pctRelayFee`% of the cost of the gas for the transaction (in addition to being
 reimbursed for gas used).
 
-{% hint style="info" %}
+::: tip 
 The client code selects relays based on price. If your fees are too high, you will not get anything. 
 [Click here to see what other relays are charging](https://relays.opengsn.org/).
-{% endhint %}
+:::
 
 
 
@@ -202,10 +202,9 @@ docker run --rm -ti -v $PWD:$PWD \
     -m `pwd`/pass12
 ```
 +
-{% hint style="note" %}
-### NOTE:
+::: tip 
 To avoid risking your main account, 
-{% endhint %}
+:::
 [you can create 
 a dedicated address](https://github.com/qbzzt/etherdocs/blob/master/paper_wallet.md) and transfer 3.001 ether to it. One ether is the 
 stake that you lose if your relay doesn't relay messages in a timely manner, 

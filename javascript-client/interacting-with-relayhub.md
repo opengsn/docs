@@ -6,7 +6,7 @@ There are many meta-transaction implementations out there, but the GSN has a uni
 
 This document will explain some of `RelayHub` 's tasks, and how they relate to the using of the GSN. See this flow diagram first, and we will try to explain what is going on in this article:
 
-<img src="images/gsn_flow_full_layered.jpeg" alt="" width="80%" />
+<img src="./images/gsn_flow_full_layered.jpeg" alt="" width="80%" />
 
 
 ## Relay Hub <a id="relay_hub"></a>
