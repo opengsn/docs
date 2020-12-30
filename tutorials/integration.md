@@ -153,13 +153,12 @@ import "@opengsn/gsn/contracts/BasePaymaster.sol";
 All paymasters inherit from `BasePaymaster`. That contract handles getting deposits, 
 ensuring functions are only called by the relay hub, and so on.
 
-{% hint style="note" %}
-### NOTE:
+::: tip Note:
 This paymaster is naive because it is not a secure implementation. It can 
-{% endhint %}
 be blocked by sending enough requests to drain the account. A more sophisticated
 paymaster would use [captcha](https://metacoin-captcha.opengsn.org/) or 
 maybe [hashcash](https://metacoin-hashcash.opengsn.org/).
+:::
 
 
 ```solidity
@@ -237,10 +236,9 @@ We can return anything here, but for now we’ll just return the time. We want s
 can emit with the pre- and post- processing so we’ll be able to match them when we look 
 at the results.
 
-{% hint style="note" %}
-### NOTE:
+::: tip Note:
 This is not necessary. The pre and post processing are part of the same transaction, 
-{% endhint %}
+:::
 so we could match the pre- and post-processing using the `txid`. However, I wanted to have 
 a trivial example of using the context here.
 ```solidity
@@ -370,10 +368,9 @@ would with Node.js.
 browserify index.js -o bundle.js
 ```
 +
-{% hint style="note" %}
-### NOTE:
+::: tip Note:
 At writing there is a bug that causes the output to have some junk characters. 
-{% endhint %}
+:::
 Under Linux you can use the `tr` command to solve this:
 +
 ```bash
@@ -660,10 +657,9 @@ and `preferredRelays` to the values you got from `gsn start`.
 The `chainId` is set to `'*'` to accept
 any chain.
 +
-{% hint style="note" %}
-### NOTE:
+::: tip Note
 The gsnConfig definition should all be on one line. It is only separated here
-{% endhint %}
+:::
 for clarity.
 +
 [source.javascript]

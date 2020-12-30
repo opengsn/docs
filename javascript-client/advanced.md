@@ -83,9 +83,9 @@ From now on, you will be able to use this `fromAddress` to sign transactions:
 await myRecipient.methods.myFunction().send({ from: fromAddress });
 ```
 
-{% hint style="warning" %}
+::: warning
 It is up to you to implement safe storage of this keypair if needed. `RelayProvider` will not store it and it will be lost on the next page refresh.
-{% endhint %}
+:::
 
 ## Injecting Approval Data <a id="injecting-approval-data"></a>
 

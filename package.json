@@ -1,16 +1,18 @@
 {
   "name": "newdoc",
+  "description": "GSN Documentation",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:opengsn/newdocs.git",
+  "repository": "https://github.com/opengsn/newdocs",
   "author": "Dror Tirosh <dror@opengsn.org>",
   "license": "MIT",
   "dependencies": {
-    "gitbook-cli": "^2.3.2",
-    "gitbook-plugin-hints": "^1.0.2"
+    "@vuepress/plugin-back-to-top": "^1.7.1",
+    "@vuepress/plugin-medium-zoom": "^1.7.1",
+    "vuepress": "^1.5.3"
   },
   "scripts": {
-    "serve": "gitbook serve",
-    "build": "gitbook build"
+    "serve": "vuepress dev .",
+    "build": "vuepress build ."
   }
 }
