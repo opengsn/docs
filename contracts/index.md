@@ -138,4 +138,4 @@ The GSN project provides you with a default implementation of the `Forwarder` co
 
 You can read more about the security considerations in our [forwarder ERC draft](https://github.com/ethereum/EIPs/pull/2770).
 
-<img src="images/forwarder_flow.png" alt="" width="80%" />
+<img src="./images/forwarder_flow.png" alt="" width="80%" />
