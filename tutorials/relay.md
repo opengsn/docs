@@ -1,5 +1,6 @@
 # Running Relays and Fun and (Maybe Someday) Profit
 
+
 ## Introduction <a id="introduction"></a>
 
 Users that rely on GSNv2 to access distributed applications (dapps) need to access relays through
@@ -33,10 +34,10 @@ For every transaction you relay you can expect to earn `baseRelayFee` (wei)
 plus `pctRelayFee`% of the cost of the gas for the transaction (in addition to being
 reimbursed for gas used).
 
-::: tip 
+{% hint style="info" %}
 The client code selects relays based on price. If your fees are too high, you will not get anything. 
 [Click here to see what other relays are charging](https://relays.opengsn.org/).
-:::
+{% endhint %}
 
 
 
@@ -52,16 +53,15 @@ First you need to set up the virtual machine (VM) that will run the relay server
 1. Go to [the GCP console](https://console.cloud.google.com/compute/instances).
 1. Click **CREATE INSTANCE**.
 1. Set these parameters (you can accept the default for all the others):
-
-| Heading        | Parameter    | Value
-|----------------|--------------|--------
-| Name                  |              | Select a meaningful name
-| Machine configuration | Machine type | e2-micro
-| Container | Deploy a container image to this VM instance | Selected
-| Container image |     | * (it does not matter, you just need to type something)
-| Firewall      | Allow HTTPS traffic | Selected
-| Firewall      | Allow HTTP traffic  | Selected
-
+<table>
+<tr><th>Heading</th><th>Parameter</th><th>Value</th></tr>
+<tr><td>Name</td><td></td><td>Select a meaningful name</td></tr>
+<tr><td>Machine configuration</td><td>Machine type</td><td>e2-micro</td></tr>
+<tr><td>Container</td><td>Deploy a container image to this VM instance</td><td>Selected</td></tr>
+<tr><td>Container image</td><td></td><td>* (it does not matter, you just need to type something)</td></tr>
+<tr><td>Firewall</td><td>Allow HTTPS traffic</td><td>Selected</td></tr>
+<tr><td>Firewall</td><td>Allow HTTP traffic</td><td>Selected</td></tr>
+</table>
 1. Click **Create**.
 1. Obtain a DNS entry for your service. Use your favorite DNS service, e.g. as [Namecheap](http://www.namecheap.com), [GoDaddy](http://www.godaddy.com), or even a free service,
    such as [DuckDNS](https://www.duckdns.org)
@@ -80,16 +80,13 @@ same GCP account, and that way be able to ssh to the relay VM.
 1. Go to [the GCP console](https://console.cloud.google.com/compute/instances).
 1. Click **CREATE INSTANCE**.
 1. Set these parameters (accept the default for all the others):
-
-| Heading | Parameter | Value
-|---------|-----------|-------
-| Machine configuration | Machine type | e2-micro
-| Boot disk | Images | Debian GNU/Linux 10 (buster)
-| Identity and API access | Access scopes | All full access to all Cloud APIs
-
+<table>
+<tr><th>Heading</th><th>Parameter</th><th>Value</th></tr>
+<tr><td>Machine configuration</td><td>Machine type</td><td>e2-micro</td></tr> 
+<tr><td>Boot disk</td><td>Images</td><td>Debian GNU/Linux 10 (buster)</td></tr>
+<tr><td>Identity and API access</td><td>Access scopes</td><td>All full access to all Cloud APIs</td></tr>
 1. Open SSH to the management VM to download the relay configuration setup and 
   put it on the relay VM:
-+
 ```bash
 curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/rdc > rdc
 chmod +x rdc
@@ -99,66 +96,47 @@ yes
 1. Delete the management VM, you no longer need it.
 1. Open SSH to the relay VM.
 1. Download the relay configuration files.
-+
 ```bash
 curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/.env > .env
 mkdir config
 curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/config-sample/gsn-relay-config.json > config/gsn-relay-config.json
 ```
 1. Edit `.env`:
-+
 ```bash
 nano .env
 ```
 1. In `.env`, specify:
-+
-|===
-| Parameter | Value
-
-| HOST
-| Your host name
-|===
+<table>
+<tr><th>Parameter</th><th>Value</th></tr>
+<tr><td>HOST</td><td>Your host name</td></tr>
+</table>
 1. Press Ctrl-O and then Enter to save the modified file.
 1. Press Ctrl-X to exit.
 1. Edit `config/gsn-relay-config.json` to specify:
-+
-|===
-| Parameter | Value
-
-| baseRelayFee
-| The base fee that your relay will charge
-
-| pctRelayFee
-| The percent fee that your relay will charge
-
-| versionRegistryAddress
-| The address for the version registry on the network you are using. 
-  [See this list](../deployments/networks.md).
-
-| ethereumNodeUrl
-| The URL to a node on the network you wish to use. If you do not know what to put here,
-  get a [free Infura account](https://infura.io), create a project, and look at 
-  **KEYS > ENDPOINTS** for your network. Use the endpoint that starts with https://
-|===
+<table>
+<tr><th>Parameter</th><th>Value</th></tr>
+<tr><td>HOST</td><td>Your host name</td></tr>
+<tr><td>baseRelayFee</td><td>The base fee that your relay will charge</td></tr>
+<tr><td>pctRelayFee</td><td>The percent fee that your relay will charge</td></tr>
+<tr><td>versionRegistryAddress</td><td>The address for the version registry on the network you are using. [See this list](../deployments/networks.md).</td></tr>
+<tr><td>ethereumNodeUrl</td><td>The URL to a node on the network you wish to use. If you do not know what to put here, get a [free Infura account](https://infura.io), create a project, and look at **KEYS > ENDPOINTS** for your network. Use the endpoint that starts with https://</td></tr>
+</table>
 1. Download and run the docker images 
-+
 ```bash
 rdc config
 rdc up -d
 ```
 1. Wait until the second `rdc` command finishes. 
 1. To see the progress of the HTTPS server (the slowest component to set up), run
-+
 ```bash
 rdc logs -f https-portal
 ```
 1. When you see this line it means the setup is done. You can close the SSH window.
-+
 [source]
 ```
 [services.d](https-portal_1  | ) done.
 ```
-1. Browse to https://<your-DNS-name>/gsn1/getaddr. 
+1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr. 
   You should receive a JSON file with addresses and status. 
   The `ready` setting should be `false`, because it isn't registered with 
   the relay hub yet.
@@ -181,7 +159,6 @@ of information, which you never want away from your control.
 
 1. Install the GSN command line interface on Docker. It has to be the Docker version
   to be able to specify the gas price for the registration transaction.
-+
 ```bash
 sudo docker image pull opengsn/cli
 ```
@@ -192,7 +169,6 @@ sudo docker image pull opengsn/cli
 1. Register the relay. You may get an error saying that after 60 seconds the relay
   is not yet ready. If so, ignore it, it is usually just because it takes a bit 
   longer.
-+
 ```bash
 docker run --rm -ti -v $PWD:$PWD \
     opengsn/cli relayer-register \
@@ -201,19 +177,18 @@ docker run --rm -ti -v $PWD:$PWD \
     --relayUrl https://<your hostname for the relay>/gsn1 \
     -m `pwd`/pass12
 ```
-+
-::: tip 
+{% hint style="note" %}
+##### NOTE:
 To avoid risking your main account, 
-:::
 [you can create 
 a dedicated address](https://github.com/qbzzt/etherdocs/blob/master/paper_wallet.md) and transfer 3.001 ether to it. One ether is the 
-stake that you lose if your relay doesn't relay messages in a timely manner, 
+stake that you lose if your relay doesn't relay messages honestly, 
 two ethers are the initial funds for the relay, and the 0.001 is for the gas 
 needed for the registration itself. Make sure to keep the mnemonic, you need 
 will it at some point to unstake the relay and get back your ether 
 (and some extra).
-+
-1. Browse to https://<your-DNS-name>/gsn1/getaddr. See that the relay is now 
+{% endhint %}
+1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr. See that the relay is now 
   ready. Congratulations.
 
 
@@ -223,14 +198,13 @@ Eventually you will want the ether back. To do so:
 
 1. [Go here](https://qbzzt.github.io/ethereum/gsn/unstake.html) with your wallet (for example, MetaMask) set 
   to the account that created the relay in the first place.
-1. Enter your `RelayManagerAddress` (from https://<your-dns-name>/getaddr) and click **Unlock your stake**.
+1. Enter your `RelayManagerAddress` (from https://&lt;your&nbsp;DNS&nbsp;name&gt;/getaddr) and click **Unlock your stake**.
 1. To see the block in which you'll be able to get back your stake either open the browser's console or
   run this command on the relay. Either way, look for `withdrawBlock`.
-+
 ```bash
 docker logs default_gsn1_1 2>1 | grep withdrawBlock
 ```
-1. Use https://<network name>.etherscan.io to see the latest block, wait until it is past the withdrawal block.
+1. Use https://&lt;network&nbsp;name&gt;.etherscan.io to see the latest block, wait until it is past the withdrawal block.
 1. Go back to [the unstake page](https://qbzzt.github.io/ethereum/gsn/unstake.html) and enter 
   the `RelayManagerAddress` again.
 1. Click **Withdraw previously unlocked stake**.
@@ -244,3 +218,9 @@ docker logs default_gsn1_1 2>1 | grep withdrawBlock
 In this article you learned how to create a GSNv2 relay and connect it to the network. The more relays
 are available, the better the performance for users who rely on GSNv2 to access dapps without spending
 ether.
+
+
+----------------------------------------------
+
+Original version of this tutorial by Ori Pomerantz qbzzt1@gmail.com
+
