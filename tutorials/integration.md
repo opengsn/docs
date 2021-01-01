@@ -117,6 +117,7 @@ their services. Running a new relay is cheap and easy
 We expect that anybody who opens a dapp for relayed calls will also set up a relay or 
 two, so there will be enough that they can't all be censored.
 
+
 Note that everything the relays do is verified. They cannot cheat, and if a relay 
 attempts to censor a client at most it can delay the message by a few seconds before 
 the client selects to go through a different relay.
@@ -157,14 +158,12 @@ import "@opengsn/gsn/contracts/BasePaymaster.sol";
 All paymasters inherit from `BasePaymaster`. That contract handles getting deposits, 
 ensuring functions are only called by the relay hub, and so on.
 
-{% hint style="note" %}
-##### NOTE:
+::: tip Note
 This paymaster is naive because it is not a secure implementation. It can 
 be blocked by sending enough requests to drain the account. A more sophisticated
 paymaster would use [captcha](https://metacoin-captcha.opengsn.org/) or 
 maybe [hashcash](https://metacoin-hashcash.opengsn.org/).
-
-{% endhint %}
+:::
 
 ```solidity
 contract NaivePaymaster is BasePaymaster {
@@ -255,13 +254,12 @@ failing a `require`, by explicitly calling `revert`, or even just running out of
 normally it means that the paymaster is committed to paying for the transaction, and 
 will do so even if the transaction ultimately fails.
 
-{% hint style="warning" %}
-##### CAUTION: 
+::: warning 
 Advanced Paymaster implementations may choose to override the `getGasLimits()` 
 method of the `IPaymaster` interface.
 Doing so can create to a configuration where the paymaster commits to paying for a 
 transaction after consuming some amount of gas.
-{% endhint %}
+:::
 
 ```solidity
         require(relayRequest.target == ourTarget);
@@ -273,12 +271,11 @@ We can return anything here, but for now we’ll just return the time. We want s
 can emit with the pre- and post- processing so we’ll be able to match them when we look 
 at the results.
 
-{% hint style="note" %}
-##### NOTE:
+::: tip Note
 This is not necessary. The pre and post processing are part of the same transaction, 
 so we could match the pre- and post-processing using the `txid`. However, I wanted to have 
 a trivial example of using the context here.
-{% endhint %}
+:::
 
 ```solidity
         return (abi.encode(now), false);
@@ -337,37 +334,35 @@ and that it is already configured for the network you are deploying into (either
 real network or a test network).
 
 1. Run the truffle command line interface:
-```bash
-truffle console --network <the network you are using>
-```
+   ```bash
+   truffle console --network <the network you are using>
+   ```
 1. Deploy the paymaster contract, and then display the address so you can store it 
-somewhere for future use:
-```javascript
-paymaster = await <paymaster contract>.new()
-paymaster.address
-```
-If you have already deployed the contract and know the address, do this:
-```javascript
-paymaster = await <paymaster contract>.at(<address>)
-```
+   somewhere for future use:
+   ```javascript
+   paymaster = await <paymaster contract>.new()
+   paymaster.address
+   ```
+   If you have already deployed the contract and know the address, do this:
+   ```javascript
+   paymaster = await <paymaster contract>.at(<address>)
+   ```
 1. Specify the address of `RelayHub` and `Forwarder` on 
-the network you’re using. 
-[You can get that information here](../deployments/networks.md).
-```javascript
-paymaster.setRelayHub(<RelayHub address>)
-paymaster.setTrustedForwarder(<Forwarder address>)
-```
+   the network you’re using. 
+   [You can get that information here](../deployments/networks.md).
+   ```javascript
+   paymaster.setRelayHub(<RelayHub address>)
+   paymaster.setTrustedForwarder(<Forwarder address>)
+   ```
 1. Configure your paymaster. In the case of `NaivePaymaster`, this means to 
-set the target.
-```javascript
-paymaster.setTarget(<target contract address>)
-```
+   set the target.
+   ```javascript
+   paymaster.setTarget(<target contract address>)
+   ```
 1. Transfer ether to the paymaster’s address.
-```javascript
-web3.eth.sendTransaction({from: accounts[0], to: paymaster.address, value: 1e18})
-```
-
-
+   ```javascript
+   web3.eth.sendTransaction({from: accounts[0], to: paymaster.address, value: 1e18})
+   ```
 
 
 ## The User Interface <a id="the_user_interface"></a>
@@ -389,42 +384,40 @@ for more information see here](https://medium.com/jeremy-keeshin/hello-world-for
 These are the steps to start the development:
 
 1. Install browserify so it will be available as a script.	
-```bash
-sudo npm install -g browserify
-```
+   ```bash
+   sudo npm install -g browserify
+   ```
 1. Create and change to a directory.
 1. Run this command to create the initial package definition file:
-```bash
-npm init -y
-```
+   ```bash
+   npm init -y
+   ```
 1. Install the GSN package and its dependencies:
-```bash
-npm install @opengsn/gsn@"^2.0.3" ethers
-```
+   ```bash
+   npm install @opengsn/gsn@"^2.0.3" ethers
+   ```
 1. Write your code in a file, for example `index.js`. You can use 
-[`require`](https://nodejs.org/en/knowledge/getting-started/what-is-require/) just as you 
-would with Node.js.
+   [`require`](https://nodejs.org/en/knowledge/getting-started/what-is-require/) just as you 
+   would with Node.js.
 1. To compile the application into browser-compatible JavaScript, use this command:
-```bash
-browserify index.js -o bundle.js
-```
-{% hint style="note" %}
-##### NOTE:
-At writing there is a bug that causes the output to have some junk characters. 
+   ```bash
+   browserify index.js -o bundle.js
+   ```
+
+::: tip Note
+At writing there is a bug that causes the output to have some junk characters
+in certain circumstances. 
 Under Linux you can use the `tr` command to solve this:
 ```bash
 browserify index.js | tr -dc '\0-\177' > bundle.js
 ```
-{% endhint %}
-
+:::
 
 ### The user interface code <a id="the_user_interface_code"></a>
 
 [You can see the user interface 
 code here](https://github.com/qbzzt/opengsn/tree/master/01_SimpleUse/ui). Here are the important parts (first in the JavaScript file and then on 
 the HTML page).
-
-&nsbp; 
 
 Import the packages we need:
 
@@ -433,8 +426,6 @@ var Web3 = require( 'web3')
 const gsn = require('@opengsn/gsn')
 const ethers = require("ethers")
 ```
-
-&nbsp;
 
 This is the configuration with the addresses of the relevant contracts (on the 
 test network where they are deployed, Kovan) and the maximum acceptable gas price for 
@@ -451,32 +442,6 @@ const conf = {
 }
 ```
 
-&nsbp;
-
-Define two variables that are singletons. By looking to see if there is a 
-value in the `provider` variable we know if we are already initialized
-or not.
-
-```javascript
-var provider
-var userAddr   // The user's address
-```
-
-&nbsp;
-
-This function is asynchronous so it could be called mutiple times.
-We use the fact that there's a value in `provider` to signal that
-access through GSN is available
-
-```javascript
-const startGsn = async () => {
-	await window.ethereum.enable()
-
-	if (provider != undefined)
-		return;
-```
-
-&nsbp;
 The standard is to have the wallet manager in the browser (for example, MetaMask) 
 expose a [`Web3`](https://web3js.readthedocs.io/en/v1.2.0/web3.html) 
 compatible provider in `window.ethereum`. This provider is then wrapped by 
@@ -499,133 +464,6 @@ parameter to the `ethers` provider constructor.
 	userAddr = gsnProvider.origProvider.selectedAddress
 ```
 
-&nbsp;
-
-For debugging purposes, it is useful to expose some variables in 
-`window.app`. We can then access them from the JavaScript console.
-
-```javascript
-	window.app.gsnProvider = gsnProvider
-	window.app.provider = provider
-	window.app.userAddr = userAddr
-}
-```
-
-&nbsp;
-
-The ABI (Application Binary Interface) is produced as an artifact by the 
-Solidity compiler. It specifies the inputs of the various public functions, 
-the arguments of events, and so on.
-```javascript
-// Copied from build/contracts/CaptureTheFlag.json
-const flagAbi = [
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "_forwarder",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    .
-    .
-    .
-    {
-      "inputs": [],
-      "name": "captureFlag",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ];    // flagAbi
-```
-
-&nbsp;
-
-This function calls the contract using GSN. It is standard `ethers.js`, provided here for 
-completeness.
-```javascript
-const gsnContractCall = async () => {
-	await startGsn()
-	await provider.ready
-```
-
-&nbsp;
-
-The only network for which we have contact numbers is Kovan, whose `chainId` is 42. If the 
-wallet is using any other network, we cannot call the contract.
-```javascript
-
-	if (provider._network.chainId != 42) {
-		alert("I only know the addresses for Kovan")
-		raise("Unknown network")
-	}
-	const contract = await new ethers.Contract(
-		conf.ourContract, data.abi, provider.getSigner(userAddr))
-
-	const transaction = await contract.captureFlag()
-	const hash = transaction.hash
-	console.log(`Transaction ${hash} sent`)
-
-	const receipt = await provider.waitForTransaction(hash)
-	console.log(`Mined in block: ${receipt.blockNumber}`)
-}   // gsnContractCall
-```
-
-&nbsp;
-
-This function is almost identical to `gnsContractCall`. The difference is that it 
-attempts to trick `NaivePaymaster` by using it to pay for access to a different contract.
-[source.javascript]
-```
-const gsnPaymasterRejection = async () => {
-	.
-	.
-	.
-	const contract = await new ethers.Contract(
-		conf.notOurs, flagAbi, provider.getSigner() );
-	.
-	.
-	.
-};   // gsPaymasterRejection
-
-
-```
-
-&nbsp;
-
-This function listens for events, which is free, so we can use the provider rather than 
-a signer. It is also standard `ethers.js`, and provided here for completeness.
-```javascript
-onst listenToEvents = async () => {
-	await startGsn()
-
-	const contract = await new ethers.Contract(
-		conf.ourContract, data.abi, provider);
-
-        window.app.listenContract = contract
-```
-
-&nbsp;
-
-This is an easy way to listen to events in `ethers.js` version 5. When you
-listen for an event with n parameters, those values are the first n 
-parameters. The final parameter is the complete event information.
-```javascript
-
-	contract.on("FlagCaptured",
-		(captureFrom, captureTo, evt) =>
-			alert(`Capture: ${captureFrom} -> ${captureTo}`)
-	)
-
-}  // listenToEvents
-```
-
-&nbsp;
-
 The namespace within a file that is going to pass through `browserify` is inaccessible for 
 JavaScript written on the HTML page. By adding fields to the global variable window, we 
 can provide that JavaScript with a link to our functions and parameters. We don't need 
@@ -643,33 +481,8 @@ window.app = {
 };
 ```
 
-&nbsp;
-
-The HTML code can be very simple. There are two points to remember.
-
-First, it is necessary to load the `bundle.js` script 
-(or any other name) `browserify` 
-creates out of our JavaScript code and the required libraries.
-```html
-<script src="bundle.js">
-</script>
-```
-
-&nbsp;
-
-Second, to access the functions in our JavaScript we need to use the `window.app` field we 
-created in the JavaScript.
-```html
-<script>
-window.app.listenToEvents();
-</script>
-
-<button onClick="window.app.gsnContractCall()">
-Send a free message to LastContract
-</button>
-```
-
-
+The HTML code loads the output of `browserify`, and accesses the 
+JavaScript functions using `window.app`.
 
 ## Local Tests <a id="local_tests"></a>
 
@@ -681,53 +494,51 @@ To do that, you run the tests locally:
 ### Manual Tests <a id="manual_tests"></a>
 
 1. Start a local Ethereum simulator, such as [ganache](https://www.trufflesuite.com/ganache).
-{% hint style="warning" %}
-##### CAUTION:
-Due to a bug somewhere `chainId` and `netId` need to be identical. To run ganache, use
-this command line:
-```
-net=`date "+%j%H%M%S"`  && ganache-cli --networkId $net --chainId $net -v
-```
-{% endhint %}
-
+   ::: warning
+   Due to a bug somewhere `chainId` and `netId` need to be identical. To run ganache, use
+   this command line:
+   ```
+   net=`date "+%j%H%M%S"`  && ganache-cli --networkId $net --chainId $net -v
+   ```
+   :::
 1. Make sure that the truffle configuration file (either `truffle.js` or `truffle-config.js`)
-  contains the necessary information to connect to that network.
+   contains the necessary information to connect to that network.
 1. Deploy the GSN contracts:
-```sh
-node_modules/.bin/gsn start
-```
+   ```sh
+   node_modules/.bin/gsn start
+   ```
 1. See the contract numbers and relay URL at the bottom of the output
-```
-GSN started
+   ```
+   GSN started
 
-  RelayHub: 0xCA3ef05158d0dBD38cC7B49FbBc979d4cB977Ccc
-  StakeManager: 0x316e9B4bBBBC9B585918CD19357fA686df636D22
-  Penalizer: 0xf905b7E384418de51A74758b31be97D9ef12Ab1F
-  TrustedForwarder: 0x7Aa34e87a62378c1998f2E179EA18200faF866E7
-  Paymaster : 0xC264199C89a1C7056731d2a289B1A5C3fD263CbF
-Relay is active, URL = http://127.0.0.1:44703 . Press Ctrl-C to abort
-```
+     RelayHub: 0xCA3ef05158d0dBD38cC7B49FbBc979d4cB977Ccc
+     StakeManager: 0x316e9B4bBBBC9B585918CD19357fA686df636D22
+     Penalizer: 0xf905b7E384418de51A74758b31be97D9ef12Ab1F
+     TrustedForwarder: 0x7Aa34e87a62378c1998f2E179EA18200faF866E7
+     Paymaster : 0xC264199C89a1C7056731d2a289B1A5C3fD263CbF
+   Relay is active, URL = http://127.0.0.1:44703 . Press Ctrl-C to abort
+   ```
 1. Make sure you have the latest versions compiled and start the truffle console.
-```
-truffle compile
-truffle console
-```
+   ```
+   truffle compile
+   truffle console
+   ```
 1. Deploy the paymaster as explained above.
-```javascript
-paymaster = await <paymaster contract>.new()
-paymaster.setRelayHub(<Relay hub address from the gsn command>)
-paymaster.setTrustedForwarder(<Forwarder address from the gsn command>)
-```
+   ```javascript
+   paymaster = await <paymaster contract>.new()
+   paymaster.setRelayHub(<Relay hub address from the gsn command>)
+   paymaster.setTrustedForwarder(<Forwarder address from the gsn command>)
+   ```
 1. Fund the paymaster (it will transfer the ether to the relay hub).
-```javascript
-paymaster.send(1e18)
-```
+   ```javascript
+   paymaster.send(1e18)
+   ```
 1. Deploy the target contract and configure the paymaster. If you are using
-`CaptureTheFlag` and `NaivePaymaster`, do this:
-```javascript
-flag = await CaptureTheFlag.new(<trusted forwarder address from gsn command>)
-paymaster.setTarget(flag.address)
-```
+   `CaptureTheFlag` and `NaivePaymaster`, do this:
+   ```javascript
+   flag = await CaptureTheFlag.new(<trusted forwarder address from gsn command>)
+   paymaster.setTarget(flag.address)
+   ```
 1. Configure the settings you need to use GSN, similar to what you did in 
    the user interface above, and create the `Provider` object.
 
@@ -756,7 +567,7 @@ paymaster.setTarget(flag.address)
    receipt = await provider.waitForTransaction(transaction.hash)
    ```
 1. Get the `_to` value from the receipt, and compare it with the 
-account that signed the request.
+   account that signed the request.
    ```javascript
    receipt.logs.map(entry => contract.interface.parseLog(entry))[1].values._to
    acct.address
