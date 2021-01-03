@@ -34,10 +34,10 @@ For every transaction you relay you can expect to earn `baseRelayFee` (wei)
 plus `pctRelayFee`% of the cost of the gas for the transaction (in addition to being
 reimbursed for gas used).
 
-{% hint style="info" %}
+::: hint
 The client code selects relays based on price. If your fees are too high, you will not get anything. 
 [Click here to see what other relays are charging](https://relays.opengsn.org/).
-{% endhint %}
+:::
 
 
 
@@ -53,15 +53,16 @@ First you need to set up the virtual machine (VM) that will run the relay server
 1. Go to [the GCP console](https://console.cloud.google.com/compute/instances).
 1. Click **CREATE INSTANCE**.
 1. Set these parameters (you can accept the default for all the others):
-<table>
-<tr><th>Heading</th><th>Parameter</th><th>Value</th></tr>
-<tr><td>Name</td><td></td><td>Select a meaningful name</td></tr>
-<tr><td>Machine configuration</td><td>Machine type</td><td>e2-micro</td></tr>
-<tr><td>Container</td><td>Deploy a container image to this VM instance</td><td>Selected</td></tr>
-<tr><td>Container image</td><td></td><td>* (it does not matter, you just need to type something)</td></tr>
-<tr><td>Firewall</td><td>Allow HTTPS traffic</td><td>Selected</td></tr>
-<tr><td>Firewall</td><td>Allow HTTP traffic</td><td>Selected</td></tr>
-</table>
+
+   | Heading | Parameter | Value |
+   | ------- | --------- | ----- |
+   | Name    |           |Select a meaningful name |
+   | Machine configuration | Machine type | e2-micro |
+   | Container | Deploy a container image to this VM instance | Selected |
+   | Container image |  | * (it does not matter, you just need to type something) |
+   | Firewall | Allow HTTPS traffic | Selected |
+   | Firewall | Allow HTTP traffic | Selected |
+
 1. Click **Create**.
 1. Obtain a DNS entry for your service. Use your favorite DNS service, e.g. as [Namecheap](http://www.namecheap.com), [GoDaddy](http://www.godaddy.com), or even a free service,
    such as [DuckDNS](https://www.duckdns.org)
@@ -80,11 +81,12 @@ same GCP account, and that way be able to ssh to the relay VM.
 1. Go to [the GCP console](https://console.cloud.google.com/compute/instances).
 1. Click **CREATE INSTANCE**.
 1. Set these parameters (accept the default for all the others):
-<table>
-<tr><th>Heading</th><th>Parameter</th><th>Value</th></tr>
-<tr><td>Machine configuration</td><td>Machine type</td><td>e2-micro</td></tr> 
-<tr><td>Boot disk</td><td>Images</td><td>Debian GNU/Linux 10 (buster)</td></tr>
-<tr><td>Identity and API access</td><td>Access scopes</td><td>All full access to all Cloud APIs</td></tr>
+
+   | Heading | Parameter | Value |
+   | Machine configuration | Machine type | e2-micro | 
+   | Boot disk | Images | Debian GNU/Linux 10 (buster) |
+   | Identity and API access | Access scopes | All full access to all Cloud APIs |
+
 1. Open SSH to the management VM to download the relay configuration setup and 
   put it on the relay VM:
 ```bash
@@ -106,21 +108,18 @@ curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/config
 nano .env
 ```
 1. In `.env`, specify:
-<table>
-<tr><th>Parameter</th><th>Value</th></tr>
-<tr><td>HOST</td><td>Your host name</td></tr>
-</table>
+   | Parameter | Value |
+   | HOST | Your host name |
 1. Press Ctrl-O and then Enter to save the modified file.
 1. Press Ctrl-X to exit.
 1. Edit `config/gsn-relay-config.json` to specify:
-<table>
-<tr><th>Parameter</th><th>Value</th></tr>
-<tr><td>HOST</td><td>Your host name</td></tr>
-<tr><td>baseRelayFee</td><td>The base fee that your relay will charge</td></tr>
-<tr><td>pctRelayFee</td><td>The percent fee that your relay will charge</td></tr>
-<tr><td>versionRegistryAddress</td><td>The address for the version registry on the network you are using. [See this list](../deployments/networks.md).</td></tr>
-<tr><td>ethereumNodeUrl</td><td>The URL to a node on the network you wish to use. If you do not know what to put here, get a [free Infura account](https://infura.io), create a project, and look at **KEYS > ENDPOINTS** for your network. Use the endpoint that starts with https://</td></tr>
-</table>
+   | Parameter | Value |
+   | --------- | ----- |
+   | HOST | Your host name |
+   | baseRelayFee | The base fee that your relay will charge |
+   | pctRelayFee | The percent fee that your relay will charge |
+   | versionRegistryAddress | The address for the version registry on the network you are using. [See this list](../deployments/networks.md). |
+   | ethereumNodeUrl | The URL to a node on the network you wish to use. If you do not know what to put here, get a [free Infura account](https://infura.io), create a project, and look at **KEYS > ENDPOINTS** for your network. Use the endpoint that starts with https:// |
 1. Download and run the docker images 
 ```bash
 rdc config

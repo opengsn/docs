@@ -31,9 +31,9 @@ To accept transactions that are paid for by a separate entity you have to do sev
     }
   };
   ```
-2. Add `@opengsn/gsn` in the dependencies, version 2.0.0 or higher.
+2. Add `@opengsn/gsn` in the dependencies, version 2.1.0.
 ```bash
-npm install @opengsn/gsn@"^2.0.0" --save
+npm install @opengsn/gsn@^2.1.0 --save
 ```
 3. Import the base contract, and inherit from it:
   ```javascript
@@ -152,8 +152,6 @@ import "@opengsn/gsn/contracts/forwarder/IForwarder.sol";
 import "@opengsn/gsn/contracts/BasePaymaster.sol";
 
 ```
-
-&nbsp;
 
 All paymasters inherit from `BasePaymaster`. That contract handles getting deposits, 
 ensuring functions are only called by the relay hub, and so on.
@@ -394,11 +392,10 @@ These are the steps to start the development:
    ```
 1. Install the GSN package and its dependencies:
    ```bash
-   npm install @opengsn/gsn@"^2.0.3" ethers
+   npm install @opengsn/gsn@^2.1.0 ethers
    ```
-1. Write your code in a file, for example `index.js`. You can use 
-   [`require`](https://nodejs.org/en/knowledge/getting-started/what-is-require/) just as you 
-   would with Node.js.
+1. Write your code in a file, for example `index.js`. Use 
+   [`require`](https://nodejs.org/en/knowledge/getting-started/what-is-require/).
 1. To compile the application into browser-compatible JavaScript, use this command:
    ```bash
    browserify index.js -o bundle.js
@@ -434,10 +431,7 @@ our messages. The address of the contract we wish to contact is `conf.ourContrac
 ```javascript
 const conf = {
 	ourContract: '0x10A51A94d096e746E1Aec1027A0F8deCEC43FF63',
-	notOurs:     '0x6969Bc71C8f631f6ECE03CE16FdaBE51ae4d66B1',
 	paymaster:   '0x3f84367c25dC11A7aBE4B9ef97AB78d5D5498bF5',
-	relayhub:    '0xE9dcD2CccEcD77a92BA48933cb626e04214Edb92',
-        forwarder:   '0x0842Ad6B8cb64364761C7c170D0002CC56b1c498',
 	gasPrice:  20000000000   // 20 Gwei
 }
 ```
@@ -468,6 +462,7 @@ The namespace within a file that is going to pass through `browserify` is inacce
 JavaScript written on the HTML page. By adding fields to the global variable window, we 
 can provide that JavaScript with a link to our functions and parameters. We don't need 
 all of these parameters for our program, but those we don't are useful for debugging.
+
 ```javascript
 window.app = {
 	gsnContractCall: gsnContractCall,
@@ -503,11 +498,11 @@ To do that, you run the tests locally:
    :::
 1. Make sure that the truffle configuration file (either `truffle.js` or `truffle-config.js`)
    contains the necessary information to connect to that network.
-1. Deploy the GSN contracts:
+1. Deploy GSN (contracts and relay):
    ```sh
    node_modules/.bin/gsn start
    ```
-1. See the contract numbers and relay URL at the bottom of the output
+1. See the contract addresses and relay URL at the bottom of the output
    ```
    GSN started
 
@@ -546,10 +541,8 @@ To do that, you run the tests locally:
    Gsn = require("@opengsn/gsn/dist")
    ethers = require("ethers")
    origProvider = web3.currentProvider
-   conf = {verbose: false}
-   conf.forwarderAddress = '<address of the forwarder from gsn start>'
-   conf.paymasterAddress = paymaster.address
-   gsnProvider = await new Gsn.RelayProvider(origProvider, conf).init()
+   conf = { paymasterAddress: paymaster.address }
+   gsnProvider = await Gsn.RelayProvider.newProvider({provider: origProvider, config: conf}).init()
    provider = new ethers.providers.Web3Provider(gsnProvider)
    ```
 1. Create an account:
@@ -580,94 +573,7 @@ To do that, you run the tests locally:
 
 You can see a complete automated test 
 [here](https://github.com/qbzzt/opengsn/blob/master/01_SimpleUse/test/testcontracts.js). 
-Here is a line by line explanation of the new parts.
-
-&nbsp;
-
-The definitions required to use GSN.
-```javascript
-const { RelayProvider } = require('@opengsn/gsn')
-const { GsnTestEnvironment } = require('@opengsn/gsn/dist/GsnTestEnvironment' )
-const ethers = require('ethers')
-
-const Web3HttpProvider = require( 'web3-providers-http')
-
-const CaptureTheFlag = artifacts.require('CaptureTheFlag')
-const NaivePaymaster = artifacts.require('NaivePaymaster')
-
-.
-.
-.
-```
-
-&nbsp;
-
-The function that calls the contract is identical to what we did earlier. The only 
-difference is the way we interpret the results. The receipt includes logs entries 
-for the events emitted by the transaction. To get the previous caller from the event 
-requires several steps:
-
-1. Get the logs using `receipt.logs`.
-1. Parse the log using the contract. The function `<contract>.interface.parseLog`
-  parses a single log entry, provided it is an event emitted by the contract. If the
-  function encounters an event that came from elsewhere, it returns `null`. Because it 
-  only handles a single event, we 
-  [`map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) 
-  this function on `receipt.logs`. The output looks like this:
-```json
-[
-  null,
-  _LogDescription {
-    decode: [Function],
-    name: 'FlagCaptured',
-    signature: 'FlagCaptured(address,address)',
-    topic: '0xacc718a11fbc93a22905740808767480f9efd07b1c0b0128095790cd1440048d',
-    values: Result {
-      '0': '0x0000000000000000000000000000000000000000',
-      '1': '0xAcFEFc98e8977CBA2b12a467097a4267D9C4D5F0',
-      length: 2
-    }
-  },
-  null,
-  null
-]
-```
-1. Use [`filter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 
-  to remove the `null` values.
-1. There should be just one entry left, for the `FlagCaptured` event. The event parameters are 
-  stored in `values` as an associative array, one with keys and values. To get the first value, 
-  the previous holder, use `values['0']`. For the second one, the current holder, 
-  use `values['1']`.
-
-Putting it all together gives us this function which returns the previous holder of 
-the flag.
-
-```javascript
-const callThroughGsn = async (contract, provider) => {
-                const transaction = await contract.captureFlag()
-                const receipt = await provider.waitForTransaction(transaction.hash)
-                const result = receipt.logs.
-                        map(entry => contract.interface.parseLog(entry)).
-                        filter(entry => entry != null)[0];
-                return result.values['0']
-};  // callThroughGsn
-```
-
-&nbsp;
-
-[The function 
-call is standard truffle](https://www.trufflesuite.com/docs/truffle/testing/writing-tests-in-javascript).
-
-```javascript
-contract("CaptureTheFlag", async accounts => {
-	.
-	.
-	.
-
-	it ('Runs with GSN', async () => {
-```
-
-&nbsp;
+Here is an explanation of the new parts:
 
 The `GsnTestEnvironment.startGsn` command starts GSN on the provided blockchain. 
 
@@ -675,98 +581,18 @@ The `GsnTestEnvironment.startGsn` command starts GSN on the provided blockchain.
                 let env = await GsnTestEnvironment.startGsn('localhost')
 ```
 
-&nbsp;
-
 The various addresses GSN uses on the blockchain are stored in 
-`env.deploymentResult`. Use them to initialize our contracts.
+`env.contractsDeployment`. We need the trusted forwarder and the relay hub 
+to initialize the contracts we are testing.
 
 ```javascript
 
-		const { forwarderAddress } = env.deploymentResult
-                .
-                .
-                .
-                const factory = new ethers.ContractFactory(
-                        CaptureTheFlag.abi,
-                        CaptureTheFlag.bytecode,
-                        deploymentProvider.getSigner())
-
-
-                const flag = await factory.deploy(forwarderAddress)
-                await flag.deployed()
-                .
-                . 
-                .
-                const paymasterFactory = new ethers.ContractFactory(
-                        NaivePaymaster.abi,
-                        NaivePaymaster.bytecode,
-                        deploymentProvider.getSigner()
-                )
-
-                const paymaster = await paymasterFactory.deploy()
-                await paymaster.deployed()
-                await paymaster.setTarget(flag.address)
-                await paymaster.setRelayHub(env.deploymentResult.relayHubAddress)
-                await paymaster.setTrustedForwarder(forwarderAddress)
-
-                web3.eth.sendTransaction({
-                        from:accounts[0],
-                        to:paymaster.address,
-                        value:1e18})
+                const { forwarderAddress, relayHubAddress } = env.contractsDeployment
 ```
 
-&nbsp;
+Everything else works as it in the manual tests.
 
-The GSN provider is created the same way we did for manual testing, except for the 
-GSN parameters coming from `env` instead of being entered manually.
-
-```javascript
-                let gsnProvider = await
-                    new RelayProvider(web3provider, {
-                        forwarderAddress,
-                        paymasterAddress: paymaster.address,
-                        verbose: false}).init()
-
-		.
-		.
-		.
-```
-
-&nbsp;
-
-The first time we call `CaptureTheFlag` we expect to get zero.
-
-```javascript
-		var result = await callThroughGsn(contract, provider);
-		assert.equal(result, 0, "Wrong initial last caller");
-```
-
-&nbsp;
-
-The second time we expect it to be the account that we used for the previous call.
-The rest of the tests just create a second account and switch between them, verifying
-that we get the correct account each time. THe addresses need to be changed in 
-lowercase because [Ethereum 
-uses the case of the letters a-f as a checksum](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-55.md), and `acct.address` does not use that.
-
-```javascript
-		var result = await callThroughGsn(contract, provider);
-		assert.equal(result.toLowerCase(), acct.address.toLowerCase(), 
-			"Wrong second last caller (should be acct)");
-
-		.
-		.
-		.
-
-	});   // it 'Runs with GSN'
-
-});   // contract("CaptureTheFlag", ...)
-
-```
-
-
-
-## Conclusion <a id="conclusion"></a>
+## Conclusion
 
 In this article you learned how to accept transactions from entities that can’t (or won’t) 
 pay for them with their own gas. You also learned how to create a simple paymaster 
