@@ -167,22 +167,16 @@ maybe [hashcash](https://metacoin-hashcash.opengsn.org/).
 contract NaivePaymaster is BasePaymaster {
 ```
 
-&nbsp;
-
 This variable holds the one target contract we are willing to pay for.
 
 ```solidity
     address public ourTarget;
 ```
 
-&nbsp;
-
 When the owner sets a new target, we want to emit an event to inform the world about it.
 ```solidity
     event TargetSet(address target);
 ```
-
-&nbsp;
 
 This function modifies the target contract we are willing to be a paymaster for. We 
 can use `onlyOwner` because `BasePaymaster` inherits from `Ownable`.
@@ -192,8 +186,6 @@ can use `onlyOwner` because `BasePaymaster` inherits from `Ownable`.
         emit TargetSet(target);
     }
 ```
-
-&nbsp;
 
 This is the paymaster’s most important function, the decision whether to pay for a 
 transaction or not. The `GNSType.RelayRequest` type is defined 
@@ -206,8 +198,6 @@ The `signature` can be used to validate the `relayRequest` value.
         bytes calldata signature,
 ```
 
-&nbsp;
-
 The approval data is sent by the web client through the relay. It can include any data the 
 dapp needs to decide whether to approve a request or not.
 
@@ -215,15 +205,11 @@ dapp needs to decide whether to approve a request or not.
         bytes calldata approvalData,
 ```
 
-&nbsp;
-
 This parameter can be used, in conjunction with `relayHub.calculateCharge()`, to calculate 
 the cost a transaction would incur. Using it is beyond the scope of this basic tutorial.
 ```solidity
         uint256 maxPossibleGas
 ```
-
-&nbsp;
 
 The `context` that the function returns is shared with the `postRelayedCall` method.
 It is a way to share information about the call (for example, from the approval data) from the `pre-` to the `post-` method without an expensive state change.
@@ -236,15 +222,11 @@ Using this feature is beyond the scope of this tutorial.
 
 ```
 
-&nbsp;
-
 Verify that the forwarder is the trusted forwarder for the network.
 
 ```solidity
         _verifyForwarder(relayRequest);
 ```
-
-&nbsp;
 
 This paymaster is naive, but not a complete sucker. It only accepts requests going to our 
 service. This is the way that `preRelayedCall` returns a rejection - either by
@@ -257,13 +239,14 @@ Advanced Paymaster implementations may choose to override the `getGasLimits()`
 method of the `IPaymaster` interface.
 Doing so can create to a configuration where the paymaster commits to paying for a 
 transaction after consuming some amount of gas.
+
+See the [Advanced](../gsn-provider/advanced.md) section to learn more.
 :::
 
 ```solidity
         require(relayRequest.target == ourTarget);
 ```
 
-&nbsp;
 
 We can return anything here, but for now we’ll just return the time. We want something we 
 can emit with the pre- and post- processing so we’ll be able to match them when we look 
@@ -280,8 +263,6 @@ a trivial example of using the context here.
     }
 ```
 
-&nbsp;
-
 This function is called after the relayed call. At this point the cost of the request 
 is almost known (with the exception of the gas cost of `postRelayedCall` itself), and we can 
 do any accounting we need, charge entities, etc.
@@ -291,8 +272,6 @@ do any accounting we need, charge entities, etc.
         bytes calldata context,
         bool success,
 ```
-
-&nbsp;
 
 The `gasUseWithoutPost` parameter provides the gas used for the transaction so far. It includes 
 all the gas of the transaction, except for the unknown amount we are going to use in the 
@@ -306,8 +285,6 @@ all the gas of the transaction, except for the unknown amount we are going to us
         emit PostRelayed(abi.decode(context, (uint)));
     }
 ```
-
-&nbsp;
 
 This function returns the version of the GSN protocol the paymaster supports.
 In this case, the version is the latest at writing, `2.0.3`.
@@ -394,8 +371,7 @@ These are the steps to start the development:
    ```bash
    npm install @opengsn/gsn@^2.1.0 ethers
    ```
-1. Write your code in a file, for example `index.js`. Use 
-   [`require`](https://nodejs.org/en/knowledge/getting-started/what-is-require/).
+1. Write your code in a file, for example `index.js`. 
 1. To compile the application into browser-compatible JavaScript, use this command:
    ```bash
    browserify index.js -o bundle.js
@@ -518,11 +494,17 @@ To do that, you run the tests locally:
    truffle compile
    truffle console
    ```
-1. Deploy the paymaster as explained above.
+1. Get the test environment configuration
    ```javascript
+   Gsn = require("@opengsn/gsn")
+   ethers = require("ethers")
+   testEnvObj = new require('@opengsn/gsn/dist/GsnTestEnvironment').GsnTestEnvironment 
+   testEnv = testEnvObj.loadDeployment()
+   ```
+1. Configure the paymaster, as you did earlier.
    paymaster = await <paymaster contract>.new()
-   paymaster.setRelayHub(<Relay hub address from the gsn command>)
-   paymaster.setTrustedForwarder(<Forwarder address from the gsn command>)
+   paymaster.setRelayHub(testEnv.relayHubAddress)
+   paymaster.setTrustedForwarder(testEnv.forwarderAddress)
    ```
 1. Fund the paymaster (it will transfer the ether to the relay hub).
    ```javascript
@@ -531,15 +513,12 @@ To do that, you run the tests locally:
 1. Deploy the target contract and configure the paymaster. If you are using
    `CaptureTheFlag` and `NaivePaymaster`, do this:
    ```javascript
-   flag = await CaptureTheFlag.new(<trusted forwarder address from gsn command>)
+   flag = await CaptureTheFlag.new(testEnv.forwarderAddress)
    paymaster.setTarget(flag.address)
    ```
 1. Configure the settings you need to use GSN, similar to what you did in 
    the user interface above, and create the `Provider` object.
-
    ```javascript
-   Gsn = require("@opengsn/gsn/dist")
-   ethers = require("ethers")
    origProvider = web3.currentProvider
    conf = { paymasterAddress: paymaster.address }
    gsnProvider = await Gsn.RelayProvider.newProvider({provider: origProvider, config: conf}).init()
