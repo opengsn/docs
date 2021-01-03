@@ -1,6 +1,6 @@
 # Simple Integration Walkthrough
 
-## Introduction <a id="introduction"></a>
+## Introduction
 
 Ethereum transactions cost gas, which means your dapp’s users cannot initiate them 
 unless they already have some ether. Onboarding new users into Ethereum is a 
@@ -240,8 +240,6 @@ Advanced Paymaster implementations may choose to override the `getGasLimits()`
 method of the `IPaymaster` interface.
 Doing so can create to a configuration where the paymaster commits to paying for a 
 transaction after consuming some amount of gas.
-
-See the [Advanced](../gsn-provider/advanced.md) section to learn more.
 :::
 
 ```solidity
