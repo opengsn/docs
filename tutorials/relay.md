@@ -1,7 +1,7 @@
 # Running Relays and Fun and (Maybe Someday) Profit
 
 
-## Introduction <a id="introduction"></a>
+## Introduction
 
 Users that rely on GSNv2 to access distributed applications (dapps) need to access relays through
 the Internet to get their messages to the blockchain. While any user can access any relay to 
@@ -13,7 +13,7 @@ In this article you learn how to run a relay on a cloud VM using
 [Google Cloud Platform Compute](https://cloud.google.com/compute),
 though your can use any other hosting provider.
 
-## Relays as an investment <a id="relays_as_an_investment"></a>
+## Relays as an investment
 
 If you are going to buy and hold ether as an investment, you might as well run a 
 GSN relay with it.
@@ -41,7 +41,7 @@ The client code selects relays based on price. If your fees are too high, you wi
 
 
 
-## Directions <a id="directions"></a>
+## Directions
 
 
 ### The Relay VM
@@ -74,39 +74,30 @@ Now that the VM is running and has a DNS entry, the next step is to actually
 run the relay software. It runs inside a docker container. You configure it using 
 a script called `rdc`, which needs to run with more permissions than
 [the GCP container-optimized OS](https://cloud.google.com/container-optimized-os/docs/concepts/security) allows. 
+So you need to run it from a different computer that is authorized to SSH 
+into the relay VM.
 
-One easy solution is to create a temporary management VM. This VM can run in the
-same GCP account, and that way be able to ssh to the relay VM.
 
-1. Go to [the GCP console](https://console.cloud.google.com/compute/instances).
-1. Click **CREATE INSTANCE**.
-1. Set these parameters (accept the default for all the others):
-
-   | Heading | Parameter | Value |
-   | Machine configuration | Machine type | e2-micro | 
-   | Boot disk | Images | Debian GNU/Linux 10 (buster) |
-   | Identity and API access | Access scopes | All full access to all Cloud APIs |
-
-1. Open SSH to the management VM to download the relay configuration setup and 
-  put it on the relay VM:
-```bash
-curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/rdc > rdc
-chmod +x rdc
-./rdc <relay VM name> addalias
-yes
-```
-1. Delete the management VM, you no longer need it.
+1. On a computer that is authorized to ssh into the relay VM, 
+   download the relay configuration setup and 
+   put it on the relay VM:
+   ```bash
+   curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/rdc > rdc
+   chmod +x rdc
+   ./rdc <relay VM name> addalias
+   yes
+   ```
 1. Open SSH to the relay VM.
 1. Download the relay configuration files.
-```bash
-curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/.env > .env
-mkdir config
-curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/config-sample/gsn-relay-config.json > config/gsn-relay-config.json
-```
+   ```bash
+   curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/.env > .env
+   mkdir config
+   curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/config-sample/gsn-relay-config.json > config/gsn-relay-config.json
+   ```
 1. Edit `.env`:
-```bash
-nano .env
-```
+  ```bash
+   nano .env
+   ```
 1. In `.env`, specify:
    | Parameter | Value |
    | HOST | Your host name |
@@ -121,28 +112,27 @@ nano .env
    | versionRegistryAddress | The address for the version registry on the network you are using. [See this list](../deployments/networks.md). |
    | ethereumNodeUrl | The URL to a node on the network you wish to use. If you do not know what to put here, get a [free Infura account](https://infura.io), create a project, and look at **KEYS > ENDPOINTS** for your network. Use the endpoint that starts with https:// |
 1. Download and run the docker images 
-```bash
-rdc config
-rdc up -d
-```
+   ```bash
+   rdc config
+   rdc up -d
+   ```
 1. Wait until the second `rdc` command finishes. 
 1. To see the progress of the HTTPS server (the slowest component to set up), run
-```bash
-rdc logs -f https-portal
-```
+   ```bash
+   rdc logs -f https-portal
+   ```
 1. When you see this line it means the setup is done. You can close the SSH window.
-[source]
-```
-[services.d](https-portal_1  | ) done.
-```
-1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr. 
+   ```
+   [services.d](https-portal_1  | ) done.
+   ```
+1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr . 
   You should receive a JSON file with addresses and status. 
   The `ready` setting should be `false`, because it isn't registered with 
   the relay hub yet.
   
 
 
-## Relay Staking and Registration <a id="relay_staking_and_registration"></a>
+## Relay Staking and Registration
 
 We need to register the relay with the Relay Hub. This has several purposes:
 
@@ -191,7 +181,7 @@ will it at some point to unstake the relay and get back your ether
   ready. Congratulations.
 
 
-## Unstaking <a id="unstaking"></a>
+## Unstaking
 
 Eventually you will want the ether back. To do so:
 
@@ -212,7 +202,7 @@ docker logs default_gsn1_1 2>1 | grep withdrawBlock
 
 
 
-## Conclusion <a id="conclusion"></a>
+## Conclusion
 
 In this article you learned how to create a GSNv2 relay and connect it to the network. The more relays
 are available, the better the performance for users who rely on GSNv2 to access dapps without spending
