@@ -13,51 +13,52 @@ that uses GSN.
 
 
 
-## Converting a Contract to Support GSN <a id="converting_a_contract_to_support_gsn"></a>
+## Converting a Contract to Support GSN
 
 To accept transactions that are paid for by a separate entity you have to do several things:
 
 1. If necessary modify your configuration file (in truffle, `truffle.js` or `truffle-config.js`)
-  to require Solidity version 0.6.10 or higher:
-  ```javascript
-  module.exports = {
-    networks: {
-        ...
-    },
-    compilers: {
-      solc: {
-        version: "^0.6.10"
-      }
-    }
-  };
-  ```
-2. Add `@opengsn/gsn` in the dependencies, version 2.1.0.
-```bash
-npm install @opengsn/gsn@^2.1.0 --save
-```
-3. Import the base contract, and inherit from it:
-  ```javascript
-  import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
-  contract MyContract is BaseRelayRecipient { ... }
-  ```
-4. Create a constructor that sets `trustedForwarder` to the address of a trusted forwarder. 
-The purpose is to have a tiny (and therefore easily audited) contract that proxies the 
-relayed messages so a security audit of the GSN aware contract doesn’t require a security 
-audit of the full `RelayHub` contract. 
-[You can look here](../deployments/networks.md) to see the addresses 
-to use on mainnet and various test networks.
-
-1. Create a `versionRecipient()` function to return the current version of the contract.
-
+   to require Solidity version 0.6.10 or higher:
+   ```javascript
+   module.exports = {
+     networks: {
+         ...
+     },
+     compilers: {
+       solc: {
+         version: "^0.6.10"
+       }
+     }
+   };
+   ```
+1. Add `@opengsn/gsn` in the dependencies, version 2.1.0.
+   ```bash  
+   npm install @opengsn/gsn@^2.1.0 --save
+   ```
+1. Import the base contract, and inherit from it:
+   ```javascript
+   import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
+   contract MyContract is BaseRelayRecipient { ... }
+   ```
+1. Create a constructor that sets `trustedForwarder` to the address of a 
+   trusted forwarder. The purpose is to have a tiny (and therefore easily 
+   audited) contract that proxies the relayed messages so a security audit 
+   of the GSN aware contract doesn’t require a security 
+   audit of the full `RelayHub` contract. 
+   [You can look here](../deployments/networks.md) to see the addresses 
+   to use on mainnet and various test networks.
+1. Create a `versionRecipient()` function to return the current 
+   version of the contract.
 1. Replace `msg.sender` in your code, and in any libraries your code uses, 
-with `_msgSender()`. If you receive a normal Ethereum transaction (from another contract or external account that 
-pays for its own gas, this value is identical to `msg.sender`. If you receive an etherless 
-transaction, `_msgSender()` gives you the correct sender whereas `msg.sender` would be the 
-above forwarder.
+   with `_msgSender()`. If you receive a normal Ethereum transaction (from 
+   another contract or external account that pays for its own gas), this value 
+   is identical to `msg.sender`. If you receive an etherless transaction, 
+   `_msgSender()` gives you the correct sender whereas `msg.sender` would be the 
+   above forwarder.
 
 
 
-### Example: CaptureTheFlag <a id="example_capturetheflag"></a>
+### Example: CaptureTheFlag
 
 
 As a demonstration, 
@@ -100,7 +101,7 @@ contract CaptureTheFlag is BaseRelayRecipient {
 ```
 
 
-### How does it Work? <a id="how_does_it_work"></a>
+### How does it Work?
 
 
 Obviously, blockchain access is still not free. You get these GSN transactions
@@ -128,7 +129,7 @@ To know what relays are available you consult a special contract called RelayHub
 This hub also checks up on relays and paymasters to ensure nobody is cheating. 
 
 
-## Creating a Paymaster <a id="creating_a_paymaster"></a>
+## Creating a Paymaster
 
 Somebody needs to pay for your users’ transactions on the blockchain. In the future 
 it might be a commercially available service, but for now the entity most likely to 
@@ -297,7 +298,7 @@ In this case, the version is the latest at writing, `2.0.3`.
 }
 ```
 
-### Initializing the Paymaster <a id="initializing_the_paymaster"></a>
+### Initializing the Paymaster
 
 It is not enough to deploy the paymaster contract. Any paymaster contract needs to 
 attach to a `RelayHub`, and if you use `NaivePaymaster` you also need to specify the target 
@@ -315,24 +316,24 @@ real network or a test network).
 1. Deploy the paymaster contract, and then display the address so you can store it 
    somewhere for future use:
    ```javascript
-   paymaster = await <paymaster contract>.new()
+   paymaster = await &lt;paymaster contract&gt;.new()
    paymaster.address
    ```
    If you have already deployed the contract and know the address, do this:
    ```javascript
-   paymaster = await <paymaster contract>.at(<address>)
+   paymaster = await &lt;paymaster contract&gt;.at(&lt;address&gt;)
    ```
 1. Specify the address of `RelayHub` and `Forwarder` on 
    the network you’re using. 
    [You can get that information here](../deployments/networks.md).
    ```javascript
-   paymaster.setRelayHub(<RelayHub address>)
-   paymaster.setTrustedForwarder(<Forwarder address>)
+   paymaster.setRelayHub(&lt;RelayHub address&gt;)
+   paymaster.setTrustedForwarder(&lt;Forwarder address&gt;)
    ```
 1. Configure your paymaster. In the case of `NaivePaymaster`, this means to 
    set the target.
    ```javascript
-   paymaster.setTarget(<target contract address>)
+   paymaster.setTarget(&lt;target contract address&gt;)
    ```
 1. Transfer ether to the paymaster’s address.
    ```javascript
@@ -382,7 +383,7 @@ At writing there is a bug that causes the output to have some junk characters
 in certain circumstances. 
 Under Linux you can use the `tr` command to solve this:
 ```bash
-browserify index.js | tr -dc '\0-\177' > bundle.js
+browserify index.js | tr -dc '\0-\177' &gt; bundle.js
 ```
 :::
 
@@ -502,7 +503,7 @@ To do that, you run the tests locally:
    testEnv = testEnvObj.loadDeployment()
    ```
 1. Configure the paymaster, as you did earlier.
-   paymaster = await <paymaster contract>.new()
+   paymaster = await &lt;paymaster contract&gt;.new()
    paymaster.setRelayHub(testEnv.relayHubAddress)
    paymaster.setTrustedForwarder(testEnv.forwarderAddress)
    ```

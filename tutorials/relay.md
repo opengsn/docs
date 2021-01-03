@@ -34,7 +34,7 @@ For every transaction you relay you can expect to earn `baseRelayFee` (wei)
 plus `pctRelayFee`% of the cost of the gas for the transaction (in addition to being
 reimbursed for gas used).
 
-::: hint
+::: tip Note
 The client code selects relays based on price. If your fees are too high, you will not get anything. 
 [Click here to see what other relays are charging](https://relays.opengsn.org/).
 :::
@@ -95,12 +95,13 @@ into the relay VM.
    curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/config-sample/gsn-relay-config.json > config/gsn-relay-config.json
    ```
 1. Edit `.env`:
-  ```bash
+   ```bash
    nano .env
    ```
 1. In `.env`, specify:
-   | Parameter | Value |
-   | HOST | Your host name |
+   | Parameter | Value          |
+   | --------- | -------------- |
+   | HOST      | Your host name |
 1. Press Ctrl-O and then Enter to save the modified file.
 1. Press Ctrl-X to exit.
 1. Edit `config/gsn-relay-config.json` to specify:
@@ -126,9 +127,9 @@ into the relay VM.
    [services.d](https-portal_1  | ) done.
    ```
 1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr . 
-  You should receive a JSON file with addresses and status. 
-  The `ready` setting should be `false`, because it isn't registered with 
-  the relay hub yet.
+   You should receive a JSON file with addresses and status. 
+   The `ready` setting should be `false`, because it isn't registered with 
+   the relay hub yet.
   
 
 
@@ -147,38 +148,36 @@ twelve word pass phrase for your account. This is an **extremely** sensitive pie
 of information, which you never want away from your control. 
 
 1. Install the GSN command line interface on Docker. It has to be the Docker version
-  to be able to specify the gas price for the registration transaction.
-```bash
-sudo docker image pull opengsn/cli
-```
+   to be able to specify the gas price for the registration transaction.
+   ```bash
+   sudo docker image pull opengsn/cli
+   ```
 1. Create a file `pass12` with the twelve word mnemonic for the account you'll
-  use to fund the relay.
+   use to fund the relay.
 1. Get the current gas price for transactions 
-  [from here](https://etherscan.io/gastracker). The low cost should be sufficient
+   [from here](https://etherscan.io/gastracker). The low cost should be sufficient
 1. Register the relay. You may get an error saying that after 60 seconds the relay
-  is not yet ready. If so, ignore it, it is usually just because it takes a bit 
-  longer.
-```bash
-docker run --rm -ti -v $PWD:$PWD \
-    opengsn/cli relayer-register \
-    --network <the ethereumNodeURL you used for the relay> \
-    --gasPrice <get from the link above, specify in Gwei> \
-    --relayUrl https://<your hostname for the relay>/gsn1 \
-    -m `pwd`/pass12
-```
-{% hint style="note" %}
-##### NOTE:
-To avoid risking your main account, 
-[you can create 
-a dedicated address](https://github.com/qbzzt/etherdocs/blob/master/paper_wallet.md) and transfer 3.001 ether to it. One ether is the 
-stake that you lose if your relay doesn't relay messages honestly, 
-two ethers are the initial funds for the relay, and the 0.001 is for the gas 
-needed for the registration itself. Make sure to keep the mnemonic, you need 
-will it at some point to unstake the relay and get back your ether 
-(and some extra).
-{% endhint %}
-1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr. See that the relay is now 
-  ready. Congratulations.
+   is not yet ready. If so, ignore it, it is usually just because it takes a bit 
+   longer.
+   ```bash
+   docker run --rm -ti -v $PWD:$PWD \
+       opengsn/cli relayer-register \
+       --network <the ethereumNodeURL you used for the relay> \
+       --gasPrice <get from the link above, specify in Gwei> \
+       --relayUrl https://<your hostname for the relay>/gsn1 \
+       -m `pwd`/pass12
+   ```
+   ::: tip Note
+   To avoid risking your main account, [you can create 
+   a dedicated address](https://github.com/qbzzt/etherdocs/blob/master/paper_wallet.md) and transfer 3.001 ether to it. One ether is the 
+   stake that you lose if your relay doesn't relay messages honestly, 
+   two ethers are the initial funds for the relay, and the 0.001 is for the gas 
+   needed for the registration itself. Make sure to keep the mnemonic, you need 
+   will it at some point to unstake the relay and get back your ether 
+   (and some extra).
+   :::
+1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr . See that the relay is now 
+   ready. Congratulations.
 
 
 ## Unstaking
