@@ -63,7 +63,6 @@ module.exports = {
           '/javascript-client/gsn-faq.md',
           '/javascript-client/gsn-helpers.md',
           '/javascript-client/interacting-with-relayhub.md',
-          '/javascript-client/testing-gsn-applications.md',
           '/javascript-client/devops.md',
           '/javascript-client/running-own-relay.md',
 

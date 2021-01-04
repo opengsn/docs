@@ -17,7 +17,7 @@ npx gsn-with-ganache
 You have now a running ganache instance, with active GSN 
 
 In another window, run:
-```
+```bash
 # deploy MetaCoin contract and start local web server
 npx truffle migrate && npm run dev
 ```
@@ -39,7 +39,7 @@ Adding GSN involves 4 steps
 GSN is already deployed to many testnets (and mainnets) - see the full list here.
 But for testing it locally, you need start it over your local `ganache` instance.
 To start GSN on local ganache, run the command:
-```
+```bash
 npx gsn start
 ```
 
@@ -100,19 +100,27 @@ are relayed through GSN
 ```javascript
 const { RelayProvider } = require('@opengsn/gsn')
 
-const config = { paymasterAddress }
+const config = { 
+    paymasterAddress,
+    loggerConfiguration: {
+        logLevel: 'debug',
+        // loggerUrl: 'logger.opengsn.org',
+    }
+}
 const provider = await RelayProvider.newProvider({ provider: web3.currentProvider, config }).init()
 const web3 = new Web3(provider);
 ```
 
 With these changes, your application will route the requests through GSN.
+The "loggerUrl" is optional: setting it to `https://logger.opengsn.org`, will send the logs to opengsn global logger using the specified `logLevel`,
+to help troubleshooting by the GSN support. 
 
 To see that the sender address doesn't have to have eth, you can create a new one:
-```
+```js
     from = provider.newAccount().address
 ```
 or using web3:
-```
+```js
     from = web3.personal.newAccount('pwd')
 ```
  The sender address 
@@ -133,3 +141,9 @@ await myRecipient.methods.myFunction().send({ from, useGSN: false });
 ```
 
 
+### Running GSN on a local network
+
+GSN is deployed on all major test and public [networks](../deployments/networks.md). 
+In order to test it locally with ganache, you need to deploy it locally.
+
+See [gsn start](gsn-helpers.md#start) on how to start it locally, on your ganache instance.
