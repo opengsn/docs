@@ -17,15 +17,15 @@ npx gsn start [--workdir <directory>]
 
 Contract addresses are written into `<directory>`, which is `./build/gsn` by default.
 From a test script, use
-```
+```js
 const { paymasterAddress, forwarderAddress } = GsnTestEnvironment.loadDeployments()
 ```
 
 To load the deployed addresses into a test application.
 
-{% hint style="note" %}
+::: tip Note
 GSN is already deployed on most [public test and mainnet networks](../deployments/networks.md), so you don't need to deploy it there
-{% endhint %}
+:::
 
 ### deploy <a id="deploy"></a>
 

@@ -17,7 +17,7 @@ npx gsn-with-ganache
 You have now a running ganache instance, with active GSN 
 
 In another window, run:
-```
+```bash
 # deploy MetaCoin contract and start local web server
 npx truffle migrate && npm run dev
 ```
@@ -39,7 +39,7 @@ Adding GSN involves 4 steps
 GSN is already deployed to many testnets (and mainnets) - see the full list here.
 But for testing it locally, you need start it over your local `ganache` instance.
 To start GSN on local ganache, run the command:
-```
+```bash
 npx gsn start
 ```
 
@@ -112,14 +112,15 @@ const web3 = new Web3(provider);
 ```
 
 With these changes, your application will route the requests through GSN.
-The "loggerUrl" is optional: setting it, will send the logs to opengsn global logger, to help troubleshooting by the GSN support. 
+The "loggerUrl" is optional: setting it to `https://logger.opengsn.org`, will send the logs to opengsn global logger using the specified `logLevel`,
+to help troubleshooting by the GSN support. 
 
 To see that the sender address doesn't have to have eth, you can create a new one:
-```
+```js
     from = provider.newAccount().address
 ```
 or using web3:
-```
+```js
     from = web3.personal.newAccount('pwd')
 ```
  The sender address 
