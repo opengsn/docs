@@ -113,4 +113,4 @@ gas fees plus transaction fees.
 To learn more about the GSN, head over to the following resources:
 
 * To learn how to *integrate GSN with your contracts*, see [Writing GSN-capable contracts](../contracts/index.md).
-* To learn how to *integrate GSN with your client*, see [Javascript client](../gsn-provider/getting-started.md).
+* To learn how to *integrate GSN with your client*, see [Javascript client](../javascript-client/getting-started.md).

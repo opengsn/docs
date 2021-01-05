@@ -3,7 +3,7 @@
 The [Gas Station Network](https://www.opengsn.org) allows you to build apps where you pay for your users transactions, so they do not need to hold Ether to pay for gas, easing their onboarding process. In this guide, we will learn how to write smart contracts that can receive transactions from the GSN
 .
 
-If you're new to the GSN, you probably want to first take a look at the [overview of the system](../learn/index.md) to get a clearer picture of how gasless transactions are achieved. Otherwise, strap in!
+If you're new to the GSN, you probably want to first take a look at the [overview of the system](../index.md) to get a clearer picture of how gasless transactions are achieved. Otherwise, strap in!
 ## Receiving a Relayed Call <a id="recipient"></a>
 
 The first step to writing a recipient is to inherit from our BaseRelayRecipient contract. If you're also inheriting from [OpenZeppelin contracts](https://github.com/OpenZeppelin/openzeppelin-contracts), such as ERC20 or ERC721, this will work just fine: adding BaseRelayRecipient to your token contracts will make them GSN-callable.
