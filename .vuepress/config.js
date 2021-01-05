@@ -40,7 +40,7 @@ module.exports = {
       },
       {
         text: 'FAQ',
-        link: '/javascript-client/faq',
+        link: '/faq.md',
       },
       {
         text: 'Status',
@@ -59,13 +59,18 @@ module.exports = {
         children: [
           '/javascript-client/getting-started',
           '/javascript-client/advanced',
-          '/javascript-client/faq.md',
-          '/javascript-client/gsn-faq.md',
           '/javascript-client/gsn-helpers.md',
-          '/javascript-client/interacting-with-relayhub.md',
           '/javascript-client/devops.md',
           '/javascript-client/running-own-relay.md',
 
+        ]
+      },
+      {
+        title: 'FAQ',
+        collapsable: false,
+        children: [
+          '/faq',
+          '/gsn-faq'
         ]
       },
       {
@@ -83,7 +88,7 @@ module.exports = {
           '/tutorials/relay',
         ]
       },
-      '/deployments/networks'
+      '/networks'
     ],
   },
 
