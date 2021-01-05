@@ -1,7 +1,5 @@
 # Interacting with `RelayHub`
 
-//TIP: If you're unfamiliar with how the GSN works, check out [Sending Gasless Transactions](../learn/sending-gassless-transactions.md) first.
-
 There are many meta-transaction implementations out there, but the GSN has a unique detail that makes it special. At its core, a smart contract is responsible for keeping track of relayers, handling relayed transactions, charging their recipients, and generally ensuring all parties stay honest. This contract is called `RelayHub`, and there is a _single_ instance of it in the whole network (you don't need to deploy your own!). Think of it as a piece of public infrastructure, for all Ethereum users to benefit from.
 
 This document will explain some of `RelayHub` 's tasks, and how they relate to the using of the GSN. See this flow diagram first, and we will try to explain what is going on in this article:

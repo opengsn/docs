@@ -3,7 +3,7 @@
 
 ## What does GSN stand for? <a id="what_does_gsn_stand_for?"></a>
 
-GSN stands for [Gas Station Network](https://gsn.ethereum.org). The GSN project has grown to encompass many companies in the Ethereum space looking to work together to solve the problem of onboarding users to Ethereum applications.
+GSN stands for [Gas Station Network](https://opengsn.org). The GSN project has grown to encompass many companies in the Ethereum space looking to work together to solve the problem of onboarding users to Ethereum applications.
 
 
 ## How does it work? <a id="how_does_it_work?"></a>
@@ -17,7 +17,7 @@ Users sign messages (not transactions) containing information about a transactio
 
 GSN defines contracts named "Paymasters" that are willing to refund the relayers for the gas.
 
-As GSN is intended primarily to [solve the user onboarding problem](https://blog.openzeppelin.com/gsn-the-ultimate-ethereum-onboarding-solution), it is expected that the (d)app developers themselves will be responsible for paying the gas cost of users, by providing such paymasdter contract (probably tailored to pay only the gas for their own contracts or users).
+As GSN is intended primarily to [solve the user onboarding problem](https://blog.openzeppelin.com/gsn-the-ultimate-ethereum-onboarding-solution), it is expected that the (d)app developers themselves will be responsible for paying the gas cost of users, by providing such a paymaster contract (probably tailored to pay only the gas for their own contracts or users).
 In this case, gas costs should be considered the cost of user acquisition.
 
 Alternatively, the GSN can be used for more specific situations, such as paying for DAO users transactions from a DAO treasury account, or contracts where users pay for their transactions via counterfactually deployed smart contracts.
@@ -57,14 +57,14 @@ The [GSN Protocol](https://github.com/opengsn/gsn-protocol/blob/master/gsn-proto
 As always, applications that intend to store large amounts of value should consider carefully their software architecture design to minimize the opportunity for unaccounted for edge cases which could lead to a reduction in security and loss of funds.
 
 
-## How do a contract knows who the user is? <a id="how_do_i_know_who_the_user_is?"></a>
+## How does a contract know who the user is? <a id="how_do_i_know_who_the_user_is?"></a>
 
 The `BaseRelayRecipient` contract has a utility function called `_msgSender()` which returns the true address of the user making a contract call. The function `_msgSender()` should be used in place of the solidity system variable `msg.sender`.
 
 
 ## Why does it matter if I know who the user is? <a id="why_does_it_matter_if_i_know_who_the_user_is?"></a>
 
-The GSN network is built to be compatible with the Ethereum network in its present state. This means that for relayed transactions, `msg.sender` will return the address of the relayer signing the transaction, and not the user requesting the transaction. Contracts that use `msg.sender` are not natively compatible with the Gas Station network. It is necessary to inherit the `_msgSender()` function from the `BaseRelayRecipient` contract in the [*OpenGSN library*](../contracts/index.md) if your contract needs to identify the initiator of a GSN powered transaction.
+The GSN network is built to be compatible with the Ethereum network in its present state. This means that for relayed transactions, `msg.sender` will return the address of the relayer signing the transaction, and not the user requesting the transaction. Contracts that use `msg.sender` are not natively compatible with the Gas Station network. It is necessary to use the `_msgSender()` function from the `BaseRelayRecipient` contract in the [*OpenGSN library*](../contracts/index.md) if your contract needs to identify the initiator of a GSN powered transaction.
 
 
 ## Do I pay for everyone? How do I decide who to pay for? <a id="do_i_pay_for_everyone?_how_do_i_decide_who_to_pay_for?"></a>
@@ -87,26 +87,19 @@ However, it makes sense for a dApp owner, to provide a "preferred relay" for its
 
 ## Why do I have to deposit ETH in the RelayHub? <a id="why_do_i_have_to_deposit_eth_in_the_relayhub?"></a>
 
-Relay providers deposit a stake in the `RelayHub` while `Paymasters` deposit a balance.
+Relay providers put a stake in the `RelayHub` while `Paymasters` deposit a balance.
 
 The balance deposited by `Paymasters` is used to refund relayers for the cost of relaying transactions plus a small fee so that they can cover their expenses and hopefully make a profit.
 
-Relay providers are required to deposit a stake into the `RelayHub` to ensure good behavior. In the event a relayer behaves badly (for example attempting to reuse a nonce) their deposit can be slashed and collected by other relayers which can then prove on-chain a relayers bad behavior. This system of checks and balances is one of the features that keep the GSN safe and ensures that some forms of attacks against the network do not scale.
+Relay providers are required to put a stake into the `RelayHub` to ensure good behavior. In the event a relayer behaves badly (for example attempting to reuse a nonce) their stake can be slashed and collected by other relayers by proving on-chain the relayers bad behavior. This system of checks and balances is one of the features that keep the GSN safe and ensures that some forms of attacks against the network do not scale.
 
 
 ## Does my app need to hold money? <a id="does_my_app_need_to_hold_money?"></a>
 
-No. The funds which are used by a smart contract application to pay for a user's gas costs are stored in the audited `RelayHub` contract. This contract is already deployed on every network (testnet, mainnet, etc..) and does not need to be managed by (d)app developers.
+No. The funds which are used by a smart contract application to pay for a user's gas costs are stored in the audited `RelayHub` contract. This contract is already deployed on [every network (testnet, mainnet, etc..)](/networks) and does not need to be managed by (d)app developers.
 
-Developers need to ensure that the balance stored on RelayHub is sufficient to cover the cost of their users' transactions. If there is not a sufficient balance to cover the cost of relaying transactions, no transactions will be processed for the smart contract application until the balance is increased.
-
-//== How do I manage this?
-//
-//OpenZeppelin has created several convenient web-based tools to manage your applications' GSN transactions. There is a tool for [(d)app developers](https://gsn.ethereum.org/recipients) as well as for [relayers](https://gsn.ethereum.org/relays).
-
+Paymaster owners need to ensure that the balance stored on RelayHub is sufficient to cover the cost of their users' transactions. If there is not a sufficient balance to cover the cost of relaying transactions, no transactions will be processed for the smart contract application until the balance is increased.
 
 ## Does it work with other web3 providers? <a id="does_it_work_with_other_web3_providers?"></a>
 
-As GSN does not require a user-supplied provider such as Metamask, it will work fine with or without a user-supplied provider. Developers will still need to connect the (d)app to a web3 provider, for example via [Infura](https://infura.io) to receive events or query the Ethereum blockchain.
-
-
+GSN can work with any rpc provider - either injected (e.g. metamask) or web-based libraries (like portis)

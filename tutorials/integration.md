@@ -190,7 +190,7 @@ can use `onlyOwner` because `BasePaymaster` inherits from `Ownable`.
 
 This is the paymaster’s most important function, the decision whether to pay for a 
 transaction or not. The `GNSType.RelayRequest` type is defined 
-[here](https://github.com/opengsn/gsn/blob/master/contracts/utils/GSNTypes.sol). 
+[here](https://github.com/opengsn/gsn/blob/master/contracts/interfaces/GsnTypes.sol). 
 It includes multiple fields - we’ll use the `.target`, which is the target contract.
 The `signature` can be used to validate the `relayRequest` value.
 ```solidity
