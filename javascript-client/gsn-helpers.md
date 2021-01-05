@@ -29,7 +29,7 @@ GSN is already deployed on most [public test and mainnet networks](../deployment
 
 ### deploy <a id="deploy"></a>
 
-Deploy the singleton RelayHub instance, as well as other required GSN contracts (StakeManager, Penalizer, TestPaymaster). Saves the deployment results to the <workdir> directory.
+Deploy the singleton RelayHub instance, as well as other required GSN contracts (StakeManager, Penalizer, TestPaymaster). Saves the deployment results to the &lt;workdir> directory.
 
 ```bash
 npx gsn deploy [--from <account>] [--workdir <directory>] [--network <url>]
