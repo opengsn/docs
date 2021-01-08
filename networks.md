@@ -4,7 +4,7 @@
 ## Current latest deployment ([v.2.0.1 commit: 9856bdd](https://github.com/opengsn/gsn/releases/tag/v2.0.1)) <a id="current_latest_deployment_([v.2.0.1_commit:_9856bdd](https://github.com/opengsn/gsn/releases/tag/v2.0.1))"></a>
 
 ::: tip Note:
-For the currently active relayers on each network, see the following status page: [https://relays.opengsn.org](https://relays.opengsn.org)
+Status page for the OpenGSN public service relays on different chains: [https://relays.opengsn.org](https://relays.opengsn.org)
 
 :::
 
@@ -84,7 +84,7 @@ Forwarder: [0xE1AF20B1B5E8BF725485e8d23C54868D716df17B](https://blockscout.com/e
 
 Accept-Everything Paymaster: [0x9AE9FC73A7ad54004D7eEA2817787684FBE52433](https://blockscout.com/etc/kotti/address/0x9AE9FC73A7ad54004D7eEA2817787684FBE52433)
 
-### Binance Mainnet
+### Binance Smart Chain (Mainnet)
 
 RelayHub: [0x3A7083E709BCCd0Fc5fb53cC0Ce9DBd3b5a82DcB](https://bscscan.com/address/0x3A7083E709BCCd0Fc5fb53cC0Ce9DBd3b5a82DcB)
 
@@ -94,7 +94,7 @@ VersionRegistry: [0xC94E81c170CE28B7874F7DA110bBEECECC26cC11](https://bscscan.co
 
 Forwarder: [0xA58B6fC9264ce507d0B0B477ceE31674341CB27e](https://bscscan.com/address/0xA58B6fC9264ce507d0B0B477ceE31674341CB27e)
 
-### Binance Testnet
+### Binance Smart Chain (Testnet)
 
 RelayHub: [0x515B28E7638aC923f0dB63298658167A4e4dB770](https://testnet.bscscan.com/address/0x515B28E7638aC923f0dB63298658167A4e4dB770)
 
