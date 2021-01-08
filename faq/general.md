@@ -1,6 +1,6 @@
-# The Big Picture 
+# Big Picture Stuff
 
-## Should dapp developers also run relay servers? <a id="do_i_have_to_run_a_relayer?"></a>
+## Should dapp developers run their own relay server? <a id="do_i_have_to_run_a_relayer?"></a>
 
 Running a relay server is highly recommended for most use cases. It will
 usually save money for dapps to run their own relays and configure them as the
@@ -41,13 +41,13 @@ paying for their own deployment in fiat or a stablecoin.
 
 The sky is the limit. 
 
-## Do dapp developers have to pay for their user's gas?</a>
+## Do dapps have to pay for their user's gas?</a>
 
-That's optional. Dapp development can choose from basic predefined payment
-strategies or construct their own. The `Paymaster` contract provides for pre
-and post-payment hooks that can be used to verify that a contract function and
-user are eligible for the transaction cost to be covered by a relay server as
-well as allow users to pay relays in tokens rather than ETH.
+No, though that is an option. Dapp development can choose from basic predefined
+payment strategies or construct their own. The `Paymaster` contract provides
+for pre and post-payment hooks that can be used to verify that a contract
+function and user are eligible for the transaction cost to be covered by a
+relay server as well as allow users to pay relays in tokens rather than ETH.
 
 When deciding how many payments and for how much to cover, dapp developers
 should consider what they expect the total cost of payment to be, and how they
@@ -70,7 +70,7 @@ have access to user's private keys.  The user's client uses its wallet private
 key to sign the request it sends the relayer. User private keys are never
 shared or exposed to any entity, neither relay servers nor on-chain contracts.
 
-## Is this safe? Secure? <a id="is_this_safe?_secure?"></a>
+## How secure is GSN? <a id="is_gsn_secure?"></a>
 
 The GSN network and smart contracts have been audited and are considered to be safe.
 
@@ -78,16 +78,24 @@ The [GSN Protocol](https://github.com/opengsn/gsn-protocol/blob/master/gsn-proto
 
 ## How does a contract know who the user is? <a id="how_do_i_know_who_the_user_is?"></a>
 
-The `BaseRelayRecipient` contract has a utility function called `_msgSender()` which returns the true address of the user making a contract call. The function `_msgSender()` should be used in place of the solidity system variable `msg.sender`.
+The `BaseRelayRecipient` contract has a utility function called `_msgSender()`
+which returns the true address of the user making a contract call. The function
+`_msgSender()` should be used in place of the solidity system variable
+`msg.sender`.
 
-## Why does it matter if I know who the user is? <a id="why_does_it_matter_if_i_know_who_the_user_is?"></a>
+The GSN network is built to be compatible with the Ethereum network in its
+present state. This means that for relayed transactions, `msg.sender` will
+return the address of the relay server signing the transaction, and not the
+user requesting the transaction. Contracts that use `msg.sender` are not
+natively compatible with the Gas Station network. It is necessary to use the
+`_msgSender()` function from the `BaseRelayRecipient` contract in the [*OpenGSN
+library*](../contracts/index.md) if your contract needs to identify the
+initiator of a GSN powered transaction.
 
-The GSN network is built to be compatible with the Ethereum network in its present state. This means that for relayed transactions, `msg.sender` will return the address of the relay server signing the transaction, and not the user requesting the transaction. Contracts that use `msg.sender` are not natively compatible with the Gas Station network. It is necessary to use the `_msgSender()` function from the `BaseRelayRecipient` contract in the [*OpenGSN library*](../contracts/index.md) if your contract needs to identify the initiator of a GSN powered transaction.
-
-## Why do participants need to deposit ETH in the RelayHub? <a id="why_do_i_have_to_deposit_eth_in_the_relayhub?"></a>
+## Why are ETH deposits in RelayHub required?<a id="why_do_i_have_to_deposit_eth_in_the_relayhub?"></a>
 
 Like the underlying blockchain it supports, the GSN is a trust-minimized
-decentralized network that does not require participant to know or trust each
+decentralized system that does not require participants to know or trust each
 other. Instead their interactions are mediated by RelayHub, an audited on-chain
 contract.
 
@@ -105,7 +113,7 @@ on-chain the relayers bad behavior. This system of checks and balances is one
 of the features that keep the GSN safe and ensures that some forms of attacks
 against the network do not scale.
 
-## Do my Paymaster contract need to hold ETH directly? <a id="does_my_app_need_to_hold_money?"></a>
+## Does my Paymaster contract need to hold ETH directly? <a id="does_my_app_need_to_hold_money?"></a>
 
 No. The funds which are used by a Paymaster contract to pay for a user's gas
 costs are stored in the audited `RelayHub` contract. This contract is already
@@ -117,6 +125,7 @@ sufficient to cover the cost of transactions. If there is not a sufficient
 balance to cover the cost of relaying transactions, no transactions will be
 processed until the balance is increased.
 
-## Does it work with other web3 providers? <a id="does_it_work_with_other_web3_providers?"></a>
+## Does GSN work with other web3 providers? <a id="does_it_work_with_other_web3_providers?"></a>
 
-GSN can work with any rpc provider - either injected (e.g. metamask) or web-based libraries (like portis)
+GSN can work with any rpc provider - either injected (e.g. metamask) or
+web-based libraries (like Portis)
