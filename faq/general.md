@@ -37,9 +37,7 @@ onboard new users.
 
 More advanced use cases include ETH-less withdrawals of token deposits to
 stealth addresses and zk mixers, and even counterfactual smart wallet contracts
-paying for their own deployment in fiat or a stablecoin.
-
-The sky is the limit. 
+paying for their own deployment in fiat or a stablecoin. The sky is the limit. 
 
 ## Do dapps have to pay for their user's gas?</a>
 
