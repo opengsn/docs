@@ -1,5 +1,4 @@
-# Running Relays and Fun and (Maybe Someday) Profit
-
+# Tutorial: Running a Relay Server for Fun and Profit
 
 ## Introduction
 
@@ -15,18 +14,20 @@ though your can use any other hosting provider.
 
 ## Relays as an investment
 
-If you are going to buy and hold ether as an investment, you might as well run a 
-GSN relay with it.
 Relays get reimbursed by paymasters for the gas they spend sending transactions for 
-users, plus a little bit more. 
-It isn't an impressive interest rate, but it's better than nothing and  it is a low risk investment. 
-[GCP does not charge you for running a single micro instance](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits).
+users, plus a transaction fee that you can configure.
 
-When you want to get your investment back you use the same account you used to 
-register the relay to unstake (deregister) it. After the unstake period, which is about
-a week, you can request all your locked funds.
+Without significant transaction volume you won't necessarily get a super
+impressive interest rate, but you will get paid to support decentralization
+while taking little to no risk. Minimal resources are required to run a relay
+server so your costs will be low.  For example, [GCP does not charge you for running a single micro
+instance](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits).
 
-### How much do you get paid?
+When you want to get your ETH back you use the same account you used to
+register the relay to unstake (deregister) it. After the unstake period, which
+is about a week, you can request all your locked funds.
+
+### Setting your relay server's transaction fee 
 
 When you configure the `gsn-relay-config.json` file later, you will see two variables, 
 `baseRelayFee` and `pctRelayFee`. 
@@ -36,13 +37,11 @@ reimbursed for gas used).
 
 ::: tip Note
 The client code selects relays based on price. If your fees are too high, you will not get anything. 
-[Click here to see what other relays are charging](https://relays.opengsn.org/).
+[Click here to see what OpenGSN public service relays are charging](https://relays.opengsn.org/).
 :::
 
 
-
 ## Directions
-
 
 ### The Relay VM
 
