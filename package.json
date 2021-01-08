@@ -1,9 +1,9 @@
 {
-  "name": "newdoc",
+  "name": "docs",
   "description": "GSN Documentation",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/opengsn/newdocs",
+  "repository": "https://github.com/opengsn/docs",
   "author": "Dror Tirosh <dror@opengsn.org>",
   "license": "MIT",
   "dependencies": {

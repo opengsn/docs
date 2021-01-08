@@ -45,6 +45,10 @@ module.exports = {
       {
         text: 'Telegram',
         link: 'https://t.me/joinchat/F_BETUjG0Crb2s6mFx1LWA'
+      },
+      {
+        text: 'Status',
+        link: 'https://relays.opengsn.org/'
       }
     ],
     sidebar:  [
