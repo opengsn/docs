@@ -1,4 +1,4 @@
-# Big Picture Stuff
+# The Big Picture
 
 ## Should dapp developers run their own relay server? <a id="do_i_have_to_run_a_relayer?"></a>
 
