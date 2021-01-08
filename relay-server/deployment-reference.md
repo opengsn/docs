@@ -1,6 +1,4 @@
-# Relay Deployment
-
-Running a GSN relay server is a very simple task
+# Deployment Reference
 
 Prerequisites 
 

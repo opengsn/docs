@@ -1,11 +1,17 @@
 # Getting Started
 
+## Working examples <a id="working_example"></a>
 
-## See yourself <a id="see_yourself"></a>
+Working code can be worth a thousand words, so a good place to start is the
+[GSN integration workshop](https://github.com/opengsn/workshop) which shows a
+barebones dapp before and after GSN integration.
 
-One working example is worth a thousand tutorials. Head to the [MetaCoin](https://github.com/opengsn/metacoin) repo, check out the code and explore!
+Another resource is [Capture The Flag](https://github.com/opengsn/ctf-react), a sample React dapp.
 
-A more elaborate example, which also uses react is the [Capture The Flag](https://github.com/opengsn/ctf-react) 
+A more elaborate example is [MetaCoin](https://github.com/opengsn/metacoin),
+which implements a gas-free ERC20 token. After playing with the 
+[live demo](https://metacoin.opengsn.org) on testnet you can check out the code and
+explore:
 
 ```bash
 git clone git@github.com:opengsn/metacoin.git

@@ -1,5 +1,4 @@
-# Existing GSN deployments
-
+# Deployment Addresses
 
 ## Current latest deployment ([v.2.0.1 commit: 9856bdd](https://github.com/opengsn/gsn/releases/tag/v2.0.1)) <a id="current_latest_deployment_([v.2.0.1_commit:_9856bdd](https://github.com/opengsn/gsn/releases/tag/v2.0.1))"></a>
 

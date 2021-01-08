@@ -4,11 +4,11 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'OpenGSN Documentation',
+  title: 'Documentation',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
-  description: 'Open Gas Station Network Documentation',
+  description: 'OpenGSN Ethereum Gas Station Network Documentation',
 
   /**
    * Extra tags to be injected to the page HTML `<head>`
@@ -35,60 +35,57 @@ module.exports = {
     lastUpdated: true,
     nav: [
       {
-        text: 'Documentation',
-        link: '/',
+        text: 'OpenGSN.org',
+        link: 'https://opengsn.org'
       },
       {
-        text: 'FAQ',
-        link: '/faq.md',
-      },
-      {
-        text: 'Status',
-        link: 'https://relays.opengsn.org'
-      },
-      {
-        text: 'Discourse',
+        text: 'Forum',
         link: 'https://forum.opengsn.org'
+      },
+      {
+        text: 'Telegram',
+        link: 'https://t.me/joinchat/F_BETUjG0Crb2s6mFx1LWA'
       }
     ],
     sidebar:  [
       '/',
+      {
+        title: 'Contracts',
+        collapsable: false,
+        children: [
+          '/contracts/',
+          '/contracts/addresses',
+        ]
+      },
       {
         title: 'JavaScript Client',
         collapsable: false,
         children: [
           '/javascript-client/getting-started',
           '/javascript-client/advanced',
-          '/javascript-client/gsn-helpers.md',
-          '/javascript-client/devops.md',
-          '/javascript-client/running-own-relay.md',
-
+          '/javascript-client/gsn-helpers',
+          '/javascript-client/devops',
+          '/javascript-client/tutorial',
         ]
       },
+      {
+        title: 'Relay Server',
+        collapsable: false,
+        children: [
+          '/relay-server/deployment-reference',
+          '/relay-server/tutorial',
+        ]
+      },
+
       {
         title: 'FAQ',
         collapsable: false,
         children: [
-          '/faq',
-          '/gsn-faq'
+          '/faq/general',
+          '/faq/troubleshooting',
+	  '/faq/legacy'
         ]
       },
-      {
-        title: 'Contracts',
-        collapsable: false,
-        children: [
-          '/contracts/',
-        ]
-      },
-      {
-        title: 'Tutorials',
-        collapsable: false,
-        children: [
-          '/tutorials/integration',
-          '/tutorials/relay',
-        ]
-      },
-      '/networks'
     ],
   },
 
