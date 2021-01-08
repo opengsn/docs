@@ -74,14 +74,16 @@ to the contracts methods required for onboarding users that also passed a
 captcha, or only transactions that include a repayment in tokens to the
 Paymaster, etc.
 
-* To learn more about the Paymaster, see [Paying for your user's meta-transaction](../contracts/index.md#paymaster)
+* To learn more about the Paymaster, see [Paying for your user's meta-transaction](/contracts/index.md#paying-for-your-user-s-meta-transaction)
+
 ### Trusted Forwarder: verifies sender signature and nonce <a id="forwarder"></a>
 
 Meta transaction aware recipient contracts only rely on a small trusted
 forwarder contract for their security. This contract verifies the signature and
 nonce of the original sender.
 
-* To learn more about the trusted forwarder, see [Trusted Forwarder: Minimum Viable Trust](https://docs.opengsn.org/contracts/index.html#trusted_forwarder)
+* To learn more about the trusted forwarder, see [Trusted Forwarder: Minimum Viable Trust](/contracts/#trusted-forwarder-minimum-viable-trust)
+
 ### Recipient contract: sees original sender <a id="recipient"></a>
 
 To support meta transactions recipient contracts inherit from a simple
@@ -105,12 +107,9 @@ serving their own Paymasters, and ensures Paymasters pay back relay servers for
 gas fees plus transaction fees.
 
 
-* To learn more about the RelayHub, see [Interacting With `RelayHub`](../javascript-client/interacting-with-relayhub.md).
-
-
 ## Next Steps <a id="next_steps"></a>
 
 To learn more about the GSN, head over to the following resources:
 
-* To learn how to *integrate GSN with your contracts*, see [Writing GSN-capable contracts](../contracts/index.md).
-* To learn how to *integrate GSN with your client*, see [Javascript client](../javascript-client/getting-started.md).
+* To learn how to *integrate GSN with your contracts*, see [Writing GSN-capable contracts](/contracts/).
+* To learn how to *integrate GSN with your client*, see [Javascript client](/javascript-client/getting-started).
