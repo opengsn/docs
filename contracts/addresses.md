@@ -3,7 +3,7 @@
 The current latest deployment is ([v.2.0.1 commit: 9856bdd](https://github.com/opengsn/gsn/releases/tag/v2.0.1)) <a id="current_latest_deployment_([v.2.0.1_commit:_9856bdd](https://github.com/opengsn/gsn/releases/tag/v2.0.1))"></a>
 
 ::: tip Note:
-Status page for the OpenGSN public service relays on different chains: [https://relays.opengsn.org](https://relays.opengsn.org)
+Status page for the GSN relay servers on different chains: [https://relays.opengsn.org](https://relays.opengsn.org)
 :::
 
 ## Ethereum 

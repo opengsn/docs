@@ -37,7 +37,7 @@ reimbursed for gas used).
 
 ::: tip Note
 The client code selects relays based on price. If your fees are too high, you will not get anything. 
-[Click here to see what OpenGSN public service relays are charging](https://relays.opengsn.org/).
+[Click here to see what other relay servers are charging](https://relays.opengsn.org/).
 :::
 
 
