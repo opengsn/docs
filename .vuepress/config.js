@@ -28,7 +28,7 @@ module.exports = {
    */
   themeConfig: {
     logo: '/gsn-green-vector.svg',
-    repo: repository,
+    repo: 'https://github.com/opengsn/gsn',
     editLinks: false,
     docsDir: '.',
     editLinkText: '',
