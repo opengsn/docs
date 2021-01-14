@@ -72,6 +72,17 @@ Accept-Everything Paymaster: [0x50d2b611CC85308CeEecd7a43D00168b97B71F9A](https:
 
 ## Ethereum Classic
 
+### ETC mainnet.
+
+RelayHub: [0x183443070efdc1B18eb3E232F67bff4746c803E2](https://blockscout.com/etc/mainnet/address/0x183443070efdc1B18eb3E232F67bff4746c803E2)
+
+StakeManager: [0x4Aa1Ad2CB89467AAD4A2A33b5eB314Fa66eF6AEa](https://blockscout.com/etc/mainnet/address/0x4Aa1Ad2CB89467AAD4A2A33b5eB314Fa66eF6AEa)
+
+VersionRegistry: [0xC94E81c170CE28B7874F7DA110bBEECECC26cC11](https://blockscout.com/etc/mainnet/address/0xC94E81c170CE28B7874F7DA110bBEECECC26cC11)
+
+Forwarder: [0x0681E559f4df52380651B19A319AFC3b1617F216](https://blockscout.com/etc/mainnet/address/0x0681E559f4df52380651B19A319AFC3b1617F216)
+
+
 ### Kotti ETC testnet.
 
 RelayHub: [0x28708de1d5c681427C3F36170929D31184C113B4](https://blockscout.com/etc/kotti/address/0x28708de1d5c681427C3F36170929D31184C113B4)
@@ -107,3 +118,14 @@ VersionRegistry: [0x6257aD67d9715C244A45ccd1C99621A5702eeb27](https://testnet.bs
 Forwarder: [0x58f24A413F6fb98f217600703C7086EA22B49C47](https://testnet.bscscan.com/address/0x58f24A413F6fb98f217600703C7086EA22B49C47)
 
 Accept-Everything Paymaster: [0x30c42A5F0099f67c6d9036a61FED44C823B7CC83](https://testnet.bscscan.com/address/0x30c42A5F0099f67c6d9036a61FED44C823B7CC83)
+
+## XDai network
+
+
+RelayHub: [0x63DD60B79cb8E3d2FA20A6d2EC92e101553a3920](https://blockscout.com/poa/xdai/address/0x63dd60b79cb8e3d2fa20a6d2ec92e101553a3920)
+
+StakeManager: [0x82665930743aA9740ce20E7f09bcA062DC16d6f4](https://blockscout.com/poa/xdai/address/0x82665930743aA9740ce20E7f09bcA062DC16d6f4)
+
+VersionRegistry: [0x9BC7EFA2507CB277EC98caa110f4CcA88A3E525A](https://blockscout.com/poa/xdai/address/0x9BC7EFA2507CB277EC98caa110f4CcA88A3E525A)
+
+Forwarder: [0x5c32a1c8a10d35f96FD7A78e69b0196023648F89](https://blockscout.com/poa/xdai/address/0x5c32a1c8a10d35f96FD7A78e69b0196023648F89)
