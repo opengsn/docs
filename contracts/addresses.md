@@ -10,7 +10,7 @@ Status page for the GSN relay servers on different chains: [https://relays.openg
 
 ### Mainnet
 
-RelayHub: [0x515e39f12590a94B102903363336AF9761ebF621](https://etherscan.io/address/0x515e39f12590a94B102903363336AF9761ebF621)
+RelayHub: [0xB1E47968aD4909b9eb693c212feA22D0419D2D56](https://etherscan.io/address/0xB1E47968aD4909b9eb693c212feA22D0419D2D56)
 
 StakeManager: [0xcAA46E3a5D2c3c07A0C4F7723c7977c3e643C2B1](https://etherscan.io/address/0xcAA46E3a5D2c3c07A0C4F7723c7977c3e643C2B1)
 
