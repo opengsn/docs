@@ -20,6 +20,44 @@ This will keep the normal ganache property of new networkId on each restart, but
 
 This way, you can open a browser (or command-line tests) and use Metamask to connect to GSN.
 
+## My contract is using OpenZeppelin. How do I add GSN support?
+
+OpenZeppelin supports GSNv1 in their libraries. They are now in the process of removing GSN from their library.
+Any further GSN support is done by using OpenGSN libraries directly.
+
+Still, they have basic support for hooking GSN in all their contracts, and that support will stay.
+
+- Make sure you use `OpenZeppelin@3` (which support solidity 0.6)
+- You should make the `_msgSender()` and `_msgData()` of both GSN and OpenZeppelin use GSN's implementation (sorry about the syntax: its a solidity requirement...)
+- As any GSN contract, you must initialize the **trustedForwarder** member, either through the constructor, or via a setter (protected, so only admin/owner can set it)
+- You contract should look like this:
+
+  ```solidity
+  pragma solidity ^0.6.10;
+  import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
+  import "@openzeppelin/contracts/access/Ownable.sol";
+
+  contract MyContract is BaseRelayRecipient, Ownable {
+    function _msgSender() internal override(Context, BaseRelayRecipient)
+    view returns (address payable) {
+      return BaseRelayRecipient._msgSender();
+    }
+
+    function _msgData() internal override(Context,BaseRelayRecipient)
+    view returns (bytes memory ret) {
+      return BaseRelayRecipient._msgData();
+    }
+
+    string public override versionRecipient = "2.0.0";
+
+    function setForwarder(address forwarder) public onlyOwner {
+      trustedForwarder = forwarder;
+    }
+    ...
+  }
+  ```
+
+
 ## Error: Provided Hub version(2.0) is not supported by the current interactor(2.0.3)
 
 The **Paymaster** version is wrong: The client checks that it is compatible with all the contracts.
