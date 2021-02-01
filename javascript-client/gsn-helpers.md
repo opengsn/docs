@@ -24,7 +24,7 @@ const { paymasterAddress, forwarderAddress } = GsnTestEnvironment.loadDeployment
 To load the deployed addresses into a test application.
 
 ::: tip Note
-GSN is already deployed on most [public test and mainnet networks](../deployments/networks.md), so you don't need to deploy it there
+GSN is already deployed on most [public test and mainnet networks](/networks.md), so you don't need to deploy it there
 :::
 
 ### deploy <a id="deploy"></a>

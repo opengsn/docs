@@ -28,7 +28,7 @@ and that it comes with "docker" pre-installed.
 1. edit `.env` file and set the HOST value to the public DNS name of your host.
 1. edit the `config-sample/gsn-relay-config.json`:
    * Edit the `ethereumNodeUrl` to point to a valid RPC url of the network you want to use.
-   * Edit the `versionRegistry` to point to the right entry for your network from the [Deployed networks](../deployments/networks.md)
+   * Edit the `versionRegistry` to point to the right entry for your network from the [Deployed networks](/networks.md)
 1. copy the files to the host:
 
     - The `.env` file must be placed at the home folder

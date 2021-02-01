@@ -18,7 +18,7 @@ to initialize the `trustedForwarder` field correctly.
 The Paymaster contract has to be deployed the same way the rest of your contracts are. If you are new to dapp development we recommend getting familiar with [Truffle](https://www.trufflesuite.com/truffle).
 
 After it is deployed, you will need to call its `setRelayHub` method with an address of the RelayHub. In a real supported blockchain this address is constant and 
-will be advertised [on this website](networks.md). For local test environment spin-up instructions, refer to our 
+will be advertised [on this website](/networks.md). For local test environment spin-up instructions, refer to our 
 [testing manual](testing-gsn-applications.md), or just look in the output of `gsn start`.
 
 Next step is to ensure the Paymaster has enough ether deposited to the `RelayHub':

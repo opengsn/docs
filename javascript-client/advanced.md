@@ -116,12 +116,12 @@ By default, relays are sorted based on the following algorithm:
 - sort lower fee first.
 - if a relayer failed a transaction lately, lower its score so it moves to the end of the list.
 
-It is possible to override this score calculation, by providing `scoreCalculator` function. see [DefaultRelayScore](https://github.com/opengsn/gsn/blob/master/src/relayclient/KnownRelaysManager.ts#L25) for the default
+It is possible to override this score calculation, by providing `scoreCalculator` function. see [DefaultRelayScore](https://github.com/opengsn/gsn/blob/release/src/relayclient/KnownRelaysManager.ts#L25) for the default
 implementation.
 
 
 ### Filter out relayers
 
-* `pingFilter` function let you filter out relays based on the ping response. The default [GasPricePingFilter](https://github.com/opengsn/gsn/blob/master/src/relayclient/RelayClient.ts#L45) filters out relayers that require gasPrice higher than client's allowed gas.
+* `pingFilter` function let you filter out relays based on the ping response. The default [GasPricePingFilter](https://github.com/opengsn/gsn/blob/release/src/relayclient/RelayClient.ts#L45) filters out relayers that require gasPrice higher than client's allowed gas.
 
 

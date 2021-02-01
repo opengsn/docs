@@ -45,7 +45,7 @@ To accept transactions that are paid for by a separate entity you have to do sev
    audited) contract that proxies the relayed messages so a security audit 
    of the GSN aware contract doesn’t require a security 
    audit of the full `RelayHub` contract. 
-   [You can look here](../deployments/networks.md) to see the addresses 
+   [You can look here](/networks.md) to see the addresses 
    to use on mainnet and various test networks.
 1. Create a `versionRecipient()` function to return the current 
    version of the contract.
@@ -83,7 +83,7 @@ contract CaptureTheFlag is BaseRelayRecipient {
 
         // Get the forwarder address for the network
         // you are using from
-        // https://docs.opengsn.org/deployments/networks.html
+        // https://docs.opengsn.org/networks.html
 	constructor(address _forwarder) public {
 		trustedForwarder = _forwarder;
 	}
@@ -114,7 +114,7 @@ finance based on the sender, the target contract, and possibly additional inform
 Paymasters are contracts, so they are always available, same as any other 
 Ethereum contract. Relays are internet sites which get paid by paymasters for 
 their services. Running a new relay is cheap and easy 
-([see directions here](/tutorials/relay.html)). 
+([see directions here](/relay-server/tutorial.md)). 
 We expect that anybody who opens a dapp for relayed calls will also set up a relay or 
 two, so there will be enough that they can't all be censored.
 
@@ -190,7 +190,7 @@ can use `onlyOwner` because `BasePaymaster` inherits from `Ownable`.
 
 This is the paymaster’s most important function, the decision whether to pay for a 
 transaction or not. The `GNSType.RelayRequest` type is defined 
-[here](https://github.com/opengsn/gsn/blob/master/contracts/interfaces/GsnTypes.sol). 
+[here](https://github.com/opengsn/gsn/blob/release/contracts/interfaces/GsnTypes.sol). 
 It includes multiple fields - we’ll use the `.target`, which is the target contract.
 The `signature` can be used to validate the `relayRequest` value.
 ```solidity
@@ -323,7 +323,7 @@ real network or a test network).
    ```
 1. Specify the address of `RelayHub` and `Forwarder` on 
    the network you’re using. 
-   [You can get that information here](../deployments/networks.md).
+   [You can get that information here](/networks.md).
    ```javascript
    paymaster.setRelayHub(&lt;RelayHub address&gt;)
    paymaster.setTrustedForwarder(&lt;Forwarder address&gt;)

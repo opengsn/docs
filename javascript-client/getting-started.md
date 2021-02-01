@@ -95,7 +95,7 @@ For testing purposes, our `gsn start` deploys a paymaster that will accept and p
     const paymaster = require('../build/gsn/Paymaster').address
 ```
 
-We also deploy such a paymaster on all [test networks](../deployments/networks.md)
+We also deploy such a paymaster on all [test networks](/networks.md)
 For obvious reasons, there is no such "accept everytihing" paymaster on mainnets - any such deployed paymaster will soon get depleted by hackers.
 
 ### Add Use GSN RelayProvider in your app <a id="add-provider"></a>
@@ -149,7 +149,7 @@ await myRecipient.methods.myFunction().send({ from, useGSN: false });
 
 ### Running GSN on a local network
 
-GSN is deployed on all major test and public [networks](../deployments/networks.md). 
+GSN is deployed on all major test and public [networks](/networks.md). 
 In order to test it locally with ganache, you need to deploy it locally.
 
 See [gsn start](gsn-helpers.md#start) on how to start it locally, on your ganache instance.
