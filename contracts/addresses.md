@@ -129,3 +129,28 @@ StakeManager: [0x82665930743aA9740ce20E7f09bcA062DC16d6f4](https://blockscout.co
 VersionRegistry: [0x9BC7EFA2507CB277EC98caa110f4CcA88A3E525A](https://blockscout.com/poa/xdai/address/0x9BC7EFA2507CB277EC98caa110f4CcA88A3E525A)
 
 Forwarder: [0x5c32a1c8a10d35f96FD7A78e69b0196023648F89](https://blockscout.com/poa/xdai/address/0x5c32a1c8a10d35f96FD7A78e69b0196023648F89)
+
+## Polygon (formerly Matic)
+
+### Matic Mainnet
+
+RelayHub: [0x4DEb80d7dbcD0Df91F301fe89993194E16735b58](https://explorer-mainnet.maticvigil.com/address/0x4DEb80d7dbcD0Df91F301fe89993194E16735b58/contracts)
+
+StakeManager: [0x2c788C28406E839B2F1fE540f0e654b417BAa92c](https://explorer-mainnet.maticvigil.com/address/0x2c788C28406E839B2F1fE540f0e654b417BAa92c/contracts)
+
+VersionRegistry: [0x53F662C49997eB95cFd9203dB89b30065FCa249B](https://explorer-mainnet.maticvigil.com/address/0x53F662C49997eB95cFd9203dB89b30065FCa249B/contracts)
+
+Forwarder: [0xCB8e0DE47A619d2f26450f22F40399f1B4E015e9](https://explorer-mainnet.maticvigil.com/address/0xCB8e0DE47A619d2f26450f22F40399f1B4E015e9/contracts)
+
+### Matic Mumbai
+
+RelayHub: [0x79A1c9f5a05795aFc04bbACaE46275Ac01a11919](https://explorer-mumbai.maticvigil.com/address/0x79A1c9f5a05795aFc04bbACaE46275Ac01a11919/contracts)
+
+StakeManager: [0x9D0060A21C048cF7b0Fa8Da997B78c4B211F39c8](https://explorer-mumbai.maticvigil.com/address/0x9D0060A21C048cF7b0Fa8Da997B78c4B211F39c8/contracts)
+
+VersionRegistry: [0x94492Dd0130d93AB76E106B4d8F91eB0f1613931](https://explorer-mumbai.maticvigil.com/address/0x94492Dd0130d93AB76E106B4d8F91eB0f1613931/contracts)
+
+Forwarder: [0xF65De530849aC11d6931b07A52C17e054489920e](https://explorer-mumbai.maticvigil.com/address/0xF65De530849aC11d6931b07A52C17e054489920e/contracts)
+
+Accept-Everything Paymaster: [0x5566b6DE069c8c60caD808E133f513AE9AD2Eb5a](https://explorer-mumbai.maticvigil.com/address/0x5566b6DE069c8c60caD808E133f513AE9AD2Eb5a/contracts)
+
