@@ -80,7 +80,6 @@ module.exports = {
           '/relay-server/tutorial',
         ]
       },
-
       {
         title: 'FAQ',
         collapsable: false,
@@ -90,6 +89,7 @@ module.exports = {
 	  '/faq/legacy'
         ]
       },
+      'audits.md',
     ],
   },
 
