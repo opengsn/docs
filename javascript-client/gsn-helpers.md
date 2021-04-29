@@ -12,8 +12,10 @@ Run GSN on a local test network.
 This commands deploy GSN contracts, and then starts a relay server
 
 ```bash
-npx gsn start [--workdir <directory>]
+npx gsn start [--workdir <directory>] [-n <network>]
 ```
+
+The `<network>` defaults to "http://localhost:8545".
 
 Contract addresses are written into `<directory>`, which is `./build/gsn` by default.
 From a test script, use
