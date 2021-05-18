@@ -4,7 +4,10 @@ In order to help developers interact with the network, both locally and on real 
 
 ### Installing CLI
 
-The CLI commands are part of the `@opengsn/gsn` package
+The CLI commands are in a package `@opengsn/cli`, so you must install it separately:
+```
+yarn add --save-dev @opengsn/cli
+```
 
 ### start <a id="start"></a>
 
@@ -20,6 +23,7 @@ The `<network>` defaults to "http://localhost:8545".
 Contract addresses are written into `<directory>`, which is `./build/gsn` by default.
 From a test script, use
 ```js
+const { GsnTestEnvironment } = require( '@opengsn/dev')
 const { paymasterAddress, forwarderAddress } = GsnTestEnvironment.loadDeployments()
 ```
 

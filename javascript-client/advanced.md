@@ -65,7 +65,7 @@ The underlying `web3.currentProvider` is still used to show the user with a "sig
 In order to support it, the GSN provider also provides the following `accountManager` API:
 
 ```javascript
-const { RelayProvider } = require('@opengsn/gsn');
+const { RelayProvider } = require('@opengsn/provider');
 const provider = RelayProvider.newProvider({ provider: web3.currentProvider, config })
 
 const fromAddress = provider.newAccount().address
