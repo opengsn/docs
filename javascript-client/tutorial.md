@@ -31,13 +31,13 @@ To accept transactions that are paid for by a separate entity you have to do sev
      }
    };
    ```
-1. Add `@opengsn/gsn` in the dependencies, version 2.1.0.
+1. Add `@opengsn/provider` in the dependencies, version 2.2.0.
    ```bash  
-   npm install @opengsn/gsn@^2.1.0 --save
+   npm install @opengsn/provider --save
    ```
 1. Import the base contract, and inherit from it:
    ```javascript
-   import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
+   import "@opengsn/contracts/src/BaseRelayRecipient.sol";
    contract MyContract is BaseRelayRecipient { ... }
    ```
 1. Create a constructor that sets `trustedForwarder` to the address of a 
@@ -72,7 +72,7 @@ pragma solidity ^0.6.10;
 
 // SPDX-License-Identifier: MIT OR Apache-2.0
 
-import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
+import "@opengsn/contracts/src/BaseRelayRecipient.sol";
 
 contract CaptureTheFlag is BaseRelayRecipient {
 	string public override versionRecipient = "2.0.0";
@@ -149,8 +149,8 @@ pragma experimental ABIEncoderV2;
 
 // SPDX-License-Identifier: MIT OR Apache-2.0
 
-import "@opengsn/gsn/contracts/forwarder/IForwarder.sol";
-import "@opengsn/gsn/contracts/BasePaymaster.sol";
+import "@opengsn/contracts/src/forwarder/IForwarder.sol";
+import "@opengsn/contracts/src/BasePaymaster.sol";
 
 ```
 
@@ -368,7 +368,7 @@ These are the steps to start the development:
    ```
 1. Install the GSN package and its dependencies:
    ```bash
-   npm install @opengsn/gsn@^2.1.0 ethers
+   npm install @opengsn/provider ethers
    ```
 1. Write your code in a file, for example `index.js`. 
 1. To compile the application into browser-compatible JavaScript, use this command:
@@ -395,7 +395,7 @@ Import the packages we need:
 
 ```javascript
 var Web3 = require( 'web3')
-const gsn = require('@opengsn/gsn')
+const gsn = require('@opengsn/provider')
 const ethers = require("ethers")
 ```
 
@@ -495,9 +495,9 @@ To do that, you run the tests locally:
    ```
 1. Get the test environment configuration
    ```javascript
-   Gsn = require("@opengsn/gsn")
+   Gsn = require("@opengsn/provider")
    ethers = require("ethers")
-   testEnvObj = new require('@opengsn/gsn/dist/GsnTestEnvironment').GsnTestEnvironment 
+   testEnvObj = new require('@opengsn/dev').GsnTestEnvironment 
    testEnv = testEnvObj.loadDeployment()
    ```
 1. Configure the paymaster, as you did earlier.

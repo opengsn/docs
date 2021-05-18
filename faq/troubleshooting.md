@@ -27,14 +27,14 @@ Any further GSN support is done by using OpenGSN libraries directly.
 
 Still, they have basic support for hooking GSN in all their contracts, and that support will stay.
 
-- Make sure you use `OpenZeppelin@3` (which support solidity 0.6)
+- Make sure you use `OpenZeppelin@3` (which support solidity 0.7)
 - You should make the `_msgSender()` and `_msgData()` of both GSN and OpenZeppelin use GSN's implementation (sorry about the syntax: its a solidity requirement...)
 - As any GSN contract, you must initialize the **trustedForwarder** member, either through the constructor, or via a setter (protected, so only admin/owner can set it)
 - You contract should look like this:
 
   ```solidity
-  pragma solidity ^0.6.10;
-  import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
+  pragma solidity ^0.7.6;
+  import "@opengsn/contracts/src/BaseRelayRecipient.sol";
   import "@openzeppelin/contracts/access/Ownable.sol";
 
   contract MyContract is BaseRelayRecipient, Ownable {
@@ -48,20 +48,21 @@ Still, they have basic support for hooking GSN in all their contracts, and that 
       return BaseRelayRecipient._msgData();
     }
 
-    string public override versionRecipient = "2.0.0";
+    string public override versionRecipient = "2.2.0";
 
     function setForwarder(address forwarder) public onlyOwner {
       trustedForwarder = forwarder;
     }
+  
     ...
   }
   ```
 
 
-## Error: Provided Hub version(2.0) is not supported by the current interactor(2.0.3)
+## Error: Provided Hub version(2.0) is not supported by the current interactor(2.2.2)
 
 The **Paymaster** version is wrong: The client checks that it is compatible with all the contracts.
-This happens when you create a custom paymaster with a version string that is less than 2.0.0
+This happens when you create a custom paymaster with a version string that is less than 2.2.0
 
 
 ## I get an error: paymaster rejected in local view call to 'relayCall()' : Forwarder is not trusted

@@ -65,7 +65,7 @@ You also need have a`forwarder`, which is the contract you will receive the call
 See "delpoyment" below on how to set its value.
 
 ```javascript
-import "@opengsn/gsn/contracts/BaseRelayRecipient";
+import "@opengsn/contracts/src/BaseRelayRecipient";
 
 contract MyContract is BaseRelayRecipient {
     constructor(address forwarder) {
@@ -104,7 +104,7 @@ Once your contract is set, you need to use a RelayProvider to access your contra
 are relayed through GSN
 
 ```javascript
-const { RelayProvider } = require('@opengsn/gsn')
+const { RelayProvider } = require('@opengsn/provider')
 
 const config = { 
     paymasterAddress,

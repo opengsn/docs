@@ -9,7 +9,7 @@ If you're new to the GSN, you probably want to first take a look at the [overvie
 The first step to writing a recipient is to inherit from our BaseRelayRecipient contract. If you're also inheriting from [OpenZeppelin contracts](https://github.com/OpenZeppelin/openzeppelin-contracts), such as ERC20 or ERC721, this will work just fine: adding BaseRelayRecipient to your token contracts will make them GSN-callable.
 
 ```solidity
-import "@opengsn/gsn/contracts/BaseRelayRecipient.sol";
+import "@opengsn/contracts/src/BaseRelayRecipient.sol";
 
 contract MyContract is BaseRelayRecipient {
     ...
