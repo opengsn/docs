@@ -31,5 +31,5 @@ await relayHub.depositFor(paymaster, { from: accountWithMoney, value: depositAmo
 
 ### Running your own production relay server
 
-If you are interested in running your own production relay server on a real network, refer to [these instructions](:running-own-relay.md).
+If you are interested in running your own production relay server on a real network, refer to [these instructions](/relay-server/deployment-reference.md).
 

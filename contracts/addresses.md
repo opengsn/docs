@@ -49,18 +49,17 @@ VersionRegistry: [0x9e59Ea5333cD4f402dAc320a04fafA023fe3810D](https://ropsten.et
 
 Accept-Everything Paymaster: [0x05319d82fa69EA8434A967CdF4A2699Db4Ff40e8](https://ropsten.etherscan.io/address/0x05319d82fa69EA8434A967CdF4A2699Db4Ff40e8)
 
-[comment]: <> (### Goerli Testnet)
+<!--
+### Goerli Testnet
 
-[comment]: <> (RelayHub: [0x727862794bdaa3b8Bc4E3705950D4e9397E3bAfd]&#40;https://goerly.etherscan.io/address/0x727862794bdaa3b8Bc4E3705950D4e9397E3bAfd&#41;)
+RelayHub: [0x727862794bdaa3b8Bc4E3705950D4e9397E3bAfd](https://goerli.etherscan.io/address/0x727862794bdaa3b8Bc4E3705950D4e9397E3bAfd)
 
-[comment]: <> (Forwarder: [0x7eEae829DF28F9Ce522274D5771A6Be91d00E5ED]&#40;https://goerly.etherscan.io/address/0x7eEae829DF28F9Ce522274D5771A6Be91d00E5ED&#41;)
+Forwarder: [0x7eEae829DF28F9Ce522274D5771A6Be91d00E5ED](https://goerli.etherscan.io/address/0x7eEae829DF28F9Ce522274D5771A6Be91d00E5ED)
 
-[comment]: <> (Paymaster: [0x0000000000000000000000000000000000000000]&#40;https://goerly.etherscan.io/address/0x0000000000000000000000000000000000000000&#41;)
+Paymaster: [0x50d2b611CC85308CeEecd7a43D00168b97B71F9A](https://goerli.etherscan.io/address/0x50d2b611CC85308CeEecd7a43D00168b97B71F9A)
 
-[comment]: <> (VersionRegistry: [0x7380D97dedf9B8EEe5bbE41422645aA19Cd4C8B3]&#40;https://goerly.etherscan.io/address/0x7380D97dedf9B8EEe5bbE41422645aA19Cd4C8B3&#41;)
-
-[comment]: <> (Penalizer: [0x14EC9f098d1B76a0452137A41f788D76EC155856]&#40;https://goerly.etherscan.io/address/0x14EC9f098d1B76a0452137A41f788D76EC155856&#41;)
-
+VersionRegistry: [0x7380D97dedf9B8EEe5bbE41422645aA19Cd4C8B3](https://goerli.etherscan.io/address/0x7380D97dedf9B8EEe5bbE41422645aA19Cd4C8B3)
+-->
 
 
 ## Ethereum Classic
@@ -72,8 +71,6 @@ RelayHub: [0xDC8B38D05Be14818EE6d1cc4E5245Df6C52A684E](https://blockscout.com/et
 Forwarder: [0x0DEEF5a1e5bF8794A5145e052E24A852a081AF65](https://blockscout.com/etc/mainnet/address/0x0DEEF5a1e5bF8794A5145e052E24A852a081AF65)
 
 VersionRegistry: [0x581648Bb9dB7e36360B8B551Cdaf23c481f106c3](https://blockscout.com/etc/kotti/address/0x581648Bb9dB7e36360B8B551Cdaf23c481f106c3)
-
-Accept-Everything Paymaster: [https://blockscout.com/etc/mainnet/address/0xB178ec1B785e02A94D6CB1704437A41D25BbB2ce](https://blockscout.com/etc/mainnet/address/0xB178ec1B785e02A94D6CB1704437A41D25BbB2ce)
 
 ### Kotti ETC testnet.
 
@@ -123,7 +120,13 @@ Accpept-Everything Paymaster: [0xcA94aBEdcC18A10521aB7273B3F3D5ED28Cf7B8A](https
 
 ### Mainnet
 
-TBD
+RelayHub: [0xAa3E82b4c4093b4bA13Cb5714382C99ADBf750cA](https://bscscan.com/address/0xAa3E82b4c4093b4bA13Cb5714382C99ADBf750cA)
+
+VersionRegistry: [0x9e59Ea5333cD4f402dAc320a04fafA023fe3810D](https://bscscan.com/address/0x9e59Ea5333cD4f402dAc320a04fafA023fe3810D)
+
+Forwarder: [0xeB230bF62267E94e657b5cbE74bdcea78EB3a5AB](https://bscscan.com/address/0xeB230bF62267E94e657b5cbE74bdcea78EB3a5AB)
+
+Accept-Everything Paymaster: [0x01a5a06C5Ba6E5f8FC9CB060492fae1b3d03c69d](https://bscscan.com/address/0x01a5a06C5Ba6E5f8FC9CB060492fae1b3d03c69d)
 
 ### Testnet
 
@@ -136,5 +139,7 @@ Forwarder: [0xeB230bF62267E94e657b5cbE74bdcea78EB3a5AB](https://testnet.bscscan.
 Accept-Everything Paymaster: [0x01a5a06C5Ba6E5f8FC9CB060492fae1b3d03c69d](https://testnet.bscscan.com/address/0x01a5a06C5Ba6E5f8FC9CB060492fae1b3d03c69d)
 
 -----
-For reference old: older (version 2.0.1) contracts are [here](/contracts/addresses201.md)
+::: tip Old contracts:
+For reference older (version 2.0.1) contracts are [here](/contracts/addresses201.md)
 Please note that they might not have active relayers.
+:::
