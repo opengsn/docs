@@ -78,7 +78,7 @@ Next, RelayHub will ask your `Paymaster` contract if it wants to receive a relay
 
 ```javascript
 function preRelayedCall(
-    GSNTypes.RelayRequest relayRequest,
+    GsnTypes.RelayRequest relayRequest,
     bytes approvalData,
     uint256 maxPossibleGas
 )
@@ -110,7 +110,7 @@ function postRelayedCall(
     bool success,
     bytes32 preRetVal,
     uint256 gasUseWithoutPost,
-    GSNTypes.GasData calldata gasData
+    GsnTypes.RelayData calldata relayData
 ) external;
 ```
 
