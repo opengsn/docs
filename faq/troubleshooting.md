@@ -2,62 +2,80 @@
 
 ## "signature mismatch" when using Metamask with local ganache
 
-Once initial tests are running, its time to run a test using a browser against a local chain, running on ganache.
 
-But when trying to run from a browser with your local ganahce, you often see an error message: **signature mismatch**
-
-Metamask has a [bug](https://github.com/MetaMask/metamask-extension/issues/8385) that confuses network-id and chain-id when handling the rpc call **`signTypedData()`**. Metamask can only work properly on networks with these are the same (which means it can't work with ganache or Ethereum Classic, or several other networks that passed a network fork)
-
-Thankfully, Ganache lately a new version (v6.11.0) that fixes their [bug](https://github.com/trufflesuite/ganache-core/issues/515). so now you can bring up ganache in a way that is compatible with Metamask.
-
-Start ganache with this command line (good for Linux and Mac)
-
-```sh
-net=`date "+%j%H%M%S"` ganache-cli --networkId $net --chainId $net
+This is an old [bug](https://github.com/trufflesuite/ganache-core/issues/515) in Ganache.
+It was fixed in v6.11, but requires an extra command-line argument:
+```bash
+ganache-cli --chainId 1337
 ```
 
-This will keep the normal ganache property of new networkId on each restart, but also make sure the chainId is the same as networkId.
+Next major release should work without it.
 
-This way, you can open a browser (or command-line tests) and use Metamask to connect to GSN.
+(if you're curious: ganache's RPC call reports that the chain-id is 1337, but the OPCODE `chainid` returns 1 - unless we explicitly add the above command-line argument)
 
 ## My contract is using OpenZeppelin. How do I add GSN support?
 
-OpenZeppelin supports GSNv1 in their libraries. They are now in the process of removing GSN from their library.
-Any further GSN support is done by using OpenGSN libraries directly.
 
-Still, they have basic support for hooking GSN in all their contracts, and that support will stay.
+Yes, OpenZeppelin *v4.x* (solidity 0.8.x) supports GSN natively.  
 
-- Make sure you use `OpenZeppelin@3` (which support solidity 0.7)
-- You should make the `_msgSender()` and `_msgData()` of both GSN and OpenZeppelin use GSN's implementation (sorry about the syntax: its a solidity requirement...)
-- As any GSN contract, you must initialize the **trustedForwarder** member, either through the constructor, or via a setter (protected, so only admin/owner can set it)
-- You contract should look like this:
+```solidity
+  //SPDX-License-Identifier: UNLICENSED
+  pragma solidity ^0.8.0;
+
+  import "@openzeppelin/contracts/metatx/ERC2771Context.sol";
+  import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+  contract MyContract is ERC2771Context, ERC20 {
+  
+    constructor(string memory name_, string memory symbol_, address forwarder_) 
+      ERC2771Context(forwarder_)
+      ERC20(name_, symbol_) {
+    }
+
+     function _msgSender() internal view override(Context, ERC2771Context)
+        returns (address sender) {
+        sender = ERC2771Context._msgSender();
+    }
+
+    function _msgData() internal view override(Context, ERC2771Context)
+        returns (bytes calldata) {
+        return ERC2771Context._msgData();
+    }
+  }
+```
+
+If you're using solidity 0.7.x, you should use `@openzeppelin/contracts@3.4.1-solc-0.7-2` 
+and GSN's `BaseRelayRecipient`
+(Note that OpenZeppelin's `GSNRecipient` is for GSN v1.0, and should be used anymore)
 
   ```solidity
   pragma solidity ^0.7.6;
+
   import "@opengsn/contracts/src/BaseRelayRecipient.sol";
-  import "@openzeppelin/contracts/access/Ownable.sol";
+  import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-  contract MyContract is BaseRelayRecipient, Ownable {
-    function _msgSender() internal override(Context, BaseRelayRecipient)
-    view returns (address payable) {
-      return BaseRelayRecipient._msgSender();
-    }
-
-    function _msgData() internal override(Context,BaseRelayRecipient)
-    view returns (bytes memory ret) {
-      return BaseRelayRecipient._msgData();
+  contract MyContract is BaseRelayRecipient, ERC20 {
+  
+    constructor(string memory name_, string memory symbol_, address forwarder_) 
+      ERC20(name_, symbol_) {
+      trustedForwarder = forwarder_;
     }
 
     string public override versionRecipient = "2.2.0";
 
-    function setForwarder(address forwarder) public onlyOwner {
-      trustedForwarder = forwarder;
+    function _msgSender() internal view override(Context, BaseRelayRecipient)
+        returns (address payable sender) {
+        sender = BaseRelayRecipient._msgSender();
     }
-  
-    ...
+
+    function _msgData() internal view override(Context, BaseRelayRecipient)
+        returns (bytes memory) {
+        return BaseRelayRecipient._msgData();
+    }
   }
   ```
 
+Note that OpenGSN's Paymasters currently only support solidity 0.7.6, not 0.8
 
 ## Error: Provided Hub version(2.0) is not supported by the current interactor(2.2.2)
 
