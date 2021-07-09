@@ -29,6 +29,7 @@ and that it comes with "docker" pre-installed.
 1. edit the `config-sample/gsn-relay-config.json`:
    * Edit the `ethereumNodeUrl` to point to a valid RPC url of the network you want to use.
    * Edit the `versionRegistry` to point to the right entry for your network from the [Deployed networks](/networks.md)
+   * Edit hte `ownerAddress` to your owner account, used by `relayer-register`, below.
 1. copy the files to the host:
 
     - The `.env` file must be placed at the home folder
