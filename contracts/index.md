@@ -13,6 +13,8 @@ Before you get started, install the OpenGSN contracts using either `npm` or `yar
 yarn add @opengsn/contracts
 ```
 
+Please bear in mind that at the time of writing, OpenGSN requires solidity version **>=0.7.6**.
+
 ## Receiving a Relayed Call <a id="recipient"></a>
 
 The first step to writing a recipient is to inherit from our BaseRelayRecipient contract. If you're also inheriting from [OpenZeppelin contracts](https://github.com/OpenZeppelin/openzeppelin-contracts), such as ERC20 or ERC721, this will work just fine: adding BaseRelayRecipient to your token contracts will make them GSN-callable.
