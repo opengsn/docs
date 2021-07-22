@@ -4,6 +4,15 @@ The [Gas Station Network](https://www.opengsn.org) allows you to build apps wher
 .
 
 If you're new to the GSN, you probably want to first take a look at the [overview of the system](../index.md) to get a clearer picture of how gasless transactions are achieved. Otherwise, strap in!
+
+## Install OpenGSN Contracts <a id="install"></a>
+
+Before you get started, install the OpenGSN contracts using either `npm` or `yarn` within your repository. Using `yarn` this will look like as follows:
+
+```bash
+yarn add @opengsn/contracts
+```
+
 ## Receiving a Relayed Call <a id="recipient"></a>
 
 The first step to writing a recipient is to inherit from our BaseRelayRecipient contract. If you're also inheriting from [OpenZeppelin contracts](https://github.com/OpenZeppelin/openzeppelin-contracts), such as ERC20 or ERC721, this will work just fine: adding BaseRelayRecipient to your token contracts will make them GSN-callable.
