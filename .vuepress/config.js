@@ -29,7 +29,8 @@ module.exports = {
   themeConfig: {
     logo: '/gsn-green-vector.svg',
     repo: 'https://github.com/opengsn/gsn',
-    editLinks: false,
+    docsRepo: 'https://github.com/opengsn/docs',
+    editLinks: true,
     docsDir: '.',
     editLinkText: '',
     lastUpdated: true,
@@ -43,8 +44,8 @@ module.exports = {
         link: 'https://forum.opengsn.org'
       },
       {
-        text: 'Telegram',
-        link: 'https://t.me/joinchat/F_BETUjG0Crb2s6mFx1LWA'
+        text: 'Discord',
+        link: 'https://discord.gg/NXXTCbh58s'
       },
       {
         text: 'Status',

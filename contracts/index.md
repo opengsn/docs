@@ -22,7 +22,7 @@ contract MyContract is BaseRelayRecipient {
 There's only one extra detail you need to take care of when working with GSN recipient contracts: _you must never use `msg.sender` or `msg.data` directly_. On relayed calls, `msg.sender` will be the `Forwarder` contract instead of your user! This doesn't mean however you won't be able to retrieve your users' addresses: `BaseRelayRecipient` provides `_msgSender()`, which is a drop-in replacement for `msg.sender` that takes care of the low-level details. As long as you use this function instead of the original `msg.sender`, you're good to go!
 
 ::: warning
-Third-party contracts you inherit from may not use these replacement functions, making them unsafe to use when mixed with `BaseRelayRecipient`. If in doubt, head on over to our [Telegram support group](https://t.me/joinchat/F_BETUjG0Crb2s6mFx1LWA).
+Third-party contracts you inherit from may not use these replacement functions, making them unsafe to use when mixed with `BaseRelayRecipient`. If in doubt, head on over to our [Discord support group](https://discord.gg/NXXTCbh58s).
 :::
 ## Paying for your user's meta-transaction <a id="paymaster"></a>
 
