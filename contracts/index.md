@@ -16,6 +16,11 @@ contract MyContract is BaseRelayRecipient {
 }
 ```
 
+Install the library with npm before compiling. 
+```bash
+$npm i @opengsn/contracts
+```
+
 
 ### `_msgSender`, not `msg.sender`
 
