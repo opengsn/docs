@@ -116,7 +116,6 @@ VersionRegistry: [0x4Fe8824c885D67613848c94a15dce7680897f33E](https://explorer-m
 Accpept-Everything Paymaster: [0xcA94aBEdcC18A10521aB7273B3F3D5ED28Cf7B8A](https://explorer-mumbai.maticvigil.com/address/0xcA94aBEdcC18A10521aB7273B3F3D5ED28Cf7B8A)
 
 
-<!--
 ## Binance Smart Chain
 
 ### Mainnet
@@ -139,7 +138,6 @@ Forwarder: [0xeB230bF62267E94e657b5cbE74bdcea78EB3a5AB](https://testnet.bscscan.
 
 Accept-Everything Paymaster: [0x01a5a06C5Ba6E5f8FC9CB060492fae1b3d03c69d](https://testnet.bscscan.com/address/0x01a5a06C5Ba6E5f8FC9CB060492fae1b3d03c69d)
 
--->
 -----
 ::: tip Old contracts:
 For reference older (version 2.0.1) contracts are [here](/contracts/addresses201.md)
