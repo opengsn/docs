@@ -100,7 +100,8 @@ into the relay VM.
 1. In `.env`, specify:
    | Parameter | Value          |
    | --------- | -------------- |
-   | HOST      | Your host name |
+   | HOST      | &lt;Your host name> |
+   | HTTP_STAGE | production |
 1. Press Ctrl-O and then Enter to save the modified file.
 1. Press Ctrl-X to exit.
 1. Edit `config/gsn-relay-config.json` to specify:
