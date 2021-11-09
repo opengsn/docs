@@ -13,7 +13,7 @@ Before you get started, install the OpenGSN contracts using either `npm` or `yar
 yarn add @opengsn/contracts
 ```
 
-Please bear in mind that at the time of writing, OpenGSN requires solidity version **>=0.7.6**.
+Please bear in mind that at the time of writing, OpenGSN requires solidity version **>=0.8.6**.
 
 ## Receiving a Relayed Call <a id="recipient"></a>
 
