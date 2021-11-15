@@ -121,6 +121,7 @@ Add the following configuration to `next.config.js` at the root directory of the
 
 ```js
 module.exports = {
+  future: { webpack5: true }, //needed only by earlier next.js versions (<= 10)
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback.fs = false
