@@ -92,7 +92,11 @@ contract('mytest', ()=> {
 
 
 
-## Using Gatsby framework, I get an error: Can't resolve 'fs' 
+## My client fails with an error: Can't resolve 'fs' 
+
+Depending on your UI framework, you need to configure your webpack:
+
+### Gatsby
 
 Add this configuration file `gatsby-node.js` in the root of your project:
 ```js
@@ -108,5 +112,20 @@ exports.onCreateWebpackConfig = ({
           fs: 'empty'
         }
   })
+}
+```
+
+### Next.JS
+
+Add the following configuration to `next.config.js` at the root directory of the project:
+
+```js
+module.exports = {
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback.fs = false
+    }
+    return config
+  },
 }
 ```
