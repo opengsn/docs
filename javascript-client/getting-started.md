@@ -127,7 +127,7 @@ To see that the sender address doesn't have to have eth, you can create a new on
 ```
 or using web3:
 ```js
-    from = web3.personal.newAccount('pwd')
+    from = web3.eth.personal.newAccount('pwd')
 ```
  The sender address 
 doesn't have to have any eth - if you're using metamask, you'll notice that it pops up a "sign" request, which cost you nothing, and not "send transaction"
