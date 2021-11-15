@@ -5,6 +5,8 @@ Prerequisites
 * A machine with docker installed, with a publicly accessible static IP address.
 * A DNS service (such as GoDaddy, NameCheap, or DuckDNS) to give your host a DNS name
 * Ether (roughly 3 eth) to activate and fund the relayer.
+* For technical assistance, please use our [discord channel](https://discord.gg/NXXTCbh58s)
+* Make sure to join the [announcement channel](https://discord.gg/D67qUxjHRp), to get notifications on relayer configuration and upgrades.
 
 ## Start a Machine
 
