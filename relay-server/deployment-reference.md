@@ -60,7 +60,7 @@ and that it comes with "docker" pre-installed.
     You should see JSON output containing: `{ .. "ready":false, ...}`, meaning the relayer is up 
     and running, but not registered yet.
 
-1. To register and fund using the [gsn relayer-register](./gsn-helpers.md#register) command
+1. To register and fund using the [gsn relayer-register](../javascript-client/gsn-helpers.md#register) command
 
 1. Wait for the Relayer to complete the registration. It should take 1-2 minutes.
 
