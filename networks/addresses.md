@@ -138,29 +138,6 @@ Forwarder: [0xeB230bF62267E94e657b5cbE74bdcea78EB3a5AB](https://testnet.bscscan.
 
 Accept-Everything Paymaster: [0x01a5a06C5Ba6E5f8FC9CB060492fae1b3d03c69d](https://testnet.bscscan.com/address/0x01a5a06C5Ba6E5f8FC9CB060492fae1b3d03c69d)
 
-
-## Optimism network
-
-### Mainnet
-
-RelayHub: [0x6f00F1A7BdB7E2E407385263B239090bCdb6b442](https://optimistic.etherscan.io/address/0x6f00F1A7BdB7E2E407385263B239090bCdb6b442)
-
-VersionRegistry: [0xD8Cf3315FFD1A3ec74Dc2B02908AF60e5E330472](https://optimistic.etherscan.io/address/0xD8Cf3315FFD1A3ec74Dc2B02908AF60e5E330472)
-
-Forwarder: [0x67097a676FCb14dc0Ff337D0D1F564649aD94715](https://optimistic.etherscan.io/address/0x67097a676FCb14dc0Ff337D0D1F564649aD94715)
-
-Accept-Everything Paymaster: [0x28E036dB9727a9d5ee9373DBAAe14B422D83a017](https://optimistic.etherscan.io/address/0x28E036dB9727a9d5ee9373DBAAe14B422D83a017)
-
-### Testnet (kovan)
-
-RelayHub: [0xceEd6F194C07EB606ae0F3899DdfA7dE8a4ABcB5](https://kovan-optimistic.etherscan.io/address/0xceEd6F194C07EB606ae0F3899DdfA7dE8a4ABcB5)
-
-VersionRegistry: [0xf7D1b4f7B20B4bC1b4dc1E09B709edA31123193c](https://kovan-optimistic.etherscan.io/address/0xf7D1b4f7B20B4bC1b4dc1E09B709edA31123193c)
-
-Forwarder: [0x39A2431c3256028a07198D2D27FD120a1f81ecae](https://kovan-optimistic.etherscan.io/address/0x39A2431c3256028a07198D2D27FD120a1f81ecae)
-
-Accept-Everything Paymaster: [0x6B43C92C4661c8555D5D060144457D9bF0fD0D34](https://kovan-optimistic.etherscan.io/address/0x6B43C92C4661c8555D5D060144457D9bF0fD0D34)
-
 -----
 ::: tip Old contracts:
 For reference older (version 2.0.1) contracts are [here](/contracts/addresses201.md)
