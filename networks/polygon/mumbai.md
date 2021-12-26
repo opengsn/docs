@@ -16,11 +16,22 @@ gsn-relay-config.json:
   "pctRelayFee": 70,
   "versionRegistryAddress": "0x4Fe8824c885D67613848c94a15dce7680897f33E",
   "ownerAddress": "<OWNER_ADDRESS>",
-  "registrationBlockRate": 50000,
-  "pastEventsQueryMaxPageSize": 80000,
+  "registrationBlockRate": 1000,
+  "pastEventsQueryMaxPageSize": 900,
   "coldRestartLogsFromBlock": 23164086,
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
   "ethereumNodeUrl": "https://matic-mumbai.chainstacklabs.com"
 }
+```
+#### Recommeneded client configuration
+```
+  // add the following fields to your GSNConfig:
+  const gsnConfig: Partial<GSNConfig> = {
+    relayLookupWindowBlocks: 990,
+    relayRegistrationLookupBlocks: 990,
+    pastEventsQueryMaxPageSize: 990,
+  }
+  const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
+  await gsnProvider.init()
 ```

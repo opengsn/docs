@@ -28,3 +28,14 @@ gsn-relay-config.json:
   "readyTimeout": 1200000
 }
 ```
+#### Recommeneded client configuration
+```
+  // add the following fields to your GSNConfig:
+  const gsnConfig: Partial<GSNConfig> = {
+    relayLookupWindowBlocks: 4990,
+    relayRegistrationLookupBlocks: 4990,
+    pastEventsQueryMaxPageSize: 999,
+  }
+  const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
+  await gsnProvider.init()
+```

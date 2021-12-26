@@ -29,3 +29,14 @@ gsn-relay-config.json:
   "minHubWithdrawalBalance": 0.01e18
 }
 ```
+#### Recommeneded client configuration
+```
+  // add the following fields to your GSNConfig:
+  const gsnConfig: Partial<GSNConfig> = {
+    relayLookupWindowBlocks: 250000,
+    relayRegistrationLookupBlocks: 250000,
+    pastEventsQueryMaxPageSize: 9900,
+  }
+  const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
+  await gsnProvider.init()
+```

@@ -25,3 +25,14 @@ gsn-relay-config.json:
   "maxGasPrice": 300e9
 }
 ```
+#### Recommeneded client configuration
+```
+  // add the following fields to your GSNConfig:
+  const gsnConfig: Partial<GSNConfig> = {
+    relayLookupWindowBlocks: 990,
+    relayRegistrationLookupBlocks: 990,
+    pastEventsQueryMaxPageSize: 990,
+  }
+  const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
+  await gsnProvider.init()
+```

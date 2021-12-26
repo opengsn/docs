@@ -24,3 +24,14 @@ gsn-relay-config.json:
   "ethereumNodeUrl": "<NODE_URL>>"
 }
 ```
+#### Recommeneded client configuration
+```
+  // add the following fields to your GSNConfig:
+  const gsnConfig: Partial<GSNConfig> = {
+    relayLookupWindowBlocks: 6e5,
+    relayRegistrationLookupBlocks: 6e5,
+    pastEventsQueryMaxPageSize: Number.MAX_SAFE_INTEGER,
+  }
+  const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
+  await gsnProvider.init()
+```
