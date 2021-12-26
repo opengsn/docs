@@ -58,8 +58,7 @@ module.exports = {
         title: 'Contracts',
         collapsable: false,
         children: [
-          '/contracts/',
-          '/contracts/addresses',
+          '/contracts/'
         ]
       },
       {
@@ -79,6 +78,55 @@ module.exports = {
         children: [
           '/relay-server/deployment-reference',
           '/relay-server/tutorial',
+        ]
+      },
+      {
+        title: 'Supported Networks',
+        collapsable: false,
+        children: [
+        {
+			title: 'Ethereum',
+			children: [
+			'/networks/ethereum/mainnet.md',
+			'/networks/ethereum/rinkeby.md',
+			'/networks/ethereum/kovan.md',
+			'/networks/ethereum/ropsten.md'
+			]
+		},
+		{
+			title: 'Ethereum Classic',
+			children: [
+			'/networks/etc/etc.md',
+			'/networks/etc/kotti.md'
+			]
+		},
+		{
+			title: 'XDAI',
+			children: [
+			'/networks/xdai/xdai.md'
+			]
+		},
+		{
+			title: 'Polygon',
+			children: [
+			'/networks/polygon/polygon.md',
+			'/networks/polygon/mumbai.md'
+			]
+		},
+		{
+			title: 'Binance Smart Chain',
+			children: [
+			'/networks/bsc/bsc.md',
+			'/networks/bsc/bsct.md'
+			]
+		},
+		{
+			title: 'Optimism',
+			children: [
+			'/networks/optimism/optimism.md',
+			'/networks/optimism/optimism-kovan.md'
+			]
+		},
         ]
       },
       {
