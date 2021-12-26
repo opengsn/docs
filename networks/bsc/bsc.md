@@ -1,4 +1,4 @@
-### Binance Smart Chain Mainnet
+### BSC Mainnet
 
 RelayHub: [0xAa3E82b4c4093b4bA13Cb5714382C99ADBf750cA](https://bscscan.com/address/0xAa3E82b4c4093b4bA13Cb5714382C99ADBf750cA)
 
@@ -15,7 +15,7 @@ gsn-relay-config.json:
   "baseRelayFee": 0,
   "pctRelayFee": 70,
   "relayHubAddress": "0xAa3E82b4c4093b4bA13Cb5714382C99ADBf750cA",
-  "ownerAddress": "<owner_address>",
+  "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
   "ethereumNodeUrl": "https://bsc-dataseed1.ninicoin.io/",

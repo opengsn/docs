@@ -13,7 +13,7 @@ gsn-relay-config.json:
   "baseRelayFee": 0,
   "pctRelayFee": 64,
   "versionRegistryAddress": "0x97B6ebd38f2000B6E446DE24D9805606b882A1C5",
-  "ownerAddress": "<owner_address>",
+  "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "confirmationsNeeded": 6,
   "maxGasPrice": 800e9,
@@ -21,6 +21,6 @@ gsn-relay-config.json:
   "workerTargetBalance": 2e18,
   "managerTargetBalance": 2.3e18,
   "registrationBlockRate": 500000,
-  "ethereumNodeUrl": "<node_url>"
+  "ethereumNodeUrl": "<NODE_URL>>"
 }
 ```

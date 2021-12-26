@@ -15,7 +15,7 @@ gsn-relay-config.json:
   "baseRelayFee": 0,
   "pctRelayFee": 70,
   "versionRegistryAddress": "0x4Fe8824c885D67613848c94a15dce7680897f33E",
-  "ownerAddress": "<owner_address>",
+  "ownerAddress": "<OWNER_ADDRESS>",
   "registrationBlockRate": 50000,
   "pastEventsQueryMaxPageSize": 80000,
   "coldRestartLogsFromBlock": 23164086,

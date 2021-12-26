@@ -1,4 +1,4 @@
-### Binance Smart Chain Testnet
+### BSC Testnet
 
 RelayHub: [0xAa3E82b4c4093b4bA13Cb5714382C99ADBf750cA](https://testnet.bscscan.com/address/0xAa3E82b4c4093b4bA13Cb5714382C99ADBf750cA)
 
@@ -15,7 +15,7 @@ gsn-relay-config.json:
   "baseRelayFee": 0,
   "pctRelayFee": 70,
   "relayHubAddress": "0xAa3E82b4c4093b4bA13Cb5714382C99ADBf750cA",
-  "ownerAddress": "<owner_address>",
+  "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
   "ethereumNodeUrl": "https://data-seed-prebsc-1-s1.binance.org:8545",

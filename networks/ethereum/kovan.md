@@ -15,10 +15,10 @@ gsn-relay-config.json:
   "baseRelayFee": 0,
   "pctRelayFee": 70,
   "versionRegistryAddress": "0x7380D97dedf9B8EEe5bbE41422645aA19Cd4C8B3",
-  "ownerAddress": "<owner_address>",
+  "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
   "registrationBlockRate": 500000,
-  "ethereumNodeUrl": "<node_url>"
+  "ethereumNodeUrl": "<NODE_URL>>"
 }
 ```

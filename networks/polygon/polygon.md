@@ -15,7 +15,7 @@ gsn-relay-config.json:
   "baseRelayFee": 0,
   "pctRelayFee": 70,
   "relayHubAddress": "0x6C28AfC105e65782D9Ea6F2cA68df84C9e7d750d",
-  "ownerAddress": "<owner_address>",
+  "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
   "ethereumNodeUrl": "https://rpc-mainnet.maticvigil.com/",
