@@ -17,7 +17,7 @@ gsn-relay-config.json:
   "gasPriceFactor": 1,
   "confirmationsNeeded": 6,
   "maxGasPrice": 800e9,
-  "workerMinBalance": "0.2e18",
+  "workerMinBalance": 0.2e18,
   "workerTargetBalance": 2e18,
   "managerTargetBalance": 2.3e18,
   "registrationBlockRate": 500000,
