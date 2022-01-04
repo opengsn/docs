@@ -8,7 +8,7 @@ VersionRegistry: [0x581648Bb9dB7e36360B8B551Cdaf23c481f106c3](https://blockscout
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
-```
+```json
 {
   "baseRelayFee": 0,
   "pctRelayFee": 70,
@@ -20,7 +20,7 @@ gsn-relay-config.json:
 }
 ```
 #### Recommeneded client configuration
-```
+```js
   // add the following fields to your GSNConfig:
   const gsnConfig: Partial<GSNConfig> = {
     relayLookupWindowBlocks: 6e5,

@@ -8,7 +8,7 @@ VersionRegistry: [0x97B6ebd38f2000B6E446DE24D9805606b882A1C5](https://etherscan.
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
-```
+```json
 {
   "baseRelayFee": 0,
   "pctRelayFee": 64,
@@ -25,7 +25,7 @@ gsn-relay-config.json:
 }
 ```
 #### Recommeneded client configuration
-```
+```js
   // add the following fields to your GSNConfig:
   const gsnConfig: Partial<GSNConfig> = {
     relayLookupWindowBlocks: 6e5,

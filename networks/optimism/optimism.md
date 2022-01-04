@@ -10,7 +10,7 @@ Accept-Everything Paymaster: [0x28E036dB9727a9d5ee9373DBAAe14B422D83a017](https:
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
-```
+```json
 {
   "baseRelayFee": 0,
   "pctRelayFee": 70,
@@ -30,7 +30,7 @@ gsn-relay-config.json:
 }
 ```
 #### Recommeneded client configuration
-```
+```js
   // add the following fields to your GSNConfig:
   const gsnConfig: Partial<GSNConfig> = {
     relayLookupWindowBlocks: 250000,
