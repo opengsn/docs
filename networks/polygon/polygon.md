@@ -22,7 +22,9 @@ gsn-relay-config.json:
   "coldRestartLogsFromBlock": 22051314,
   "registrationBlockRate": 1000,
   "pastEventsQueryMaxPageSize": 900,
-  "maxGasPrice": 300e9
+  "maxGasPrice": 1e12,
+  "workerMinBalance": 0.5e18,
+  "workerTargetBalance": 0.5e18
 }
 ```
 #### Recommeneded client configuration
