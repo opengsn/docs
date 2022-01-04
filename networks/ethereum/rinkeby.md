@@ -17,7 +17,10 @@ gsn-relay-config.json:
   "versionRegistryAddress": "0xedD8C4103acAd42F7478021143E29e1B05aD85C6",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
-  "registrationBlockRate": 500000,
+  "maxGasPrice": 1e12,
+  "registrationBlockRate": 1e5,
+  "coldRestartLogsFromBlock": 8473788,
+  "pastEventsQueryMaxPageSize": 2e4,
   "ethereumNodeUrl": "<NODE_URL>>"
 }
 ```
@@ -25,9 +28,9 @@ gsn-relay-config.json:
 ```js
   // add the following fields to your GSNConfig:
   const gsnConfig: Partial<GSNConfig> = {
-    relayLookupWindowBlocks: 6e5,
-    relayRegistrationLookupBlocks: 6e5,
-    pastEventsQueryMaxPageSize: Number.MAX_SAFE_INTEGER,
+    relayLookupWindowBlocks: 1e5,
+    relayRegistrationLookupBlocks: 1e5,
+    pastEventsQueryMaxPageSize: 2e4,
   }
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
   await gsnProvider.init()
