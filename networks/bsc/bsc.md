@@ -25,7 +25,8 @@ gsn-relay-config.json:
   "workerMinBalance" : 10000000000000000,
   "workerTargetBalance" : 10000000000000000,
   "managerMinBalance": 10000000000000000,
-  "readyTimeout": 1200000
+  "readyTimeout": 1200000,
+  "coldRestartLogsFromBlock": 14107495
 }
 ```
 #### Recommeneded client configuration
