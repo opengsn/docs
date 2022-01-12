@@ -19,17 +19,16 @@ gsn-relay-config.json:
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
   "ethereumNodeUrl": "https://bsc-dataseed1.ninicoin.io/",
-  "coldRestartLogsFromBlock": 13126367,
+  "coldRestartLogsFromBlock": 14107495,
   "registrationBlockRate": 4990,
   "pastEventsQueryMaxPageSize": 999,
   "workerMinBalance" : 10000000000000000,
   "workerTargetBalance" : 10000000000000000,
   "managerMinBalance": 10000000000000000,
-  "readyTimeout": 1200000,
-  "coldRestartLogsFromBlock": 14107495
+  "readyTimeout": 1200000
 }
 ```
-#### Recommeneded client configuration
+#### Recommended client configuration
 ```js
   // add the following fields to your GSNConfig:
   const gsnConfig: Partial<GSNConfig> = {
