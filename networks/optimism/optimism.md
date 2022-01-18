@@ -40,3 +40,8 @@ gsn-relay-config.json:
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
   await gsnProvider.init()
 ```
+
+::: tip Note
+As documented in Optimism [docs](https://community.optimism.io/docs/infra/networks.html#optimism-mainnet), the rpc http endpoint`https://mainnet.optimism.io` is not ready for production usage.
+For a list of production-ready providers can, see [here](https://community.optimism.io/docs/infra/networks.html#rpc-endpoints).
+:::
