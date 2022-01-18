@@ -54,18 +54,20 @@ A reference implementation exists in the
 [TokenPaymaster](https://github.com/opengsn/gsn/blob/master/packages/paymasters/contracts/TokenPaymaster.sol)
 contract.
 
-```mermaid
-sequenceDiagram
+@startuml
+
 participant Client
-participant Relay as Relay Service
+participant Relay as "Relay Service"
 participant RelayHub
-participant Paymaster as Token Paymaster
-participant token as Token
-note over Client: 1. Create and sign request
-Client-->>Relay: 
+participant Paymaster as "Token Paymaster"
+participant Forwarder
+participant Recipient as "Target\nContract"
+participant token
+note over Client: 1. Create and\n    sign request
+Client-->>Relay: send request\n(over http)
 Relay->>RelayHub: 2. relayCall(signedRequest)
 RelayHub->>Paymaster: 3. preRelayedCall
-note over Paymaster: 4. calculate max tokens 
+note over Paymaster: 4. calculate tokens\n    for max gas
 Paymaster->>token: 5. transferFrom(wallet,paymaster)
 RelayHub->>Forwarder: 6. call target method
 note over Forwarder: 7. validate signature, nonce
@@ -75,7 +77,8 @@ note over Paymaster: 10. calculate actual tokens
 Paymaster->>token: 11. transfer(wallet, refund)
 Paymaster->>RelayHub: 12. deposit(actualUsedEth)
 note over RelayHub: 13. refund relayer for gas
-```
+Relay-->>Client: ok
+@enduml
 
 #### Rejecting meta-transactions and alternative gas charging methods
 Unlike regular contract function calls, each relayed call has an additional number of steps it must go through, which are functions of the `Paymaster` interface that `RelayHub` will call before and after calling your contract.
