@@ -147,6 +147,20 @@ await myRecipient.methods.myFunction().send({ from, useGSN: false });
 ```
 
 
+### Adding TypeScript types
+
+If your project is using TypeScript, you may need to add the following lines to your `tsconfig.json` file:
+
+```json
+{
+  "include": [
+    "node_modules/@opengsn/contracts/types/truffle-contracts/index.d.ts",
+    "node_modules/@opengsn/contracts/types/truffle-contracts/types.d.ts"
+  ]
+}
+
+```
+
 ### Running GSN on a local network
 
 GSN is deployed on all major test and public [networks](/networks.md). 
