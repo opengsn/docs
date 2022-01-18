@@ -141,13 +141,17 @@ module.exports = {
       'audits.md',
     ],
   },
-
+  markdown: {
+    extendMarkdown: md => {
+      md.set({ html: true })
+      md.use(require('markdown-it-plantuml'))
+    }
+  },
   /**
    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
    */
   plugins: [
     '@vuepress/plugin-back-to-top',
     '@vuepress/plugin-medium-zoom',
-    'mermaidjs',
   ]
 }
