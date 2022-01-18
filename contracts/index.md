@@ -51,10 +51,31 @@ One of the most commonly requested features in Ethereum is ability to pay gas
 fees in ERC20 tokens. 
 
 A reference implementation exists in the
-[TokenPaymaster](https://github.com/opengsn/gsn-paymasters/blob/master/contracts/TokenPaymaster.sol)
+[TokenPaymaster](https://github.com/opengsn/gsn/blob/master/packages/paymasters/contracts/TokenPaymaster.sol)
 contract.
 
-<img src="./images/paymaster_flow.png" alt="" width="80%" />
+```mermaid
+sequenceDiagram
+participant Client
+participant Relay as Relay Service
+participant RelayHub
+participant Paymaster as Token Paymaster
+participant token as Token
+note over Client: 1. Create and sign request
+Client-->>Relay: 
+Relay->>RelayHub: 2. relayCall(signedRequest)
+RelayHub->>Paymaster: 3. preRelayedCall
+note over Paymaster: 4. calculate max tokens 
+Paymaster->>token: 5. transferFrom(wallet,paymaster)
+RelayHub->>Forwarder: 6. call target method
+note over Forwarder: 7. validate signature, nonce
+Forwarder->>Recipient: 8. doSomething()
+RelayHub->>Paymaster: 9. postRelayedCall(actualUsedETH)
+note over Paymaster: 10. calculate actual tokens
+Paymaster->>token: 11. transfer(wallet, refund)
+Paymaster->>RelayHub: 12. deposit(actualUsedEth)
+note over RelayHub: 13. refund relayer for gas
+```
 
 #### Rejecting meta-transactions and alternative gas charging methods
 Unlike regular contract function calls, each relayed call has an additional number of steps it must go through, which are functions of the `Paymaster` interface that `RelayHub` will call before and after calling your contract.
