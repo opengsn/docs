@@ -54,7 +54,7 @@ and that it comes with "docker" pre-installed.
 1. Check the relay is up:
 
     ```
-    curl https://HOSTNAME/getaddr
+    curl https://HOSTNAME/gsn1/getaddr
     ```
 
     You should see JSON output containing: `{ .. "ready":false, ...}`, meaning the relayer is up 
