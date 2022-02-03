@@ -32,9 +32,11 @@ gsn-relay-config.json:
 ```js
   // add the following fields to your GSNConfig:
   const gsnConfig: Partial<GSNConfig> = {
+    paymasterAddress: <PAYMASTER_ADDRESS>,
     relayLookupWindowBlocks: 4990,
     relayRegistrationLookupBlocks: 4990,
     pastEventsQueryMaxPageSize: 999,
+    maxViewableGasLimit: (5e5).toString(),
   }
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
   await gsnProvider.init()
