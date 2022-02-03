@@ -24,16 +24,20 @@ gsn-relay-config.json:
   "workerMinBalance" : 10000000000000000,
   "workerTargetBalance" : 10000000000000000,
   "managerMinBalance": 10000000000000000,
-  "coldRestartLogsFromBlock": 14624603
+  "coldRestartLogsFromBlock": 14624603,
+  "workerMinBalance": 0.1e18,
+  "workerTargetBalance": 0.3e18
 }
 ```
 #### Recommeneded client configuration
 ```js
   // add the following fields to your GSNConfig:
   const gsnConfig: Partial<GSNConfig> = {
+    paymasterAddress: <PAYMASTER_ADDRESS>,
     relayLookupWindowBlocks: 4990,
     relayRegistrationLookupBlocks: 4990,
     pastEventsQueryMaxPageSize: 999,
+    maxViewableGasLimit: (5e5).toString(),
   }
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
   await gsnProvider.init()
