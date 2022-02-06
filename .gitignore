@@ -2,3 +2,5 @@
 _book
 node_modules
 /.vuepress/dist/
+/soldoc/contracts/
+/gsn/

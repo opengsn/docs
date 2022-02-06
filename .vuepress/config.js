@@ -81,6 +81,40 @@ module.exports = {
         ]
       },
       {
+        title: 'Code Reference',
+        collapsable: false,
+        children: [
+           "soldoc/contracts/forwarder/IForwarder.md",
+           "soldoc/contracts/forwarder/Forwarder.md",
+           "soldoc/contracts/Migrations.md",
+           "soldoc/contracts/BasePaymaster.md",
+           "soldoc/contracts/arbitrum/ArbRelayHub.md",
+           "soldoc/contracts/arbitrum/ArbSys.md",
+           "soldoc/contracts/RelayHub.md",
+           "soldoc/contracts/utils/RelayRegistrar.md",
+           "soldoc/contracts/utils/GsnUtils.md",
+           "soldoc/contracts/utils/MinLibBytes.md",
+           "soldoc/contracts/utils/GsnTypes.md",
+           "soldoc/contracts/utils/RelayHubValidator.md",
+           "soldoc/contracts/utils/RLPReader.md",
+           "soldoc/contracts/utils/GsnEip712Library.md",
+           "soldoc/contracts/BatchForwarder.md",
+           "soldoc/contracts/GatewayForwarder.md",
+           "soldoc/contracts/StakeManager.md",
+           "soldoc/contracts/BaseRelayRecipient.md",
+           "soldoc/contracts/Penalizer.md",
+           "soldoc/contracts/interfaces/IPenalizer.md",
+           "soldoc/contracts/interfaces/IRelayRegistrar.md",
+           "soldoc/contracts/interfaces/IERC20Token.md",
+           "soldoc/contracts/interfaces/IRelayHub.md",
+           "soldoc/contracts/interfaces/IRelayRecipient.md",
+           "soldoc/contracts/interfaces/IPaymaster.md",
+           "soldoc/contracts/interfaces/IStakeManager.md"
+        ]
+      
+      },
+
+      {
         title: 'Supported Networks',
         collapsable: false,
         children: [
