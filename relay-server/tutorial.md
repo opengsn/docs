@@ -76,6 +76,10 @@ a script called `rdc`, which needs to run with more permissions than
 So you need to run it from a different computer that is authorized to SSH 
 into the relay VM.
 
+::: tip Note
+If you don't have this permission restriction, you can also download the script directly on the vm, and run the following commands using the "local" option.
+:::
+
 
 1. On a computer that is authorized to ssh into the relay VM, 
    download the relay configuration setup and 
@@ -132,7 +136,14 @@ into the relay VM.
    The `ready` setting should be `false`, because it isn't registered with 
    the relay hub yet.
   
-
+You can also check the activity of the relay when you are on the vm. Get the id of the "jsrelay" container.
+```bash
+docker ps
+```
+Then get the logs of this container.
+```bash
+docker logs <container-id>
+```
 
 ## Relay Staking and Registration
 
