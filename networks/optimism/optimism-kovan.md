@@ -19,18 +19,18 @@ gsn-relay-config.json:
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
   "ethereumNodeUrl": "https://kovan.optimism.io/",
-  "coldRestartLogsFromBlock": 0,
-  "registrationBlockRate": 0,
-  "pastEventsQueryMaxPageSize": 9007199254740991
+  "coldRestartLogsFromBlock": 1318966,
+  "registrationBlockRate": 5e9,
+  "pastEventsQueryMaxPageSize": 5e7
 }
 ```
 #### Recommeneded client configuration
 ```js
   // add the following fields to your GSNConfig:
   const gsnConfig: Partial<GSNConfig> = {
-    relayLookupWindowBlocks: 6e5,
-    relayRegistrationLookupBlocks: 6e5,
-    pastEventsQueryMaxPageSize: Number.MAX_SAFE_INTEGER,
+    relayLookupWindowBlocks: 5e9,
+    relayRegistrationLookupBlocks: 5e9,
+    pastEventsQueryMaxPageSize: 5e7,
   }
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
   await gsnProvider.init()
