@@ -6,7 +6,7 @@ Forwarder: [0x7eEae829DF28F9Ce522274D5771A6Be91d00E5ED](https://kovan.etherscan.
 
 VersionRegistry: [0x7380D97dedf9B8EEe5bbE41422645aA19Cd4C8B3](https://kovan.etherscan.io/address/0x7380D97dedf9B8EEe5bbE41422645aA19Cd4C8B3)
 
-Accept-Everything Paymaster: [0xdA78a11FD57aF7be2eDD804840eA7f4c2A38801d](https://kovan.etherscan.io/address/0xdA78a11FD57aF7be2eDD804840eA7f4c2A38801d)
+Accept-Everything Paymaster: [0xB19D34ca1A6B37E84cc87E3F7D0893AD897e7b5D](https://kovan.etherscan.io/address/0xB19D34ca1A6B37E84cc87E3F7D0893AD897e7b5D)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
