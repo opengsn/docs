@@ -127,6 +127,12 @@ module.exports = {
 			'/networks/optimism/optimism-kovan.md'
 			]
 		},
+		{
+			title: 'Avalanche',
+			children: [
+			'/networks/avax/avax.md',
+			]
+		},
         ]
       },
       {
