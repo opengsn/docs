@@ -124,7 +124,8 @@ module.exports = {
 			title: 'Optimism',
 			children: [
 			'/networks/optimism/optimism.md',
-			'/networks/optimism/optimism-kovan.md'
+			'/networks/optimism/optimism-kovan.md',
+			'/networks/optimism/optimism-gc.md'
 			]
 		},
 		{
