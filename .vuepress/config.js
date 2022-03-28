@@ -101,7 +101,7 @@ module.exports = {
 			]
 		},
 		{
-			title: 'XDAI',
+			title: 'GnosisChain (xDai)',
 			children: [
 			'/networks/xdai/xdai.md'
 			]
