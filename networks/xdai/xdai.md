@@ -1,4 +1,4 @@
-### XDai Mainnet
+### Gnosis Chain (xDai)
 
 RelayHub: [0x727862794bdaa3b8Bc4E3705950D4e9397E3bAfd](https://blockscout.com/poa/xdai/address/0x727862794bdaa3b8Bc4E3705950D4e9397E3bAfd)
 
@@ -19,7 +19,7 @@ gsn-relay-config.json:
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
   "maxGasPrice": 600e9,
-  "ethereumNodeUrl": "https://dai.poa.network"
+  "ethereumNodeUrl": "https://rpc.gnosischain.com"
 }
 ```
 #### Recommeneded client configuration
