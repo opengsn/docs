@@ -59,15 +59,15 @@ Or, if you like to run it together with ganache, add a script command:
 ### Add GSN to your contract <a id='add-to-contract'></a>
 When receiving a meta-transaction, a contract must be able to recognize the caller, which is usually `msg.sender`
 When receiving meta (relayed) transactions, the sender is different, so you must inherit
-a specific baseclass (BaseRelayRecipient) and use helper method `_msgSender()` to get the
+a specific baseclass (ERC2771Recipient) and use helper method `_msgSender()` to get the
 address of the sender.
 You also need have a`forwarder`, which is the contract you will receive the calls through.
 See "delpoyment" below on how to set its value.
 
 ```javascript
-import "@opengsn/contracts/src/BaseRelayRecipient";
+import "@opengsn/contracts/src/ERC2771Recipient";
 
-contract MyContract is BaseRelayRecipient {
+contract MyContract is ERC2771Recipient {
     constructor(address forwarder) {
         trustedForwarder = forwarder;
     }

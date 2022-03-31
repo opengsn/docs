@@ -37,8 +37,8 @@ To accept transactions that are paid for by a separate entity you have to do sev
    ```
 1. Import the base contract, and inherit from it:
    ```javascript
-   import "@opengsn/contracts/src/BaseRelayRecipient.sol";
-   contract MyContract is BaseRelayRecipient { ... }
+   import "@opengsn/contracts/src/ERC2771Recipient.sol";
+   contract MyContract is ERC2771Recipient { ... }
    ```
 1. Create a constructor that sets `trustedForwarder` to the address of a 
    trusted forwarder. The purpose is to have a tiny (and therefore easily 
@@ -72,9 +72,9 @@ pragma solidity ^0.6.10;
 
 // SPDX-License-Identifier: MIT OR Apache-2.0
 
-import "@opengsn/contracts/src/BaseRelayRecipient.sol";
+import "@opengsn/contracts/src/ERC2771Recipient.sol";
 
-contract CaptureTheFlag is BaseRelayRecipient {
+contract CaptureTheFlag is ERC2771Recipient {
 	string public override versionRecipient = "2.0.0";
 
 	event FlagCaptured(address _from, address _to);

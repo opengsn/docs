@@ -88,7 +88,7 @@ nonce of the original sender.
 
 To support meta transactions recipient contracts inherit from a simple
 [base
-class](https://github.com/opengsn/gsn/blob/release/contracts/BaseRelayRecipient.sol) and replace `msg.sender` with `_msgSender()`. It returns the the original
+class](https://github.com/opengsn/gsn/blob/release/contracts/ERC2771Recipient.sol) and replace `msg.sender` with `_msgSender()`. It returns the the original
 sender that signed the meta transaction request, or msg.sender if the contract
 was called directly.
 ### RelayHub: connecting participants trustlessly <a id="relayhub"></a>

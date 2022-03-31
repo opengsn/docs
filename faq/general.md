@@ -76,7 +76,7 @@ The [GSN Protocol](https://github.com/opengsn/gsn-protocol/blob/master/gsn-proto
 
 ## How does a contract know who the user is? <a id="how_do_i_know_who_the_user_is?"></a>
 
-The `BaseRelayRecipient` contract has a utility function called `_msgSender()`
+The `ERC2771Recipient` contract has a utility function called `_msgSender()`
 which returns the true address of the user making a contract call. The function
 `_msgSender()` should be used in place of the solidity system variable
 `msg.sender`.
@@ -86,7 +86,7 @@ present state. This means that for relayed transactions, `msg.sender` will
 return the address of the relay server signing the transaction, and not the
 user requesting the transaction. Contracts that use `msg.sender` are not
 natively compatible with the Gas Station network. It is necessary to use the
-`_msgSender()` function from the `BaseRelayRecipient` contract in the [*OpenGSN
+`_msgSender()` function from the `ERC2771Recipient` contract in the [*OpenGSN
 library*](../contracts/index.md) if your contract needs to identify the
 initiator of a GSN powered transaction.
 
