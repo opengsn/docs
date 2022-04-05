@@ -6,7 +6,7 @@ Forwarder: [0xeB230bF62267E94e657b5cbE74bdcea78EB3a5AB](https://ropsten.ethersca
 
 VersionRegistry: [0x9e59Ea5333cD4f402dAc320a04fafA023fe3810D](https://ropsten.etherscan.io/address/0x9e59Ea5333cD4f402dAc320a04fafA023fe3810D)
 
-Accept-Everything Paymaster: [0x05319d82fa69EA8434A967CdF4A2699Db4Ff40e8](https://ropsten.etherscan.io/address/0x05319d82fa69EA8434A967CdF4A2699Db4Ff40e8)
+Accept-Everything Paymaster: [0x5fba514fC9d7215fb22ada57Cd1E20167ba8Fd32](https://ropsten.etherscan.io/address/0x5fba514fC9d7215fb22ada57Cd1E20167ba8Fd32)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
