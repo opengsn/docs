@@ -17,12 +17,12 @@ Please bear in mind that at the time of writing, OpenGSN requires solidity versi
 
 ## Receiving a Relayed Call <a id="recipient"></a>
 
-The first step to writing a recipient is to inherit from our BaseRelayRecipient contract. If you're also inheriting from [OpenZeppelin contracts](https://github.com/OpenZeppelin/openzeppelin-contracts), such as ERC20 or ERC721, this will work just fine: adding BaseRelayRecipient to your token contracts will make them GSN-callable.
+The first step to writing a recipient is to inherit from our ERC2771Recipient contract. If you're also inheriting from [OpenZeppelin contracts](https://github.com/OpenZeppelin/openzeppelin-contracts), such as ERC20 or ERC721, this will work just fine: adding ERC2771Recipient to your token contracts will make them GSN-callable.
 
 ```solidity
-import "@opengsn/contracts/src/BaseRelayRecipient.sol";
+import "@opengsn/contracts/src/ERC2771Recipient.sol";
 
-contract MyContract is BaseRelayRecipient {
+contract MyContract is ERC2771Recipient {
     ...
 }
 ```
@@ -30,10 +30,10 @@ contract MyContract is BaseRelayRecipient {
 
 ### `_msgSender`, not `msg.sender`
 
-There's only one extra detail you need to take care of when working with GSN recipient contracts: _you must never use `msg.sender` or `msg.data` directly_. On relayed calls, `msg.sender` will be the `Forwarder` contract instead of your user! This doesn't mean however you won't be able to retrieve your users' addresses: `BaseRelayRecipient` provides `_msgSender()`, which is a drop-in replacement for `msg.sender` that takes care of the low-level details. As long as you use this function instead of the original `msg.sender`, you're good to go!
+There's only one extra detail you need to take care of when working with GSN recipient contracts: _you must never use `msg.sender` or `msg.data` directly_. On relayed calls, `msg.sender` will be the `Forwarder` contract instead of your user! This doesn't mean however you won't be able to retrieve your users' addresses: `ERC2771Recipient` provides `_msgSender()`, which is a drop-in replacement for `msg.sender` that takes care of the low-level details. As long as you use this function instead of the original `msg.sender`, you're good to go!
 
 ::: warning
-Third-party contracts you inherit from may not use these replacement functions, making them unsafe to use when mixed with `BaseRelayRecipient`. If in doubt, head on over to our [Discord support group](https://discord.gg/NXXTCbh58s).
+Third-party contracts you inherit from may not use these replacement functions, making them unsafe to use when mixed with `ERC2771Recipient`. If in doubt, head on over to our [Discord support group](https://discord.gg/NXXTCbh58s).
 :::
 ## Paying for your user's meta-transaction <a id="paymaster"></a>
 
@@ -169,7 +169,7 @@ Only use it if you write and audit both the `Paymaster` and `Recipient` and thes
 
 As your contract now seemingly allows GSN - a complicated network of third-party contracts - to handle your dapp's user authentication, you may feel worried that you will need to verify and audit every bit of the GSN as thoroughly as your own code. Worry no more!
 
-The GSN project provides you with a default implementation of the `Forwarder` contract. This contract is extremely simple and basically does just one thing - it validates the user's signature. This way, your `BaseRelayRecipient` contract is shielded from any potential vulnerabilities across the GSN.
+The GSN project provides you with a default implementation of the `Forwarder` contract. This contract is extremely simple and basically does just one thing - it validates the user's signature. This way, your `ERC2771Recipient` contract is shielded from any potential vulnerabilities across the GSN.
 
 You can read more about the security considerations in our [forwarder ERC draft](https://github.com/ethereum/EIPs/pull/2770).
 
