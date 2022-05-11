@@ -75,6 +75,13 @@ and that it comes with "docker" pre-installed.
 Congratulations. You have a running relayer.
 You should now be able to see your relayer in the list of all relayers: https://relays.opengsn.org
 
-Note: in order to test your relayer, add its URL to the list of `preferedRelays` for your client's RelayProvider.
+::: tip Note
+In order to test your relayer, add its URL to the list of `preferedRelays` for your client's RelayProvider.
 Otherwise, your client is free to pick any active relay.
+:::
+
+::: danger
+The relayer generates its own Ethereum keystores & addresses internally. Do not tamper with the files or use these addresses to any other purpose.
+The relayer is staked on the network, performing other actions may result in penalization and loss of funds.
+:::
 
