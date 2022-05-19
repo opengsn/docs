@@ -4,7 +4,6 @@ The [Gas Station Network](https://www.opengsn.org) allows you to build apps wher
 .
 
 If you're new to the GSN, you probably want to first take a look at the [overview of the system](../index.md) to get a clearer picture of how gasless transactions are achieved. Otherwise, strap in!
-
 ## Install OpenGSN Contracts <a id="install"></a>
 
 Before you get started, install the OpenGSN contracts using either `npm` or `yarn` within your repository. Using `yarn` this will look like as follows:
@@ -154,23 +153,20 @@ function postRelayedCall(
 These functions allow you to implement, for instance, a flow where you charge your users for the relayed transactions in a custom token. You can lock some of their tokens in `pre`, and execute the actual charge in `post`. This is similar to how gas fees work in Ethereum: the network first locks enough ETH to pay for the transaction's gas limit at its gas price, and then pays for what it actually spent.
 
 
-### Delegating the `preRelayedCall` logic to `Recipient` via the `rejectOnRecipientRevert` flag
+### Trusting the `Recipient` contract to reject calls via the `rejectOnRecipientRevert` flag
 
 You may have noticed that `preRelayedCall` has a boolean return parameter called `rejectOnRecipientRevert`.
 If set to `true`, this flag allows your `Paymaster` to delegate the decision of whether to pay for the relayed call or not to the Recipient.
+When set, the paymaster will reject the request in case the recipient call is rejected. 
+Note, however, this this makes an implicit trust that the recipient reverts soon enough: if the recipient contract consumes gas before reverting, the paymaster will still pay for the (reverted) transaction (see above `acceptanceBudget`)
+The moral of this is that the paymaster should validate the request first - at a minimum, validate that it knows the recipient contract and that it would revert before wasting too much gas.
 
-Note that the `Paymaster` will pay in one of two scenarios:
-
-* The Recipient call is successfull
-* The Recipient call is reverted but (taken together with `preRelayedCall`) it consumed more then `acceptanceBudget` gas.
-
-Only use it if you write and audit both the `Paymaster` and `Recipient` and these two components can trust each other.
 ## Trusted Forwarder: Minimum Viable Trust <a id="trusted_forwarder"></a>
 
 As your contract now seemingly allows GSN - a complicated network of third-party contracts - to handle your dapp's user authentication, you may feel worried that you will need to verify and audit every bit of the GSN as thoroughly as your own code. Worry no more!
 
-The GSN project provides you with a default implementation of the `Forwarder` contract. This contract is extremely simple and basically does just one thing - it validates the user's signature. This way, your `BaseRelayRecipient` contract is shielded from any potential vulnerabilities across the GSN.
+The GSN project provides you with a default implementation of the `Forwarder` contract. This contract is extremely simple and basically does just two things - it validates the user's signature, and user's nonce. This way, your `BaseRelayRecipient` contract is shielded from any potential vulnerabilities across the GSN.
 
-You can read more about the security considerations in our [forwarder ERC draft](https://github.com/ethereum/EIPs/pull/2770).
+You can read more about the security considerations in our [Meta-Transactions forwarder ERC](https://eips.ethereum.org/EIPS/eip-2770).
 
 <img src="./images/forwarder_flow.png" alt="" width="80%" />
