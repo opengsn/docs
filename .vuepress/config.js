@@ -1,4 +1,5 @@
-const { repository, description } = require('../package')
+const {repository, description} = require('../package')
+const {findFiles} = require('./findFiles')
 
 module.exports = {
   /**
@@ -16,9 +17,9 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/config/#head
    */
   head: [
-    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
-    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
+    ['meta', {name: 'theme-color', content: '#3eaf7c'}],
+    ['meta', {name: 'apple-mobile-web-app-capable', content: 'yes'}],
+    ['meta', {name: 'apple-mobile-web-app-status-bar-style', content: 'black'}]
   ],
 
   /**
@@ -52,7 +53,7 @@ module.exports = {
         link: 'https://relays.opengsn.org/'
       }
     ],
-    sidebar:  [
+    sidebar: [
       '/',
       {
         title: 'Contracts',
@@ -83,84 +84,31 @@ module.exports = {
       {
         title: 'Code Reference',
         collapsable: false,
-        children: [
-          "soldoc/contracts/BasePaymaster.md",
-          "soldoc/contracts/BaseRelayRecipient.md",
-          "soldoc/contracts/RelayHub.md",
-          "soldoc/contracts/GatewayForwarder.md",
-          "soldoc/contracts/StakeManager.md",
-          "soldoc/contracts/Penalizer.md",
-          "soldoc/contracts/interfaces/IPenalizer.md",
-          "soldoc/contracts/interfaces/IRelayRegistrar.md",
-          "soldoc/contracts/interfaces/IERC20Token.md",
-          "soldoc/contracts/interfaces/IRelayHub.md",
-          "soldoc/contracts/interfaces/IRelayRecipient.md",
-          "soldoc/contracts/interfaces/IPaymaster.md",
-          "soldoc/contracts/interfaces/IStakeManager.md",
-          "soldoc/contracts/BatchForwarder.md",
-          "soldoc/contracts/forwarder/IForwarder.md",
-          "soldoc/contracts/forwarder/Forwarder.md",
-          "soldoc/contracts/arbitrum/ArbRelayHub.md",
-          "soldoc/contracts/arbitrum/ArbSys.md",
-          "soldoc/contracts/utils/RelayRegistrar.md",
-          "soldoc/contracts/utils/GsnUtils.md",
-          "soldoc/contracts/utils/MinLibBytes.md",
-          "soldoc/contracts/utils/GsnTypes.md",
-          "soldoc/contracts/utils/RelayHubValidator.md",
-          "soldoc/contracts/utils/RLPReader.md",
-          "soldoc/contracts/utils/GsnEip712Library.md",
-        ]
+        children: findFiles('soldoc', '[.]md')
       },
 
       {
         title: 'Supported Networks',
         collapsable: false,
         children: [
-        {
-			title: 'Ethereum',
-			children: [
-			'/networks/ethereum/goerli.md',
-			]
-		},
-		{
-			title: 'Ethereum Classic',
-			children: [
-			'/networks/etc/etc.md',
-			'/networks/etc/kotti.md'
-			]
-		},
-		{
-			title: 'GnosisChain (xDai)',
-			children: [
-			'/networks/xdai/xdai.md'
-			]
-		},
-		{
-			title: 'Polygon',
-			children: [
-			'/networks/polygon/mumbai.md'
-			]
-		},
-		{
-			title: 'Binance Smart Chain',
-			children: [
-			'/networks/bsc/bsc.md',
-			'/networks/bsc/bsct.md'
-			]
-		},
-		{
-			title: 'Optimism',
-			children: [
-			'/networks/optimism/optimism-kovan.md',
-			]
-		},
-		{
-			title: 'Avalanche',
-			children: [
-			'/networks/avax/avax.md',
-			'/networks/avax/fuji.md',
-			]
-		},
+          {
+            title: 'Ethereum',
+            children: [
+              '/networks/ethereum/goerli.md',
+            ]
+          },
+          {
+            title: 'Polygon',
+            children: [
+              '/networks/polygon/mumbai.md'
+            ]
+          },
+          {
+            title: 'Optimism',
+            children: [
+              'networks/optimism/kovan-optimistic.md',
+            ]
+          },
         ]
       },
       {
@@ -169,7 +117,7 @@ module.exports = {
         children: [
           '/faq/general',
           '/faq/troubleshooting',
-	  '/faq/legacy'
+          '/faq/legacy'
         ]
       },
       'audits.md',
@@ -177,7 +125,7 @@ module.exports = {
   },
   markdown: {
     extendMarkdown: md => {
-      md.set({ html: true })
+      md.set({html: true})
       md.use(require('markdown-it-plantuml'))
     }
   },

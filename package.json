@@ -19,6 +19,7 @@
   "scripts": {
     "serve": "vuepress dev .",
     "make-soldoc": "rm -rf gsn soldoc/contracts; git clone --depth 1 https://github.com/opengsn/gsn && cd gsn/packages/contracts && ../../../node_modules/.bin/solidity-docgen --solc-module solc-0.8 --output=../../../soldoc/contracts --input=./src --exclude=./src/test,./src/forwarder/test --templates=.",
-    "build": "yarn make-soldoc && vuepress build ."
+    "vuepress-build": "vuepress build .",
+    "build": "yarn make-soldoc && yarn vuepress-build"
   }
 }
