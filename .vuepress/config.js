@@ -132,6 +132,7 @@ module.exports = {
 			title: 'Avalanche',
 			children: [
 			'/networks/avax/avax.md',
+      '/networks/avax/fuji.md'
 			]
 		},
         ]
