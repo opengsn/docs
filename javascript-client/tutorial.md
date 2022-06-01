@@ -17,44 +17,32 @@ that uses GSN.
 
 To accept transactions that are paid for by a separate entity you have to do several things:
 
-1. If necessary modify your configuration file (in truffle, `truffle.js` or `truffle-config.js`)
-   to require Solidity version 0.6.10 or higher:
-   ```javascript
-   module.exports = {
-     networks: {
-         ...
-     },
-     compilers: {
-       solc: {
-         version: "^0.6.10"
-       }
-     }
-   };
-   ```
-1. Add `@opengsn/provider` in the dependencies, version 2.2.0.
+1. Add `@opengsn/provider` in the dependencies
    ```bash  
-   npm install @opengsn/provider --save
+   npm install @opengsn/provider@next --save
    ```
-1. Import the base contract, and inherit from it:
+2. Import the base contract, and inherit from it:
    ```javascript
    import "@opengsn/contracts/src/ERC2771Recipient.sol";
    contract MyContract is ERC2771Recipient { ... }
    ```
-1. Create a constructor that sets `trustedForwarder` to the address of a 
+3. Create a constructor that calls `_setTrustedForwarder()` with the address of a 
    trusted forwarder. The purpose is to have a tiny (and therefore easily 
    audited) contract that proxies the relayed messages so a security audit 
    of the GSN aware contract doesn’t require a security 
    audit of the full `RelayHub` contract. 
    [You can look here](/networks.md) to see the addresses 
    to use on mainnet and various test networks.
-1. Create a `versionRecipient()` function to return the current 
+4. Create a `versionRecipient()` function to return the current 
    version of the contract.
-1. Replace `msg.sender` in your code, and in any libraries your code uses, 
+5. Replace `msg.sender` in your code, and in any libraries your code uses, 
    with `_msgSender()`. If you receive a normal Ethereum transaction (from 
    another contract or external account that pays for its own gas), this value 
    is identical to `msg.sender`. If you receive an etherless transaction, 
    `_msgSender()` gives you the correct sender whereas `msg.sender` would be the 
    above forwarder.
+ 
+   Note that if you use Openzeppelin contracts, they already use `_msgSender()` for this purpose.
 
 
 
@@ -63,29 +51,24 @@ To accept transactions that are paid for by a separate entity you have to do sev
 
 As a demonstration, 
 [here is an extremely simple capture the 
-flag game](https://github.com/qbzzt/opengsn/blob/master/01_SimpleUse/contracts/01_CaptureTheFlag.sol) 
+flag game](https://github.com/opengsn/workshop) 
 that, when called, captures the flag and emits
-an event with the old and new holders. 
+an event with the old and new holders.
 
-```javascript
-pragma solidity ^0.6.10;
+The main branch of the project is the sample without any GSN support. 
 
-// SPDX-License-Identifier: MIT OR Apache-2.0
+In this tutorial we will add GSN support for it.
 
+```solidity
 import "@opengsn/contracts/src/ERC2771Recipient.sol";
 
 contract CaptureTheFlag is ERC2771Recipient {
-	string public override versionRecipient = "2.0.0";
+    event FlagCaptured(address previousHolder, address currentHolder);
 
-	event FlagCaptured(address _from, address _to);
+	address public currentHolder = address(0);
 
-	address flagHolder = address(0);
-
-        // Get the forwarder address for the network
-        // you are using from
-        // https://docs.opengsn.org/networks.html
-	constructor(address _forwarder) public {
-		trustedForwarder = _forwarder;
+	constructor(address _forwarder) {
+		_setTrustedForwarder(_forwarder);
 	}
 
 	function captureFlag() external {
@@ -97,6 +80,7 @@ contract CaptureTheFlag is ERC2771Recipient {
 
 		emit FlagCaptured(previous, flagHolder); 
 	}
+    string public override versionRecipient = "2.0.0";
 }
 ```
 
@@ -105,29 +89,26 @@ contract CaptureTheFlag is ERC2771Recipient {
 
 
 Obviously, blockchain access is still not free. You get these GSN transactions
-with the help of two entities. The user's application talks to a **_relay server_**, 
-one of 
+with the help of two entities. The user's application talks with a **_RelayHub_** contract,
+which orchestrate the transaction.
+Through it, the applications find a **_relay server_**, or **relayer**, one of 
 a number of servers that offer to send messages into the chain. The relay 
 then talks to a **_paymaster_**, a contract that decides which transactions to 
 finance based on the sender, the target contract, and possibly additional information.
 
 Paymasters are contracts, so they are always available, same as any other 
-Ethereum contract. Relays are internet sites which get paid by paymasters for 
+Ethereum contract. Relayers are internet sites which get paid by paymasters for 
 their services. Running a new relay is cheap and easy 
 ([see directions here](/relay-server/tutorial.md)). 
-We expect that anybody who opens a dapp for relayed calls will also set up a relay or 
+
+We expect (though not require) that anybody who opens a dapp for relayed calls will also set up a relay or 
 two, so there will be enough that they can't all be censored.
 
-
-Note that everything the relays do is verified. They cannot cheat, and if a relay 
+Note that everything the relayers do is verified. They cannot cheat, and if a relay 
 attempts to censor a client at most it can delay the message by a few seconds before 
 the client selects to go through a different relay.
 
 <img src="../images/paymaster_needs_gas.png" alt="" width="80%" />
-
-To know what relays are available you consult a special contract called RelayHub. 
-This hub also checks up on relays and paymasters to ensure nobody is cheating. 
-
 
 ## Creating a Paymaster
 
@@ -159,9 +140,8 @@ ensuring functions are only called by the relay hub, and so on.
 
 ::: tip Note
 This paymaster is naive because it is not a secure implementation. It can 
-be blocked by sending enough requests to drain the account. A more sophisticated
-paymaster would use [captcha](https://metacoin-captcha.opengsn.org/) or 
-maybe [hashcash](https://metacoin-hashcash.opengsn.org/).
+be blocked by sending enough requests to drain the account.
+For more sophisticated paymasters see the [paymasters pakacage](https://github.com/opengsn/gsn/tree/master/packages/paymasters)
 :::
 
 ```solidity
@@ -188,19 +168,22 @@ can use `onlyOwner` because `BasePaymaster` inherits from `Ownable`.
     }
 ```
 
-This is the paymaster’s most important function, the decision whether to pay for a 
+The `BasePaymaster` implements the `preRelayedCall()` and calls a sequence of validation functions.
+
+The main logic should be placed in the `_preRelayedCall` method, the decision whether to pay for a 
 transaction or not. The `GNSType.RelayRequest` type is defined 
 [here](https://github.com/opengsn/gsn/blob/release/contracts/interfaces/GsnTypes.sol). 
 It includes multiple fields - we’ll use the `.target`, which is the target contract.
-The `signature` can be used to validate the `relayRequest` value.
 ```solidity
-    function preRelayedCall(
+    function _preRelayedCall(
         GSNTypes.RelayRequest calldata relayRequest,
         bytes calldata signature,
 ```
 
 The approval data is sent by the web client through the relay. It can include any data the 
 dapp needs to decide whether to approve a request or not.
+Note that by default, BasePaymaster rejects a request with `approvalData` (or `paymasterData`) 
+If a paymaster wants to use them, it should override the validation `_verifyApprovalData()`. See for example [VerifyingPaymaster](https://github.com/opengsn/gsn/blob/master/packages/paymasters/contracts/VerifyingPaymaster.sol#L28)
 
 ```solidity
         bytes calldata approvalData,
@@ -221,12 +204,6 @@ Using this feature is beyond the scope of this tutorial.
 ```solidity
     ) external override returns (bytes memory context, bool rejectOnRecipientRevert) {
 
-```
-
-Verify that the forwarder is the trusted forwarder for the network.
-
-```solidity
-        _verifyForwarder(relayRequest);
 ```
 
 This paymaster is naive, but not a complete sucker. It only accepts requests going to our 
@@ -291,7 +268,7 @@ In this case, the version is the latest at writing, `2.0.3`.
 ```solidity
     function versionPaymaster() external virtual view 
     override returns (string memory) {
-        return "2.0.3";
+        return "3.0.1";
     }
 }
 ```
@@ -425,10 +402,9 @@ parameter to the `ethers` provider constructor.
 
 ```javascript
 
-        let gsnProvider = await new gsn.RelayProvider(window.ethereum, {
-		forwarderAddress: conf.forwarder,
-                paymasterAddress: conf.paymaster,
-                verbose: false}).init()
+        let gsnProvider = await RelayProvider.newProvider(window.ethereum, {
+          paymasterAddress: conf.paymaster,
+        }).init()
 	provider = new ethers.providers.Web3Provider(gsnProvider)
 	userAddr = gsnProvider.origProvider.selectedAddress
 ```

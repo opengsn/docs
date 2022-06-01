@@ -119,10 +119,7 @@ module.exports = {
         {
 			title: 'Ethereum',
 			children: [
-			'/networks/ethereum/mainnet.md',
-			'/networks/ethereum/rinkeby.md',
-			'/networks/ethereum/kovan.md',
-			'/networks/ethereum/ropsten.md'
+			'/networks/ethereum/goerli.md',
 			]
 		},
 		{
@@ -141,7 +138,6 @@ module.exports = {
 		{
 			title: 'Polygon',
 			children: [
-			'/networks/polygon/polygon.md',
 			'/networks/polygon/mumbai.md'
 			]
 		},
@@ -155,15 +151,14 @@ module.exports = {
 		{
 			title: 'Optimism',
 			children: [
-			'/networks/optimism/optimism.md',
 			'/networks/optimism/optimism-kovan.md',
-			'/networks/optimism/optimism-gc.md'
 			]
 		},
 		{
 			title: 'Avalanche',
 			children: [
 			'/networks/avax/avax.md',
+			'/networks/avax/fuji.md',
 			]
 		},
         ]

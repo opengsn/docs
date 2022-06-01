@@ -13,8 +13,6 @@ GSN aims to be a generic solution to all meta-transaction needs, and provides a 
 - **preferredRelays** - list of relays to use first. Without this parameter, the client would 
   select a relayer from the available registered relays on the RelayHub    
     Note that "preferred relayers" are tried in their explicit order, regardless of their transaction fee (relayers fetched from the RelayHub are sorted with cheaper relayers first)
-- **relayLookupWindowBlocks** - when lookup up for relayers, how many blocks back is considered "active" relayer.
-  By default, a relayer that sent any transaction in the past 60000 blocks (roughly 1 week on ethereum mainnet) is considered "active"
 - **sliceSize** - after selcting relayers and sorting them, how many relayers to ping in parallel.
 - **loggerConfiguration** - set of configuration for logging server:
     - **logLevel** - what level to log : `debug`/`info`/`warn`/`error`. defaults to `info`
@@ -22,7 +20,7 @@ GSN aims to be a generic solution to all meta-transaction needs, and provides a 
         for troubleshooting, set to `logger.opengsn.org`, and also give your loggerClient to GSN support.
     - **loggerUserId** - name current client in each log. by default, a unique "gsnUser###" is assigned
 - **gasPriceFactorPercent** - by default, the client will query the `getGasPrice()` from the provider, and add
-  this value. defaults to "10", which means request gas price is 10% above the `getGasPrice()` value
+  this value. defaults to "20", which means request gas price is 20% above the `getGasPrice()` value
 - **minGasPrice** - with above calculation, don't use gas price below this value.
 
 
@@ -30,21 +28,16 @@ GSN aims to be a generic solution to all meta-transaction needs, and provides a 
 
 In most cases, you don't need to modify the defaults for these values.
 
-- **relayLookupWindowParts** - when scanning `relayLookupWindowBlocks` blocks back, this parameter is used to chunk down
-  into smaller request, to avoid overwhelming the getPastLogs API. Even without specifying this parameter, if the lookup
-  seems to break because of too many returned events, it will automatically increase the value for future calls.
-
 - **methodSuffix** - when suffix of the "eth_signTypedData" to use. for Metamask, the default is "_v4"
-- **jsonStringifyRequest** - when calling eth_signTypedData, should we pass a the object value as a single string or as a JSON object.
+- **jsonStringifyRequest** - when calling eth_signTypedData, should we pass the object value as a single string or as a JSON object.
     for Metamask, this value is "true" (use a single string)
 - **relayTimeoutGrace** - much much time (in seconds) a relayer that failed a request should be "downscored". (defaults to 1800 seconds=half an hour)
-
 - **auditorsCount** After relaying a request, the client selects at random other relayer(s) as "auditors"
     to validate the original relayer didn't attempt to cheat on the client. defaults to 1 (if there are more than 1 registered relayers)
    
   The auditors check the request, and will submit a "penalize" request if the original relayer indeed attempted a cheat.
 
-  Set to "0" to disable auditing (e.g. on testnets, to avoid the "All auditors failed" error log)
+  Set to "0" to disable auditing (e.g. on testnets)
 
 - **maxRelayNonceGap** - how far "into the future" the client accepts its request to be set. default to 3, 
   which means the client accepts that the relayer will put its request with 3 pending requests before it.
@@ -122,6 +115,6 @@ implementation.
 
 ### Filter out relayers
 
-* `pingFilter` function let you filter out relays based on the ping response. The default [GasPricePingFilter](https://github.com/opengsn/gsn/blob/release/src/relayclient/RelayClient.ts#L45) filters out relayers that require gasPrice higher than client's allowed gas.
+* `pingFilter` function let you filter out relays based on the ping response. The default [GasPricePingFilter](https://github.com/opengsn/gsn/blob/release/src/relayclient/RelayClient.ts#L48) filters out relayers that require gasPrice higher than client's allowed gas.
 
 

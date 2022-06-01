@@ -6,7 +6,8 @@ Working code can be worth a thousand words, so a good place to start is the
 [GSN integration workshop](https://github.com/opengsn/workshop) which shows a
 barebones dapp before and after GSN integration.
 
-Another resource is [Capture The Flag](https://github.com/opengsn/ctf-react), a sample React dapp.
+Another resource is [Capture The Flag](https://github.com/opengsn/ctf-react), 
+which is the same "capture the flag" game, but as a React application.
 
 A more elaborate example is [MetaCoin](https://github.com/opengsn/metacoin),
 which implements a gas-free ERC20 token. After playing with the 
@@ -42,7 +43,7 @@ Adding GSN involves 4 steps
 
 ### Start GSN on your network. <a id='start-gsn'></a>
 
-GSN is already deployed to many testnets (and mainnets) - see the full list here.
+GSN is already deployed to many testnets (and mainnets) - see the full list [here](/networks).
 But for testing it locally, you need start it over your local `ganache` instance.
 To start GSN on local ganache, run the command:
 ```bash
@@ -59,8 +60,12 @@ Or, if you like to run it together with ganache, add a script command:
 ### Add GSN to your contract <a id='add-to-contract'></a>
 When receiving a meta-transaction, a contract must be able to recognize the caller, which is usually `msg.sender`
 When receiving meta (relayed) transactions, the sender is different, so you must inherit
-a specific baseclass (ERC2771Recipient) and use helper method `_msgSender()` to get the
+a specific baseclass (**ERC2771Recipient**) and use helper method `_msgSender()` to get the
 address of the sender.
+
+Note that your contract continues to work normally when called directly (without GSN) - in this case `_msgSender()` 
+returns the real (`msg.sender`) sender unmodified.
+
 You also need have a`forwarder`, which is the contract you will receive the calls through.
 See "delpoyment" below on how to set its value.
 
@@ -69,7 +74,7 @@ import "@opengsn/contracts/src/ERC2771Recipient";
 
 contract MyContract is ERC2771Recipient {
     constructor(address forwarder) {
-        trustedForwarder = forwarder;
+        _setTrustedForwarder(forwarder);
     }
 
     ... your contract code

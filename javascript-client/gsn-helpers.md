@@ -53,7 +53,7 @@ Fund and register the relay server.
 You need to run it after you start your own relayer on a public network
 
 ```bash
-npx gsn relayer-register [--from <account>]  [--relayUrl <url>] [--stake <stake>] [--unstakeDelay <delay>] [--funds <funds>] [--network <url>] [ --gasPrice <gasPrice>] [--mnemonic <mnemonic-file>]
+npx gsn relayer-register [--from <account>]  [--relayUrl <url>] [--stake <stake>] [--unstakeDelay <delay>] [--funds <funds>] [--network <url>] [ --gasPrice <gasPrice>] [--mnemonic <mnemonic-file>] [--token <tokenAddress>] [--wrap]
 ```
 
 
@@ -66,6 +66,8 @@ npx gsn relayer-register [--from <account>]  [--relayUrl <url>] [--stake <stake>
 |network|localhost|network to connect to (name or rpc url)
 |gasPrice|1 gwei|gas price for registration transactions
 |mnemonic||Mnemonic file for the relayer "owner" account (with ether)
+|token||Token to use for staking. defaults to first registered token (usually "wrapped eth" token)
+|wrap||If the owner doesn't own enough tokens, then assume the token is a "wrapped eth" and call `deposit()` on it to convert eth into tokens. 
 
 
 ### paymaster-fund
