@@ -31,7 +31,7 @@ contract MyContract is BaseRelayRecipient, ERC20 {
   }
 
   function _msgData() internal view override(Context, BaseRelayRecipient)
-      returns (bytes memory) {
+      returns (bytes calldata) {
       return BaseRelayRecipient._msgData();
   }
 }
