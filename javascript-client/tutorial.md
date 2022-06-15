@@ -3,23 +3,22 @@
 ## Introduction
 
 Ethereum transactions cost gas, which means your dapp’s users cannot initiate them 
-unless they already have some ether. Onboarding new users into Ethereum is a 
-problem. GSN provides a solution by allowing a different entity, either you
+unless they already have some ether. Onboarding new users into Ethereum is problematic. 
+
+GSN provides a solution by allowing a different entity, either you
 or a third party, to pay for transactions.
 
 In this article you learn how to accept transactions that are paid for by somebody 
 other than the sender, how to sponsor transactions, and how to write a user interface
 that uses GSN.
 
-
-
 ## Converting a Contract to Support GSN
 
 To accept transactions that are paid for by a separate entity you have to do several things:
 
-1. Add `@opengsn/provider` in the dependencies
+1. Add `@opengsn` packages to your project's dependencies
    ```bash  
-   npm install @opengsn/provider@next --save
+   npm install @opengsn/contracts --save
    ```
 2. Import the base contract, and inherit from it:
    ```javascript
@@ -27,22 +26,16 @@ To accept transactions that are paid for by a separate entity you have to do sev
    contract MyContract is ERC2771Recipient { ... }
    ```
 3. Create a constructor that calls `_setTrustedForwarder()` with the address of a 
-   trusted forwarder. The purpose is to have a tiny (and therefore easily 
-   audited) contract that proxies the relayed messages so a security audit 
-   of the GSN aware contract doesn’t require a security 
-   audit of the full `RelayHub` contract. 
-   [You can look here](/networks.md) to see the addresses 
-   to use on mainnet and various test networks.
-4. Create a `versionRecipient()` function to return the current 
-   version of the contract.
-5. Replace `msg.sender` in your code, and in any libraries your code uses, 
-   with `_msgSender()`. If you receive a normal Ethereum transaction (from 
+   trusted forwarder.  
+   The forwarder is the GSN component that verifies the caller's signature and nonce, before forwarding it to your contract, and it is the only component that your contact has to "trust".  
+   [You can look here](/networks.md) to see the addresses to use on mainnet and various test networks.
+4. Replace `msg.sender` in your code, with `_msgSender()`. If you receive a normal Ethereum transaction (from 
    another contract or external account that pays for its own gas), this value 
-   is identical to `msg.sender`. If you receive an etherless transaction, 
+   is identical to `msg.sender`. If you receive a meta-transaction through GSN, 
    `_msgSender()` gives you the correct sender whereas `msg.sender` would be the 
    above forwarder.
  
-   Note that if you use Openzeppelin contracts, they already use `_msgSender()` for this purpose.
+   Note that if you use OpenZeppelin contracts, they already use `_msgSender()` for this purpose.
 
 
 
@@ -50,50 +43,43 @@ To accept transactions that are paid for by a separate entity you have to do sev
 
 
 As a demonstration, 
-[here is an extremely simple capture the 
-flag game](https://github.com/opengsn/workshop) 
-that, when called, captures the flag and emits
-an event with the old and new holders.
+[here is an extremely simple capture the flag game](https://github.com/opengsn/doc-tutorial) 
+that, when called, captures the flag and emits an event with the old and new holders.
 
-The main branch of the project is the sample without any GSN support. 
-
-In this tutorial we will add GSN support for it.
-
-```solidity
-import "@opengsn/contracts/src/ERC2771Recipient.sol";
-
-contract CaptureTheFlag is ERC2771Recipient {
-    event FlagCaptured(address previousHolder, address currentHolder);
-
-	address public currentHolder = address(0);
-
-	constructor(address _forwarder) {
-		_setTrustedForwarder(_forwarder);
-	}
-
-	function captureFlag() external {
-		address previous = flagHolder;
-
-                // The real sender. If you are using GSN, this
-                // is not the same as msg.sender.
-		flagHolder = _msgSender();  
-
-		emit FlagCaptured(previous, flagHolder); 
-	}
-    string public override versionRecipient = "2.0.0";
-}
-```
+   ```solidity
+   import "@opengsn/contracts/src/ERC2771Recipient.sol";
+   
+   contract CaptureTheFlag is ERC2771Recipient {
+      event FlagCaptured(address previousHolder, address currentHolder);
+      
+      address public currentHolder = address(0);
+      
+      constructor(address _forwarder) {
+        _setTrustedForwarder(_forwarder);
+      }
+      
+      function captureFlag() external {
+         address previous = flagHolder;
+         
+         // The real sender. If you are using GSN, this
+         // is not the same as msg.sender.
+         flagHolder = _msgSender();  
+         
+         emit FlagCaptured(previous, flagHolder); 
+      }
+   }
+   ```
 
 
 ### How does it Work?
-
 
 Obviously, blockchain access is still not free. You get these GSN transactions
 with the help of two entities. The user's application talks with a **_RelayHub_** contract,
 which orchestrate the transaction.
 Through it, the applications find a **_relay server_**, or **relayer**, one of 
-a number of servers that offer to send messages into the chain. The relay 
-then talks to a **_paymaster_**, a contract that decides which transactions to 
+a number of servers that offer to send messages into the chain. The relayer then creates 
+a wrapper transaction, and sends it to the RelayHub. 
+This transaction first talks to a **_paymaster_**, a contract that decides which transactions to 
 finance based on the sender, the target contract, and possibly additional information.
 
 Paymasters are contracts, so they are always available, same as any other 
@@ -114,25 +100,21 @@ the client selects to go through a different relay.
 
 Somebody needs to pay for your users’ transactions on the blockchain. In the future 
 it might be a commercially available service, but for now the entity most likely to 
-pay for your users’ transactions is you. In this section you learn how to create a 
+pay for your users’ transactions is you, the dapp owner. In this section you learn how to create a 
 paymaster to accomplish this.
 
-For the purpose of this tutorial, I am going to present a simple paymaster that accepts 
-all requests to a specific contract, and nothing else. This can be an onboarding contract, 
+For the purpose of this tutorial, We are going to present a simple paymaster that accepts 
+all requests to a specific contract, and nothing else. This can be an on-boarding contract, 
 which calls other contracts.
 
-[You can see the complete code here](https://github.com/qbzzt/opengsn/blob/master/01_SimpleUse/contracts/02_NaivePaymaster.sol). 
+[You can see the complete code here](https://github.com/opengsn/tutorial/blob/master/contracts/NaivePaymaster.sol). 
 Look below for a line by line explanation.
 
 ```solidity
-pragma solidity ^0.6.10;
-pragma experimental ABIEncoderV2;
+pragma solidity ^0.8.7;
+// SPDX-License-Identifier: MIT
 
-// SPDX-License-Identifier: MIT OR Apache-2.0
-
-import "@opengsn/contracts/src/forwarder/IForwarder.sol";
 import "@opengsn/contracts/src/BasePaymaster.sol";
-
 ```
 
 All paymasters inherit from `BasePaymaster`. That contract handles getting deposits, 
@@ -168,12 +150,11 @@ can use `onlyOwner` because `BasePaymaster` inherits from `Ownable`.
     }
 ```
 
-The `BasePaymaster` implements the `preRelayedCall()` and calls a sequence of validation functions.
-
 The main logic should be placed in the `_preRelayedCall` method, the decision whether to pay for a 
 transaction or not. The `GNSType.RelayRequest` type is defined 
 [here](https://github.com/opengsn/gsn/blob/release/contracts/interfaces/GsnTypes.sol). 
 It includes multiple fields - we’ll use the `.target`, which is the target contract.
+
 ```solidity
     function _preRelayedCall(
         GSNTypes.RelayRequest calldata relayRequest,
@@ -212,30 +193,18 @@ failing a `require`, by explicitly calling `revert`, or even just running out of
 normally it means that the paymaster is committed to paying for the transaction, and 
 will do so even if the transaction ultimately fails.
 
-::: warning 
-Advanced Paymaster implementations may choose to override the `getGasLimits()` 
-method of the `IPaymaster` interface.
-Doing so can create to a configuration where the paymaster commits to paying for a 
-transaction after consuming some amount of gas.
-:::
-
 ```solidity
-        require(relayRequest.target == ourTarget);
+        require(relayRequest.request.to == ourTarget);
 ```
 
-
-We can return anything here, but for now we’ll just return the time. We want something we 
-can emit with the pre- and post- processing so we’ll be able to match them when we look 
-at the results.
-
-::: tip Note
-This is not necessary. The pre and post processing are part of the same transaction, 
-so we could match the pre- and post-processing using the `txid`. However, I wanted to have 
-a trivial example of using the context here.
-:::
+The return value is used to pass a "context" from the preRelayedCall (which receives the entire request)
+to the `postRelayeCall`.
+For a simple paymaster (like ours...) this is not required, but more complex paymaster might perform some
+post-relay operation.
+In this sample, we just return the sender's address and emit it in the postRelayedCall.
 
 ```solidity
-        return (abi.encode(now), false);
+        return (abi.encode(relayRequest.request.from), false);
     }
 ```
 
@@ -257,18 +226,17 @@ all the gas of the transaction, except for the unknown amount we are going to us
 	uint256 gasUseWithoutPost,
         GsnTypes.RelayData calldata relayData
     ) external relayHubOnly override {
-        (success, preRetVal, gasUseExceptUs, gasData);
-        emit PostRelayed(abi.decode(context, (uint)));
+        emit PostRelayed(abi.decode(context, (address)));
     }
 ```
 
 This function returns the version of the GSN protocol the paymaster supports.
-In this case, the version is the latest at writing, `2.0.3`.
+In this case, the version is the latest at writing, `3.0.0`.
 
 ```solidity
     function versionPaymaster() external virtual view 
     override returns (string memory) {
-        return "3.0.1";
+        return "3.0.0";
     }
 }
 ```
@@ -276,45 +244,16 @@ In this case, the version is the latest at writing, `2.0.3`.
 ### Initializing the Paymaster
 
 It is not enough to deploy the paymaster contract. Any paymaster contract needs to 
-attach to a `RelayHub`, and if you use `NaivePaymaster` you also need to specify the target 
+attach to a `RelayHub` and `Forwarder`.
+In the case of our `NaivePaymaster` you also need to specify the target 
 for which you are willing to pay. Additionally, the paymaster is not going to help 
 anybody unless you actually fund it to be able to pay.
+You fund a paymaster by sending some ETH to it (though this ETH immediately deposited into the RelayHub)
+You can also deposit ETH for the paymaster by calling `RelayHub.depositFor(paymasterAddress)`
 
-The directions below assume you are using [truffle](https://www.trufflesuite.com/docs) 
-and that it is already configured for the network you are deploying into (either the 
-real network or a test network).
-
-1. Run the truffle command line interface:
-   ```bash
-   truffle console --network <the network you are using>
-   ```
-1. Deploy the paymaster contract, and then display the address so you can store it 
-   somewhere for future use:
-   ```javascript
-   paymaster = await &lt;paymaster contract&gt;.new()
-   paymaster.address
-   ```
-   If you have already deployed the contract and know the address, do this:
-   ```javascript
-   paymaster = await &lt;paymaster contract&gt;.at(&lt;address&gt;)
-   ```
-1. Specify the address of `RelayHub` and `Forwarder` on 
-   the network you’re using. 
-   [You can get that information here](/networks.md).
-   ```javascript
-   paymaster.setRelayHub(&lt;RelayHub address&gt;)
-   paymaster.setTrustedForwarder(&lt;Forwarder address&gt;)
-   ```
-1. Configure your paymaster. In the case of `NaivePaymaster`, this means to 
-   set the target.
-   ```javascript
-   paymaster.setTarget(&lt;target contract address&gt;)
-   ```
-1. Transfer ether to the paymaster’s address.
-   ```javascript
-   web3.eth.sendTransaction({from: accounts[0], to: paymaster.address, value: 1e18})
-   ```
-
+The deployment script (`scripts/deploy.js`) initializes the paymaster when deployed on a local machine.
+If you want to deploy it on a real network, you need to update the contract addresses.
+You can find here the [deployed addresses of GSN](/networks.md) on different mainnets and testnets.
 
 ## The User Interface <a id="the_user_interface"></a>
 
@@ -322,229 +261,59 @@ Your contract is not going to do any good if users can’t use it. The way users
 with a contract using GSN is a bit different from the way they do it for a normal dapp,
 because they need to go through a relay and don't need ether.
 
-### Using npm Packages <a id="using npm packages"></a>
+The tutorial below assumes you have a working application that uses [Ethers](https://docs.ethers.io/) and [Hardhat](https://hardhat.org/)
+Any framework can be (such as [React](https://reactjs.org/)). 
+For our sample application we don't use a framework, only [browseify](http://browserify.org/) to pack the packages,
 
-GSN is available as [an npm package](https://www.npmjs.com/). This means that to use
-it in a webapp you need to import it as a package, as if you were using 
-[Node.js](https://nodejs.org/en/) (the server version of JavaScript) and then use a tool such 
-as [browserify](http://browserify.org/) to make your code browser-compatible. This article 
-teaches only the basics of using these tools, 
-[
-for more information see here](https://medium.com/jeremy-keeshin/hello-world-for-javascript-with-npm-modules-in-the-browser-6020f82d1072).
+Also, our sample app works directly with Metamask using `windows.ethereum`
 
-These are the steps to start the development:
 
-1. Install browserify so it will be available as a script.	
-   ```bash
-   sudo npm install -g browserify
-   ```
-1. Create and change to a directory.
-1. Run this command to create the initial package definition file:
-   ```bash
-   npm init -y
-   ```
-1. Install the GSN package and its dependencies:
-   ```bash
-   npm install @opengsn/provider ethers
-   ```
-1. Write your code in a file, for example `index.js`. 
-1. To compile the application into browser-compatible JavaScript, use this command:
-   ```bash
-   browserify index.js -o bundle.js
-   ```
-
-::: tip Note
-At writing there is a bug that causes the output to have some junk characters
-in certain circumstances. 
-Under Linux you can use the `tr` command to solve this:
-```bash
-browserify index.js | tr -dc '\0-\177' &gt; bundle.js
+1. First add GSN to your project:
 ```
-:::
-
-### The user interface code <a id="the_user_interface_code"></a>
-
-[You can see the user interface 
-code here](https://github.com/qbzzt/opengsn/tree/master/01_SimpleUse/ui). Here are the important parts (first in the JavaScript file and then on 
-the HTML page).
-
-Import the packages we need:
-
-```javascript
-var Web3 = require( 'web3')
-const gsn = require('@opengsn/provider')
-const ethers = require("ethers")
+yarn add @opengsn/provider @opengsn/contracts @opengsn/dev
 ```
 
-This is the configuration with the addresses of the relevant contracts (on the 
-test network where they are deployed, Kovan) and the maximum acceptable gas price for 
-our messages. The address of the contract we wish to contact is `conf.ourContract`.
+2. When you test your project locally, you usually start a local node using `hardhat node`.
+   To start a node with GSN deployed (and a relayer running), you should run:
+   ```
+   npx gsn start --withNode
+   ``` 
+   This command will start `hardhat node` in the background, and then install GSN contracts, and finally will start a local relayer service. 
+   It also deploys an "accept-everything" paymaster that can be used to pay for all transactions.
+   (note that you can also run `hardhat node` in one terminal, and `gsn start` in another)
 
-```javascript
-const conf = {
-	ourContract: '0x10A51A94d096e746E1Aec1027A0F8deCEC43FF63',
-	paymaster:   '0x3f84367c25dC11A7aBE4B9ef97AB78d5D5498bF5',
-	gasPrice:  20000000000   // 20 Gwei
-}
-```
+4. Now in the source code, we need to locate the access to `windows.ethereum`,  
+   and wrap it with a wrapper provider that will redirect transactions through GSN
 
-The standard is to have the wallet manager in the browser (for example, MetaMask) 
-expose a [`Web3`](https://web3js.readthedocs.io/en/v1.2.0/web3.html) 
-compatible provider in `window.ethereum`. This provider is then wrapped by 
-GSN, which creates a `RelayProvider` that is also compatible with `Web3`. 
-Transactions are processed by GSN to allow them to go through a relay at 
-zero cost, but they are sent to the original wallet manager to be 
-signed by the user.
-
-The `ethers.js` package uses its own provider class. So to create 
-the provider we’ll use, we take that GSN provider and use it as the 
-parameter to the `ethers` provider constructor.
-
-```javascript
-
-        let gsnProvider = await RelayProvider.newProvider(window.ethereum, {
-          paymasterAddress: conf.paymaster,
-        }).init()
-	provider = new ethers.providers.Web3Provider(gsnProvider)
-	userAddr = gsnProvider.origProvider.selectedAddress
-```
-
-The namespace within a file that is going to pass through `browserify` is inaccessible for 
-JavaScript written on the HTML page. By adding fields to the global variable window, we 
-can provide that JavaScript with a link to our functions and parameters. We don't need 
-all of these parameters for our program, but those we don't are useful for debugging.
-
-```javascript
-window.app = {
-	gsnContractCall: gsnContractCall,
-	listenToEvents: listenToEvents,
-	gsnPaymasterRejection: gsnPaymasterRejection, 
-	conf: conf,
-	ethers: ethers,
-	provider: provider,
-	addr: flagAddr,
-	abi: flagAbi
-};
-```
-
-The HTML code loads the output of `browserify`, and accesses the 
-JavaScript functions using `window.app`.
-
-## Local Tests <a id="local_tests"></a>
-
-If you just want to run a couple of transactions to see that the dapp works you can 
-use a test network such as Kovan, but such a network is too slow for serious testing.
-To do that, you run the tests locally:
-
-
-### Manual Tests <a id="manual_tests"></a>
-
-1. Start a local Ethereum simulator, such as [ganache](https://www.trufflesuite.com/ganache).
-   ::: warning
-   Due to a bug somewhere `chainId` and `netId` need to be identical. To run ganache, use
-   this command line:
-   ```
-   net=`date "+%j%H%M%S"`  && ganache-cli --networkId $net --chainId $net -v
-   ```
-   :::
-1. Make sure that the truffle configuration file (either `truffle.js` or `truffle-config.js`)
-   contains the necessary information to connect to that network.
-1. Deploy GSN (contracts and relay):
-   ```sh
-   node_modules/.bin/gsn start
-   ```
-1. See the contract addresses and relay URL at the bottom of the output
-   ```
-   GSN started
-
-     RelayHub: 0xCA3ef05158d0dBD38cC7B49FbBc979d4cB977Ccc
-     StakeManager: 0x316e9B4bBBBC9B585918CD19357fA686df636D22
-     Penalizer: 0xf905b7E384418de51A74758b31be97D9ef12Ab1F
-     TrustedForwarder: 0x7Aa34e87a62378c1998f2E179EA18200faF866E7
-     Paymaster : 0xC264199C89a1C7056731d2a289B1A5C3fD263CbF
-   Relay is active, URL = http://127.0.0.1:44703 . Press Ctrl-C to abort
-   ```
-1. Make sure you have the latest versions compiled and start the truffle console.
-   ```
-   truffle compile
-   truffle console
-   ```
-1. Get the test environment configuration
-   ```javascript
-   Gsn = require("@opengsn/provider")
-   ethers = require("ethers")
-   testEnvObj = new require('@opengsn/dev').GsnTestEnvironment 
-   testEnv = testEnvObj.loadDeployment()
-   ```
-1. Configure the paymaster, as you did earlier.
-   paymaster = await &lt;paymaster contract&gt;.new()
-   paymaster.setRelayHub(testEnv.relayHubAddress)
-   paymaster.setTrustedForwarder(testEnv.forwarderAddress)
-   ```
-1. Fund the paymaster (it will transfer the ether to the relay hub).
-   ```javascript
-   paymaster.send(1e18)
-   ```
-1. Deploy the target contract and configure the paymaster. If you are using
-   `CaptureTheFlag` and `NaivePaymaster`, do this:
-   ```javascript
-   flag = await CaptureTheFlag.new(testEnv.forwarderAddress)
-   paymaster.setTarget(flag.address)
-   ```
-1. Configure the settings you need to use GSN, similar to what you did in 
-   the user interface above, and create the `Provider` object.
-   ```javascript
-   origProvider = web3.currentProvider
-   conf = { paymasterAddress: paymaster.address }
-   gsnProvider = await Gsn.RelayProvider.newProvider({provider: origProvider, config: conf}).init()
-   provider = new ethers.providers.Web3Provider(gsnProvider)
-   ```
-1. Create an account:
-   ```javascript
-   acct = provider.provider.newAccount()
-   ```
-1. Create the `Contract` object:
-   ```javascript
-   signer = provider.getSigner(acct.address, acct.privateKey)
-   contract = await new ethers.Contract(flag.address, flag.abi, signer)
-   ```
-1. Run the transaction and wait for it to finish:
-   ```javascript
-   transaction = await contract.captureFlag()
-   receipt = await provider.waitForTransaction(transaction.hash)
-   ```
-1. Get the `_to` value from the receipt, and compare it with the 
-   account that signed the request.
-   ```javascript
-   receipt.logs.map(entry => contract.interface.parseLog(entry))[1].values._to
-   acct.address
+6. To add GSN support, you wrap it with a GSN "RelayProvider" like this:
+   ```javascript 
+   const { paymasterAddress } = GsnTestEnvironment.loadDeployment()
+   web3Provider = windows.ethereum
+   web3provider = await RelayProvider.newProvider({
+     provider: web3provider,
+     config: {
+       paymasterAddress,
+     }
+   }).init()
    ```
 
+7. The provider can be used normally: all view calls are passed directly to the wrapped provider. 
+   Transactions on contracts are redirected through GSN
 
+That's all the change we need to make our application go through GSN. Now when the user attempts to make a transaction,
+he will be asked to sign the request, but not pay for it.
 
+## Running Tests
 
-### Automated tests <a id="automated_tests"></a>
+You can also use GSN inside your test scripts, to see how your contract works when executed through GSN.
 
-You can see a complete automated test 
-[here](https://github.com/qbzzt/opengsn/blob/master/01_SimpleUse/test/testcontracts.js). 
-Here is an explanation of the new parts:
+1. By default, `hardhat test` uses an in-memory provider. Unfortunately, GSN's relayer service is an external process, and can't access this provider.
+2. Instead, you need to run your test using a "development" network, running on an external node
+3. To simplify this, you can run your test using `run-with-hardhat-node "hardhat test --network dev"`
+4. This command-line starts `hardhat node`, then launches the test command line, and when the test finishes, it also shuts down the node.
+5. Inside the test, we start GSN using `GsnTestEnvironment.startGsn()`
+6. This way, you can test both GSN and non-GSN execution of the contract.
 
-The `GsnTestEnvironment.startGsn` command starts GSN on the provided blockchain. 
-
-```javascript
-                let env = await GsnTestEnvironment.startGsn('localhost')
-```
-
-The various addresses GSN uses on the blockchain are stored in 
-`env.contractsDeployment`. We need the trusted forwarder and the relay hub 
-to initialize the contracts we are testing.
-
-```javascript
-
-                const { forwarderAddress, relayHubAddress } = env.contractsDeployment
-```
-
-Everything else works as it in the manual tests.
 
 ## Conclusion
 
@@ -559,7 +328,3 @@ tests for contracts going through GSN.
 You should now be able to write your own GSN compatible dapps that users could use
 without having to purchase ether. Hopefully, this will make user acquisition and onboarding
 much less painful for the users, and therefore much more effective for you.
-
-----------------------------------------------
-
-Original version of this tutorial by Ori Pomerantz qbzzt1@gmail.com
