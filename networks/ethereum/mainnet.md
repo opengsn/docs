@@ -20,7 +20,7 @@ gsn-relay-config.json:
   "workerMinBalance": 0.2e18,
   "workerTargetBalance": 2e18,
   "managerTargetBalance": 2.3e18,
-  "registrationBlockRate": 500000,
+  "registrationBlockRate": 210000,
   "ethereumNodeUrl": "<NODE_URL>>"
 }
 ```
@@ -28,8 +28,8 @@ gsn-relay-config.json:
 ```js
   // add the following fields to your GSNConfig:
   const gsnConfig: Partial<GSNConfig> = {
-    relayLookupWindowBlocks: 6e5,
-    relayRegistrationLookupBlocks: 6e5,
+    relayLookupWindowBlocks: 2e5,
+    relayRegistrationLookupBlocks: 2e5,
     pastEventsQueryMaxPageSize: Number.MAX_SAFE_INTEGER,
   }
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
