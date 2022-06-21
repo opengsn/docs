@@ -9,28 +9,6 @@ barebones dapp before and after GSN integration.
 Another resource is [Capture The Flag](https://github.com/opengsn/ctf-react), 
 which is the same "capture the flag" game, but as a React application.
 
-A more elaborate example is [MetaCoin](https://github.com/opengsn/metacoin),
-which implements a gas-free ERC20 token. After playing with the 
-[live demo](https://metacoin.opengsn.org) on testnet you can check out the code and
-explore:
-
-```bash
-git clone git@github.com:opengsn/metacoin.git
-cd metacoin
-npm install
-
-npx gsn-with-ganache
-```
-You have now a running ganache instance, with active GSN 
-
-In another window, run:
-```bash
-# deploy MetaCoin contract and start local web server
-npx truffle migrate && npm run dev
-```
-
-If you want more control over the local GSN instance, you can start in one window ganache, and in another window do `npx gsn start`
-
 ## Adding GSN support to existing App
 
 Adding GSN involves 4 steps
