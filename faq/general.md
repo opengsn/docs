@@ -8,7 +8,7 @@ usually save money for dapps to run their own relays and configure them as the
 extra transaction fee to a third party. 
 
 Only in case the dapp's preferred relay server is unavailable, the clients will
-seamlessly fallback to another relayer in the network. This protects against
+seamlessly fallback to another relay in the network. This protects against
 network failures and denial of service attacks.
 
 If a preferred relay is not configured, all transactions will be routed through
@@ -16,7 +16,7 @@ third party relay servers for an extra fee.
 
 ## Who pays for gas? <a id="who_is_paying_the_gas?"></a>
 
-Ethereum always require gas as payment for transactions, but when using GSN,
+Ethereum always requires gas as payment for transactions, but when using GSN,
 who pays for the gas is abstracted away and replaced with arbitrary
 programmable logic.
 
@@ -52,20 +52,11 @@ should consider what they expect the total cost of payment to be, and how they
 will identify who are their users. It is up to dapp developers to decide how
 they will identify who is an eligible user.
 
-## Can I use this with credit cards? <a id="can_i_use_this_with_credit_cards?"></a>
-
-An interesting use case for GSN is allowing users to pay for transactions via
-credit cards. An example way this might work would be charging a user directly
-for tokens that are then used to access services via a dapp. The tokens can be
-held in a contract representing a users balance, and when making a transaction
-using the GSN their token balance can be decremented to cover the 'cost' of
-each transaction.
-
 ## Where is the private key? <a id="where_is_the_private_key?"></a>
 
 While relay servers pay the gas cost for transactions, this does not mean they
 have access to user's private keys.  The user's client uses its wallet private
-key to sign the request it sends the relayer. User private keys are never
+key to sign the request it sends the relay. User private keys are never
 shared or exposed to any entity, neither relay servers nor on-chain contracts.
 
 ## How secure is GSN? <a id="is_gsn_secure?"></a>
@@ -101,13 +92,13 @@ To deter abuse, relay servers must stake in the `RelayHub` while `Paymasters`
 deposit a balance. That way relay servers don't have to trust the paymaster
 contracts they serve and vice versa.
 
-The balance deposited by `Paymasters` is used to refund relayers for the cost
+The balance deposited by `Paymasters` is used to refund relays for the cost
 of relaying transactions plus an extra incentivization fee.
 
 Relay providers are required to put a stake into the `RelayHub` to ensure good
-behavior. In the event a relayer behaves badly (for example attempting to reuse
-a nonce) their stake can be slashed and collected by other relayers by proving
-on-chain the relayers bad behavior. This system of checks and balances is one
+behavior. In the event a relays behaves badly (for example attempting to reuse
+a nonce) their stake can be slashed and collected by other relays by proving
+on-chain the relay's bad behavior. This system of checks and balances is one
 of the features that keep the GSN safe and ensures that some forms of attacks
 against the network do not scale.
 

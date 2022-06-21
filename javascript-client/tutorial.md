@@ -83,14 +83,11 @@ This transaction first talks to a **_paymaster_**, a contract that decides which
 finance based on the sender, the target contract, and possibly additional information.
 
 Paymasters are contracts, so they are always available, same as any other 
-Ethereum contract. Relayers are internet sites which get paid by paymasters for 
-their services. Running a new relay is cheap and easy 
+Ethereum contract. Relays are servers which get paid by paymasters for
+their services. Running a new relay does not require any special skills
 ([see directions here](/relay-server/tutorial.md)). 
 
-We expect (though not require) that anybody who opens a dapp for relayed calls will also set up a relay or 
-two, so there will be enough that they can't all be censored.
-
-Note that everything the relayers do is verified. They cannot cheat, and if a relay 
+Note that everything the relays do is verified. They cannot cheat, and if a relay
 attempts to censor a client at most it can delay the message by a few seconds before 
 the client selects to go through a different relay.
 
@@ -141,8 +138,7 @@ When the owner sets a new target, we want to emit an event to inform the world a
     event TargetSet(address target);
 ```
 
-This function modifies the target contract we are willing to be a paymaster for. We 
-can use `onlyOwner` because `BasePaymaster` inherits from `Ownable`.
+This function sets the address of the recipient contract we are willing to pay gas for.
 ```solidity
     function setTarget(address target) external onlyOwner {
         ourTarget = target;
@@ -150,8 +146,8 @@ can use `onlyOwner` because `BasePaymaster` inherits from `Ownable`.
     }
 ```
 
-The main logic should be placed in the `_preRelayedCall` method, the decision whether to pay for a 
-transaction or not. The `GNSType.RelayRequest` type is defined 
+The main logic should be placed in the `_preRelayedCall` method, where the decision whether to pay for a
+transaction or not is made. The `GNSType.RelayRequest` type is defined
 [here](https://github.com/opengsn/gsn/blob/release/contracts/interfaces/GsnTypes.sol). 
 It includes multiple fields - we’ll use the `.target`, which is the target contract.
 
@@ -188,7 +184,7 @@ Using this feature is beyond the scope of this tutorial.
 ```
 
 This paymaster is naive, but not a complete sucker. It only accepts requests going to our 
-service. This is the way that `preRelayedCall` returns a rejection - either by
+recipient smart contract. This is the way that `preRelayedCall` returns a rejection - either by
 failing a `require`, by explicitly calling `revert`, or even just running out of gas. If we return any value from this function
 normally it means that the paymaster is committed to paying for the transaction, and 
 will do so even if the transaction ultimately fails.
@@ -274,7 +270,7 @@ yarn add @opengsn/provider @opengsn/contracts @opengsn/dev
 ```
 
 2. When you test your project locally, you usually start a local node using `hardhat node`.
-   To start a node with GSN deployed (and a relayer running), you should run:
+   To start a node with GSN deployed (and a relay running), you should run:
    ```
    npx gsn start --withNode
    ``` 
@@ -307,24 +303,10 @@ he will be asked to sign the request, but not pay for it.
 
 You can also use GSN inside your test scripts, to see how your contract works when executed through GSN.
 
-1. By default, `hardhat test` uses an in-memory provider. Unfortunately, GSN's relayer service is an external process, and can't access this provider.
+1. By default, `hardhat test` uses an in-memory provider. Unfortunately, GSN's relay service is an external process, and can't access this provider.
 2. Instead, you need to run your test using a "development" network, running on an external node
 3. To simplify this, you can run your test using `run-with-hardhat-node "hardhat test --network dev"`
 4. This command-line starts `hardhat node`, then launches the test command line, and when the test finishes, it also shuts down the node.
 5. Inside the test, we start GSN using `GsnTestEnvironment.startGsn()`
 6. This way, you can test both GSN and non-GSN execution of the contract.
 
-
-## Conclusion
-
-In this article you learned how to accept transactions from entities that can’t (or won’t) 
-pay for them with their own gas. You also learned how to create a simple paymaster 
-to pay for the transactions that you want to sponsor, for example those going to your 
-own contract. You learned how to write JavaScript code that can run in the 
-user's browser to send such free ethereum transactions, and then how to write unit 
-tests for contracts going through GSN.
-
-
-You should now be able to write your own GSN compatible dapps that users could use
-without having to purchase ether. Hopefully, this will make user acquisition and onboarding
-much less painful for the users, and therefore much more effective for you.

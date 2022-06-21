@@ -28,24 +28,21 @@ To start GSN on local ganache, run the command:
 npx gsn start
 ```
 
-Or, if you like to run it together with ganache, add a script command:
-```json
-  "scripts": {
-    "gsn-with-ganache": "run-with-testrpc --networkId 1337 --chainId 1337 'gsn start'"
-  }
+You can also run a process with both Hardhat node and GSN instance running in background by executing a command:
+```bash
+npx run-with-gsn 'ls'
 ```
 
 ### Add GSN to your contract <a id='add-to-contract'></a>
-When receiving a meta-transaction, a contract must be able to recognize the caller, which is usually `msg.sender`
+When receiving a native transaction, a contract accesses the `msg.sender` in order to recognize the caller.
 When receiving meta (relayed) transactions, the sender is different, so you must inherit
-a specific baseclass (**ERC2771Recipient**) and use helper method `_msgSender()` to get the
+a special base contract (**ERC2771Recipient**) and use a helper method called `_msgSender()` to get the
 address of the sender.
 
 Note that your contract continues to work normally when called directly (without GSN) - in this case `_msgSender()` 
 returns the real (`msg.sender`) sender unmodified.
 
-You also need have a`forwarder`, which is the contract you will receive the calls through.
-See "delpoyment" below on how to set its value.
+You also need to have a `forwarder`, which is the contract you will receive the calls through.
 
 ```javascript
 import "@opengsn/contracts/src/ERC2771Recipient";
@@ -79,9 +76,9 @@ For testing purposes, our `gsn start` deploys a paymaster that will accept and p
 ```
 
 We also deploy such a paymaster on all [test networks](/networks.md)
-For obvious reasons, there is no such "accept everytihing" paymaster on mainnets - any such deployed paymaster will soon get depleted by hackers.
+For obvious reasons, there is no such "accept everything" paymaster on mainnets - any such deployed paymaster will soon get depleted by hackers.
 
-### Add Use GSN RelayProvider in your app <a id="add-provider"></a>
+### Use GSN RelayProvider in your app <a id="add-provider"></a>
 
 Once your contract is set, you need to use a RelayProvider to access your contract. This is a wrapper to the regular web3 provider. All "view" operations are sent directly, but all transactions
 are relayed through GSN
@@ -92,8 +89,7 @@ const { RelayProvider } = require('@opengsn/provider')
 const config = { 
     paymasterAddress,
     loggerConfiguration: {
-        logLevel: 'debug',
-        // loggerUrl: 'logger.opengsn.org',
+        logLevel: 'debug'
     }
 }
 const provider = await RelayProvider.newProvider({ provider: web3.currentProvider, config }).init()
@@ -101,8 +97,6 @@ const web3 = new Web3(provider);
 ```
 
 With these changes, your application will route the requests through GSN.
-The "loggerUrl" is optional: setting it to `https://logger.opengsn.org`, will send the logs to opengsn global logger using the specified `logLevel`,
-to help troubleshooting by the GSN support. 
 
 To see that the sender address doesn't have to have eth, you can create a new one:
 ```js
@@ -112,8 +106,6 @@ or using web3:
 ```js
     from = web3.eth.personal.newAccount('pwd')
 ```
- The sender address 
-doesn't have to have any eth - if you're using metamask, you'll notice that it pops up a "sign" request, which cost you nothing, and not "send transaction"
 
 See [advanced](advanced.md) section for all available configuration parameters. 
 
@@ -124,9 +116,6 @@ const myRecipient = new web3.eth.Contract(abi, address);
 
 // Sends the transaction via the GSN
 await myRecipient.methods.myFunction().send({ from });
-
-// Disable GSN for a specific transaction (but require that the sender has eth!)
-await myRecipient.methods.myFunction().send({ from, useGSN: false });
 ```
 
 

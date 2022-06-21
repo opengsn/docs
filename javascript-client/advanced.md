@@ -9,19 +9,16 @@ GSN aims to be a generic solution to all meta-transaction needs, and provides a 
 ## RelayProvider Configuration Parameters
 
 - **paymasterAddress** - The most important (and only mandatory) configuration parameter. The paymaster contract is the one who actually pays for the request.
-  It also the one that select which network (RelayHub contract) to use.
-- **preferredRelays** - list of relays to use first. Without this parameter, the client would 
-  select a relayer from the available registered relays on the RelayHub    
-    Note that "preferred relayers" are tried in their explicit order, regardless of their transaction fee (relayers fetched from the RelayHub are sorted with cheaper relayers first)
-- **sliceSize** - after selcting relayers and sorting them, how many relayers to ping in parallel.
+- **preferredRelays** - list of relays to use first. Without this parameter, the client
+  selects a relay from the available registered relays on the RelayHub
 - **loggerConfiguration** - set of configuration for logging server:
     - **logLevel** - what level to log : `debug`/`info`/`warn`/`error`. defaults to `info`
     - **loggerUrl** - URL of log server. default to none (don't send logs to centralized server)
-        for troubleshooting, set to `logger.opengsn.org`, and also give your loggerClient to GSN support.
+        for troubleshooting, set to `logger.opengsn.org`, and also give your `loggerUserId` to GSN support.
     - **loggerUserId** - name current client in each log. by default, a unique "gsnUser###" is assigned
-- **gasPriceFactorPercent** - by default, the client will query the `getGasPrice()` from the provider, and add
-  this value. defaults to "20", which means request gas price is 20% above the `getGasPrice()` value
-- **minGasPrice** - with above calculation, don't use gas price below this value.
+- **gasPriceFactorPercent** - by default, the client will query the `getFeeHistory()` from the provider, and add
+  this value. defaults to "20", which means both `maxFeePerGas` and `maxPriorityFeePerGas` is 20% above the `getFeeHistory()` value
+- **minMaxPriorityFeePerGas** - with above calculation, don't use `maxPriorityFeePerGas` below this value.
 
 
 ## Advanced Configuration Parameters
@@ -31,31 +28,24 @@ In most cases, you don't need to modify the defaults for these values.
 - **methodSuffix** - when suffix of the "eth_signTypedData" to use. for Metamask, the default is "_v4"
 - **jsonStringifyRequest** - when calling eth_signTypedData, should we pass the object value as a single string or as a JSON object.
     for Metamask, this value is "true" (use a single string)
-- **relayTimeoutGrace** - much much time (in seconds) a relayer that failed a request should be "downscored". (defaults to 1800 seconds=half an hour)
-- **auditorsCount** After relaying a request, the client selects at random other relayer(s) as "auditors"
-    to validate the original relayer didn't attempt to cheat on the client. defaults to 1 (if there are more than 1 registered relayers)
+- **relayTimeoutGrace** - how much time (in seconds) a relay that failed a request should be "downscored" (defaults to 1800 seconds)
+- **auditorsCount** - a number of relays to send a transaction for audit (defaults to 1)
    
+  After relaying a request, the client selects at random other relay(s) as "auditors"
+  to validate the original relay didn't attempt to cheat on the client.
   The auditors check the request, and will submit a "penalize" request if the original relayer indeed attempted a cheat.
 
   Set to "0" to disable auditing (e.g. on testnets)
 
-- **maxRelayNonceGap** - how far "into the future" the client accepts its request to be set. default to 3, 
-  which means the client accepts that the relayer will put its request with 3 pending requests before it.
-  Set to "0" if you only "immediate" transaction.
-  
-  **Note** that this value can't be enforced by the framework, but the relayer will probably lose if it doesn't honor it:
-  If the client specifies "0", and the relayer put the transaction after (say 3) 
-  requests, the client will simply re-send the request through another relayer (and downgrading this one for future requests)
-  The request will eventually get mined by the other relayer first - and rejected for this relayer (And after signing, the relayer can't simply sign another transaction with the same nonce, since it will get penalized)
-
+- **maxRelayNonceGap** - how far "into the future" the client accepts its request to be set (default to 3)
+  The client accepts that the relay will put its request with 3 pending requests before it.
 
 ## Using an Ephemeral Signing Key <a id="using-an-offline-signing-key"></a>
 
 Usually in web-dapps, the provider holds the account and user's private key.
 With GSN, you can create an "ephemeral" account and manage the private key in the browser.
-The underlying `web3.currentProvider` is still used to show the user with a "sign" dialog to confirm sending the transaction.
 
-In order to support it, the GSN provider also provides the following `accountManager` API:
+In order to support it, the GSN provider also has the following `accountManager` API:
 
 ```javascript
 const { RelayProvider } = require('@opengsn/provider');
@@ -91,30 +81,31 @@ You can see an example [VerifyingPaymaster](https://github.com/opengsn/gsn-payma
 const asyncApprovalData = async function (relayRequest: RelayRequest) {
   return Promise.resolve('0x1234567890')
 }
-const provider = RelayProvider.newProvider( { 
+const provider = RelayProvider.newProvider({
             provider: web3.currentProvider, 
             config, 
-            overrideDependencies:{ asyncApprovalData })
+            overrideDependencies:{ asyncApprovalData }
+          })
 ```
 
-## Tweaking Relay selection algoritm
+## Tweaking Relay selection algorithm
 
-Below are some functions (passed in `overrideDependencies`, like asyncApprovalData, above) that allows you to customize the
-relay selection algoritm 
+Below are some functions (passed in `overrideDependencies`, like `asyncApprovalData` above) that allows you to customize the
+relay selection algorithm
 
 ### Custom Relay Score Calculation
 
 By default, relays are sorted based on the following algorithm:
-- calculate the gas fee the relayer requests.
+- calculate the gas fee the relay requests.
 - sort lower fee first.
-- if a relayer failed a transaction lately, lower its score so it moves to the end of the list.
+- if a relay failed a transaction lately, lower its score so it moves to the end of the list.
 
 It is possible to override this score calculation, by providing `scoreCalculator` function. see [DefaultRelayScore](https://github.com/opengsn/gsn/blob/release/src/relayclient/KnownRelaysManager.ts#L25) for the default
 implementation.
 
 
-### Filter out relayers
+### Filter out relays
 
-* `pingFilter` function let you filter out relays based on the ping response. The default [GasPricePingFilter](https://github.com/opengsn/gsn/blob/release/src/relayclient/RelayClient.ts#L48) filters out relayers that require gasPrice higher than client's allowed gas.
+* `pingFilter` function let you filter out relays based on the ping response. The default [GasPricePingFilter](https://github.com/opengsn/gsn/blob/release/src/relayclient/RelayClient.ts#L48) filters out relays that require gasPrice higher than client's allowed gas.
 
 

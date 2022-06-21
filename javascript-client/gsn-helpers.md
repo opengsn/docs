@@ -12,7 +12,7 @@ yarn add --save-dev @opengsn/cli
 ### start <a id="start"></a>
 
 Run GSN on a local test network.
-This commands deploy GSN contracts, and then starts a relay server
+These commands deploy GSN contracts, and then starts a relay server
 
 ```bash
 npx gsn start [--workdir <directory>] [-n <network>]
@@ -89,7 +89,7 @@ npx gsn paymaster-fund [--from <account>] [--hub <address>]  [--paymaster <addre
 
 ### paymaster-balance
 
-Query a paymaster or relayer owner GSN balance.
+Query a paymaster or relay owner GSN balance.
 
 ```bash
 npx gsn paymaster-balance [--hub <address>]  [--paymaster <address>] [--network <url>]
