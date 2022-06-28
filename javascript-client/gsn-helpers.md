@@ -89,7 +89,7 @@ npx gsn paymaster-fund [--from <account>] [--hub <address>]  [--paymaster <addre
 
 ### paymaster-balance
 
-Query a paymaster or relay owner GSN balance.
+Query a paymaster or relayer owner GSN balance.
 
 ```bash
 npx gsn paymaster-balance [--hub <address>]  [--paymaster <address>] [--network <url>]

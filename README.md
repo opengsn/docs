@@ -10,9 +10,9 @@ decentralized system that improves dapp usability without sacrificing security.
 
 Example use cases for GSN:
 
+3. **Privacy**: Enabling ETH-less withdrawal of tokens sent to stealth addresses
 1. **Pay for gas in supported ERC-20 tokens**: Allow users to pay for gas in ERC-20 tokens that support `permit` function
 2. **Pay for gas off-chain**: Allow users to pay for gas indirectly via a L2 rollup or a credit card
-3. **Privacy**: Enabling ETH-less submission of zero-knowledge proofs, GSN allows sending tokens to stealth addresses
 4. **Onboarding**: Allow dapps to subsidize the onboarding process for new users
 
 
@@ -54,9 +54,9 @@ it to a relay server.
 
 Upon receiving the request to relay a transaction from the client, the Relay server
 will validate this transaction to make sure it pays back the amount of ETH that
-covers the expenses of submitting it and some extra fee to allow the relay to turn a profit.
+covers the expenses of submitting it and some extra fee to allow the relayer to turn a profit.
 
-If everything is fine, the relay signs a native Ethereum transaction, submits
+If everything is fine, the relayer signs a native Ethereum transaction, submits
 it to the mempool and returns a signed transaction to the client for validation.
 In case anything goes wrong, the client can just pick a different relay server
 and try to send a transaction via a new one.

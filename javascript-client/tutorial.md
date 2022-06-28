@@ -84,7 +84,7 @@ finance based on the sender, the target contract, and possibly additional inform
 
 Paymasters are contracts, so they are always available, same as any other 
 Ethereum contract. Relays are servers which get paid by paymasters for
-their services. Running a new relay does not require any special skills
+their services. Running a new relayer does not require any special skills
 ([see directions here](/relay-server/tutorial.md)). 
 
 Note that everything the relays do is verified. They cannot cheat, and if a relay
@@ -255,7 +255,7 @@ You can find here the [deployed addresses of GSN](/networks.md) on different mai
 
 Your contract is not going to do any good if users can’t use it. The way users interact 
 with a contract using GSN is a bit different from the way they do it for a normal dapp,
-because they need to go through a relay and don't need ether.
+because they need to go through a relayer and don't need ether.
 
 The tutorial below assumes you have a working application that uses [Ethers](https://docs.ethers.io/) and [Hardhat](https://hardhat.org/)
 Any framework can be (such as [React](https://reactjs.org/)). 
@@ -270,7 +270,7 @@ yarn add @opengsn/provider @opengsn/contracts @opengsn/dev
 ```
 
 2. When you test your project locally, you usually start a local node using `hardhat node`.
-   To start a node with GSN deployed (and a relay running), you should run:
+   To start a node with GSN deployed (and a relayer running), you should run:
    ```
    npx gsn start --withNode
    ``` 

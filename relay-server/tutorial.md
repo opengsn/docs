@@ -8,7 +8,7 @@ communicate with any dapp, it is expected that dapp developers will contribute b
 running a relay or two. Also, if you buy and hold ether as an investment you might as well run a relay
 and earn a bit extra (see explanation)
 
-In this article you learn how to run a relay on a cloud VM using
+In this article you learn how to run a relayer on a cloud VM using
 [Google Cloud Platform Compute](https://cloud.google.com/compute),
 though your can use any other hosting provider.
 
@@ -24,7 +24,7 @@ server so your costs will be low.  For example, [GCP does not charge you for run
 instance](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits).
 
 When you want to get your ETH back you use the same account you used to
-register the relay to unstake (deregister) it. After the unstake period, which
+register the relayer to unstake (deregister) it. After the unstake period, which
 is about a week, you can request all your locked funds.
 
 ### Setting your relay server's transaction fee 
@@ -43,7 +43,7 @@ The client code selects relays based on price. If your fees are too high, you wi
 
 ## Directions
 
-### The Relay VM
+### The Relayer VM
 
 #### Initial Setup
 
@@ -74,24 +74,24 @@ run the relay software. It runs inside a docker container. You configure it usin
 a script called `rdc`, which needs to run with more permissions than
 [the GCP container-optimized OS](https://cloud.google.com/container-optimized-os/docs/concepts/security) allows. 
 So you need to run it from a different computer that is authorized to SSH 
-into the relay VM.
+into the relayer VM.
 
 ::: tip Note
 If you don't have this permission restriction, you can also download the script directly on the vm, and run the following commands using the "local" option.
 :::
 
 
-1. On a computer that is authorized to ssh into the relay VM, 
-   download the relay configuration setup and 
-   put it on the relay VM:
+1. On a computer that is authorized to ssh into the relayer VM, 
+   download the relayer configuration setup and 
+   put it on the relayer VM:
    ```bash
    curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/rdc > rdc
    chmod +x rdc
-   ./rdc <relay VM name> addalias
+   ./rdc <relayer host-name> addalias
    yes
    ```
-1. Open SSH to the relay VM.
-1. Download the relay configuration files.
+1. Open SSH to the relayer VM.
+1. Download the relayer configuration files.
    ```bash
    curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/.env > .env
    mkdir config
@@ -112,8 +112,8 @@ If you don't have this permission restriction, you can also download the script 
    | Parameter | Value |
    | --------- | ----- |
    | HOST | Your host name |
-   | baseRelayFee | The base fee that your relay will charge |
-   | pctRelayFee | The percent fee that your relay will charge |
+   | baseRelayFee | The base fee that your relayer will charge |
+   | pctRelayFee | The percent fee that your relayer will charge |
    | versionRegistryAddress | The address for the version registry on the network you are using. [See this list](/networks.md). |
    | ownerAddress | The owner account that will be used by relayer-register, below |
    | ethereumNodeUrl | The URL to a node on the network you wish to use. If you do not know what to put here, get a [free Infura account](https://infura.io), create a project, and look at **KEYS > ENDPOINTS** for your network. Use the endpoint that starts with https:// |
@@ -136,7 +136,7 @@ If you don't have this permission restriction, you can also download the script 
    The `ready` setting should be `false`, because it isn't registered with 
    the relay hub yet.
   
-You can also check the activity of the relay when you are on the vm. Get the id of the "jsrelay" container.
+You can also check the activity of the relayer when you are on the vm. Get the id of the "jsrelay" container.
 ```bash
 docker ps
 ```
@@ -145,14 +145,14 @@ Then get the logs of this container.
 docker logs <container-id>
 ```
 
-## Relay Staking and Registration
+## Relayer Staking and Registration
 
-We need to register the relay with the Relay Hub. This has several purposes:
+We need to register the relayer with the Relay Hub. This has several purposes:
 
 * Stake one ether on the relay's honesty, so relays won't try to abuse the 
   system (for example by submitting invalid messages)
-* Put up the initial relay budget for sending messages. The default is 2 Ether.
-* Add the relay to the relay list so clients will know they can 
+* Put up the initial relayer budget for sending messages. The default is 2 Ether.
+* Add the relayer to the relayers list so clients will know they can 
   use it for free messages
 
 You can use any UNIX computer for this process, but it requires the mnemonic, the
@@ -185,10 +185,10 @@ of information, which you never want away from your control.
    stake that you lose if your relay doesn't relay messages honestly, 
    two ethers are the initial funds for the relay, and the 0.001 is for the gas 
    needed for the registration itself. Make sure to keep the mnemonic, you need 
-   will it at some point to unstake the relay and get back your ether 
+   will it at some point to unstake the relayer and get back your ether 
    (and some extra).
    :::
-1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr . See that the relay is now 
+1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr . See that the relayer is now 
    ready. Congratulations.
 
 
@@ -197,7 +197,7 @@ of information, which you never want away from your control.
 Eventually you will want the ether back. To do so:
 
 1. [Go here](https://qbzzt.github.io/ethereum/gsn/unstake.html) with your wallet (for example, MetaMask) set 
-  to the account that created the relay in the first place.
+  to the account that created the relayer in the first place.
 1. Enter your `RelayManagerAddress` (from https://&lt;your&nbsp;DNS&nbsp;name&gt;/getaddr) and click **Unlock your stake**.
 1. To see the block in which you'll be able to get back your stake either open the browser's console or
   run this command on the relay. Either way, look for `withdrawBlock`.

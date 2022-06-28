@@ -52,7 +52,7 @@ and that it comes with "docker" pre-installed.
 
    Note that initial startup takes about a minute (to create a private key and register an SSL certificate)
 
-1. Check the relay is up:
+1. Check the relayer is up:
 
     ```
     curl https://HOSTNAME/gsn1/getaddr

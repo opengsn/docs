@@ -10,7 +10,7 @@ GSN aims to be a generic solution to all meta-transaction needs, and provides a 
 
 - **paymasterAddress** - The most important (and only mandatory) configuration parameter. The paymaster contract is the one who actually pays for the request.
 - **preferredRelays** - list of relays to use first. Without this parameter, the client
-  selects a relay from the available registered relays on the RelayHub
+  selects a relayer from the available registered relays on the RelayHub
 - **loggerConfiguration** - set of configuration for logging server:
     - **logLevel** - what level to log : `debug`/`info`/`warn`/`error`. defaults to `info`
     - **loggerUrl** - URL of log server. default to none (don't send logs to centralized server)
@@ -28,17 +28,17 @@ In most cases, you don't need to modify the defaults for these values.
 - **methodSuffix** - when suffix of the "eth_signTypedData" to use. for Metamask, the default is "_v4"
 - **jsonStringifyRequest** - when calling eth_signTypedData, should we pass the object value as a single string or as a JSON object.
     for Metamask, this value is "true" (use a single string)
-- **relayTimeoutGrace** - how much time (in seconds) a relay that failed a request should be "downscored" (defaults to 1800 seconds)
+- **relayTimeoutGrace** - how much time (in seconds) a relayer that failed a request should be "downscored" (defaults to 1800 seconds)
 - **auditorsCount** - a number of relays to send a transaction for audit (defaults to 1)
    
   After relaying a request, the client selects at random other relay(s) as "auditors"
-  to validate the original relay didn't attempt to cheat on the client.
+  to validate the original relayer didn't attempt to cheat on the client.
   The auditors check the request, and will submit a "penalize" request if the original relayer indeed attempted a cheat.
 
   Set to "0" to disable auditing (e.g. on testnets)
 
 - **maxRelayNonceGap** - how far "into the future" the client accepts its request to be set (default to 3)
-  The client accepts that the relay will put its request with 3 pending requests before it.
+  The client accepts that the relayer will put its request with 3 pending requests before it.
 
 ## Using an Ephemeral Signing Key <a id="using-an-offline-signing-key"></a>
 
@@ -96,16 +96,16 @@ relay selection algorithm
 ### Custom Relay Score Calculation
 
 By default, relays are sorted based on the following algorithm:
-- calculate the gas fee the relay requests.
+- calculate the gas fee the relayer requests.
 - sort lower fee first.
-- if a relay failed a transaction lately, lower its score so it moves to the end of the list.
+- if a relayer failed a transaction lately, lower its score so it moves to the end of the list.
 
 It is possible to override this score calculation, by providing `scoreCalculator` function. see [DefaultRelayScore](https://github.com/opengsn/gsn/blob/release/src/relayclient/KnownRelaysManager.ts#L25) for the default
 implementation.
 
 
-### Filter out relays
+### Filter out relayers
 
-* `pingFilter` function let you filter out relays based on the ping response. The default [GasPricePingFilter](https://github.com/opengsn/gsn/blob/release/src/relayclient/RelayClient.ts#L48) filters out relays that require gasPrice higher than client's allowed gas.
+* `pingFilter` function let you filter out relays based on the ping response. The default [GasPricePingFilter](https://github.com/opengsn/gsn/blob/release/src/relayclient/RelayClient.ts#L48) filters out relayers that require gasPrice higher than client's allowed gas.
 
 
