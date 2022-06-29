@@ -5,7 +5,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Documentation',
+  title: 'Documentation v3.0.0 beta.1 pre-release',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
