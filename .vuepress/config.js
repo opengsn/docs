@@ -84,7 +84,7 @@ module.exports = {
       },
       {
         title: 'Code Reference',
-        collapsable: false,
+        collapsable: true,
         children: findFiles('soldoc', '[.]md')
       },
 
