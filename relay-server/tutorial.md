@@ -27,20 +27,6 @@ When you want to get your ETH back you use the same account you used to
 register the relay to unstake (deregister) it. After the unstake period, which
 is about a week, you can request all your locked funds.
 
-### Setting your relay server's transaction fee 
-
-When you configure the `gsn-relay-config.json` file later, you will see two variables, 
-`baseRelayFee` and `pctRelayFee`. 
-For every transaction you relay you can expect to earn `baseRelayFee` (wei) 
-plus `pctRelayFee`% of the cost of the gas for the transaction (in addition to being
-reimbursed for gas used).
-
-::: tip Note
-The client code selects relays based on price. If your fees are too high, you will not get anything. 
-[Click here to see what other relay servers are charging](https://relays.opengsn.org/).
-:::
-
-
 ## Directions
 
 ### The Relay VM
@@ -112,8 +98,6 @@ If you don't have this permission restriction, you can also download the script 
    | Parameter | Value |
    | --------- | ----- |
    | HOST | Your host name |
-   | baseRelayFee | The base fee that your relay will charge |
-   | pctRelayFee | The percent fee that your relay will charge |
    | versionRegistryAddress | The address for the version registry on the network you are using. [See this list](/networks.md). |
    | ownerAddress | The owner account that will be used by relayer-register, below |
    | ethereumNodeUrl | The URL to a node on the network you wish to use. If you do not know what to put here, get a [free Infura account](https://infura.io), create a project, and look at **KEYS > ENDPOINTS** for your network. Use the endpoint that starts with https:// |
