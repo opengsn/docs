@@ -95,6 +95,7 @@ module.exports = {
             title: 'Ethereum',
             children: [
               '/networks/ethereum/goerli.md',
+              '/networks/ethereum/ropsten.md',
             ]
           },
           {
@@ -103,12 +104,12 @@ module.exports = {
               '/networks/polygon/mumbai.md'
             ]
           },
-          {
-            title: 'Optimism',
-            children: [
-              'networks/optimism/kovan-optimistic.md',
-            ]
-          },
+          // {
+          //   title: 'Optimism',
+          //   children: [
+          //     'networks/optimism/kovan-optimistic.md',
+          //   ]
+          // },
         ]
       },
       {

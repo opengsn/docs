@@ -1,12 +1,12 @@
-## Network mumbai
+### Network mumbai
 
-RelayHub: [0xcd68Fae7e604956176bc0CDBd945149c5005794E](https://mumbai.etherscan.io/address/0xcd68Fae7e604956176bc0CDBd945149c5005794E)
+RelayHub: [0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681](https://mumbai.etherscan.io/address/0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681)
 
-Forwarder: [0xF4074e1df418Bc25D26fFb24aEDb893F9cd085fc](https://mumbai.etherscan.io/address/0xF4074e1df418Bc25D26fFb24aEDb893F9cd085fc)
+Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://mumbai.etherscan.io/address/0x7A95fA73250dc53556d264522150A940d4C50238)
 
 WrappedEthToken: [0xBA03B53D826207c39453653f655d147d4BCBA7B4](https://mumbai.etherscan.io/address/0xBA03B53D826207c39453653f655d147d4BCBA7B4)
 
-Accept-Everything Paymaster: [0x7Da86B0A86578d1dF10EbebBf4EEBA874b7aE3C5](https://mumbai.etherscan.io/address/0x7Da86B0A86578d1dF10EbebBf4EEBA874b7aE3C5)
+Accept-Everything Paymaster: [0x327BBd6BAc3236BCAcDE0D0f4FCD08b3eDfFbc06](https://mumbai.etherscan.io/address/0x327BBd6BAc3236BCAcDE0D0f4FCD08b3eDfFbc06)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
@@ -14,13 +14,12 @@ gsn-relay-config.json:
 {
   "baseRelayFee": 0,
   "pctRelayFee": 70,
-  "relayHubAddress": "0xcd68Fae7e604956176bc0CDBd945149c5005794E",
-  "token": "0xBA03B53D826207c39453653f655d147d4BCBA7B4",
+  "relayHubAddress": "0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681",
+  "managerStakeTokenAddress": "0xBA03B53D826207c39453653f655d147d4BCBA7B4",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
-  "registrationBlockRate": 500000,
-  "ethereumNodeUrl": "<NODE_URL>>"
+  "ethereumNodeUrl": "<NODE_URL>"
 }
 ```
 
@@ -28,7 +27,8 @@ gsn-relay-config.json:
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
-    paymasterAddress: "0x7Da86B0A86578d1dF10EbebBf4EEBA874b7aE3C5"
+    paymasterAddress: "0x327BBd6BAc3236BCAcDE0D0f4FCD08b3eDfFbc06"
   }})
   await gsnProvider.init()
 ```
+
