@@ -98,7 +98,6 @@ If you don't have this permission restriction, you can also download the script 
    | Parameter | Value |
    | --------- | ----- |
    | HOST | Your host name |
-   | versionRegistryAddress | The address for the version registry on the network you are using. [See this list](/networks.md). |
    | ownerAddress | The owner account that will be used by relayer-register, below |
    | ethereumNodeUrl | The URL to a node on the network you wish to use. If you do not know what to put here, get a [free Infura account](https://infura.io), create a project, and look at **KEYS > ENDPOINTS** for your network. Use the endpoint that starts with https:// |
 1. Download and run the docker images 
