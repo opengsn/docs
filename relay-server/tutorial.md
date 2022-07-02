@@ -73,8 +73,6 @@ If you don't have this permission restriction, you can also download the script 
    ```bash
    curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/rdc > rdc
    chmod +x rdc
-   ./rdc <relayer host-name> addalias
-   yes
    ```
 1. Open SSH to the relayer VM.
 1. Download the relayer configuration files.
@@ -85,7 +83,7 @@ If you don't have this permission restriction, you can also download the script 
    ```
 1. Edit `.env`:
    ```bash
-   nano .env
+   vi .env
    ```
 1. In `.env`, specify:
    | Parameter | Value          |
@@ -98,14 +96,16 @@ If you don't have this permission restriction, you can also download the script 
    | Parameter | Value |
    | --------- | ----- |
    | HOST | Your host name |
-   | ownerAddress | The owner account that will be used by relayer-register, below |
+   | ownerAddress | The owner account that will be used by `relayer-register`, below |
+   | relayHubAddress | Address of the correct RelayHub deployed on this network |
+   | managerStakeTokenAddress | Address of the ERC-20 token used to stake for the relayer |
    | ethereumNodeUrl | The URL to a node on the network you wish to use. If you do not know what to put here, get a [free Infura account](https://infura.io), create a project, and look at **KEYS > ENDPOINTS** for your network. Use the endpoint that starts with https:// |
-1. Download and run the docker images 
+1. From a computer that is authorized to ssh into the relayer VM, run the docker images
    ```bash
-   rdc config
-   rdc up -d
+   RELAYDC_TAG=:3.0.0-beta.1 ./rdc <relayer host-name> config
+   RELAYDC_TAG=:3.0.0-beta.1 ./rdc <relayer host-name> up -d
    ```
-1. Wait until the second `rdc` command finishes. 
+1. Wait until the second `rdc` command finishes. You may need to troubleshoot the process at this point.
 1. To see the progress of the HTTPS server (the slowest component to set up), run
    ```bash
    rdc logs -f https-portal
@@ -132,10 +132,10 @@ docker logs <container-id>
 
 We need to register the relayer with the Relay Hub. This has several purposes:
 
-* Stake one ether on the relay's honesty, so relays won't try to abuse the 
+* Staking prevents relays from trying to abuse the
   system (for example by submitting invalid messages)
-* Put up the initial relayer budget for sending messages. The default is 2 Ether.
-* Add the relayer to the relayers list so clients will know they can 
+* Fund the relayer with the initial account balance for sending transactions. The default is 2 Ether.
+* Add the relayer to the on-chain relayers list so clients will know they can
   use it for free messages
 
 You can use any UNIX computer for this process, but it requires the mnemonic, the
