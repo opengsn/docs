@@ -15,7 +15,7 @@ though your can use any other hosting provider.
 ## Relays as an investment
 
 Relays get reimbursed by paymasters for the gas they spend sending transactions for 
-users, plus a transaction fee that you can configure.
+users, plus a relayed transaction fee.
 
 Without significant transaction volume you won't necessarily get a super
 impressive interest rate, but you will get paid to support decentralization
