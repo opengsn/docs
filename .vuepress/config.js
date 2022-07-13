@@ -109,12 +109,18 @@ module.exports = {
               '/networks/polygon/mumbai.md'
             ]
           },
-          // {
-          //   title: 'Optimism',
-          //   children: [
-          //     'networks/optimism/kovan-optimistic.md',
-          //   ]
-          // },
+          {
+            title: 'Optimism',
+            children: [
+              'networks/optimism/kovan-optimistic.md',
+            ]
+          },
+          {
+            title: 'Avalanche',
+            children: [
+              'networks/avax/fuji.md',
+            ]
+          },
         ]
       },
       {

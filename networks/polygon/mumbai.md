@@ -12,8 +12,6 @@ Accept-Everything Paymaster: [0x327BBd6BAc3236BCAcDE0D0f4FCD08b3eDfFbc06](https:
 gsn-relay-config.json:
 ```json
 {
-  "baseRelayFee": 0,
-  "pctRelayFee": 70,
   "relayHubAddress": "0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681",
   "managerStakeTokenAddress": "0xBA03B53D826207c39453653f655d147d4BCBA7B4",
   "ownerAddress": "<OWNER_ADDRESS>",

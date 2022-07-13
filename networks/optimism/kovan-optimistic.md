@@ -1,4 +1,4 @@
-## Network kopt
+### Network Optimistic-Kovan
 
 RelayHub: [0x73F81F562885D2631A4C5f4C84f294aeD467c34B](https://kovan-optimistic.etherscan.io/address/0x73F81F562885D2631A4C5f4C84f294aeD467c34B)
 
@@ -12,8 +12,6 @@ Accept-Everything Paymaster: [0x237085d39405e0f1A57D4f69F2Be98519b410D66](https:
 gsn-relay-config.json:
 ```json
 {
-  "baseRelayFee": 0,
-  "pctRelayFee": 70,
   "relayHubAddress": "0x73F81F562885D2631A4C5f4C84f294aeD467c34B",
   "token": "0x0b9D225C6A347eC2D12F664b85CB11B735BFc86d",
   "ownerAddress": "<OWNER_ADDRESS>",
