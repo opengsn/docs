@@ -36,6 +36,10 @@ module.exports = {
     lastUpdated: true,
     nav: [
       {
+        text: 'Letest version (3 beta)',
+        link: 'https://docs.opengsn.org'
+      },
+      {
         text: 'OpenGSN.org',
         link: 'https://opengsn.org'
       },
