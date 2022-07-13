@@ -42,7 +42,7 @@ module.exports = {
         link: 'https://opengsn.org'
       },
       {
-        text: 'Latest Stable version (2.2.5)',
+        text: 'Latest Stable (2.2.5)',
         link: 'https://docs-v2.opengsn.org'
       },
       {

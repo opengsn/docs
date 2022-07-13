@@ -10,9 +10,9 @@ decentralized system that improves dapp usability without sacrificing security.
 
 Example use cases for GSN:
 
-3. **Privacy**: Enabling ETH-less withdrawal of tokens sent to stealth addresses
-1. **Pay for gas in supported ERC-20 tokens**: Allow users to pay for gas in ERC-20 tokens that support `permit` function
-2. **Pay for gas off-chain**: Allow users to pay for gas indirectly via a L2 rollup or a credit card
+1. **Privacy**: Enabling ETH-less withdrawal of tokens sent to stealth addresses
+2. **Pay for gas in supported ERC-20 tokens**: Allow users to pay for gas in ERC-20 tokens that support `permit` function
+3. **Pay for gas off-chain**: Allow users to pay for gas indirectly via a L2 rollup or a credit card
 4. **Onboarding**: Allow dapps to subsidize the onboarding process for new users
 
 
