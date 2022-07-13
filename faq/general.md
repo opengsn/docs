@@ -11,12 +11,12 @@ Only in case the dapp's preferred relay server is unavailable, the clients will
 seamlessly fallback to another relayer in the network. This protects against
 network failures and denial of service attacks.
 
-If a preferred relay is not configured, all transactions will be routed through
+If a preferred relayer is not configured, all transactions will be routed through
 third party relay servers for an extra fee.
 
 ## Who pays for gas? <a id="who_is_paying_the_gas?"></a>
 
-Ethereum always require gas as payment for transactions, but when using GSN,
+Ethereum always requires gas as payment for transactions, but when using GSN,
 who pays for the gas is abstracted away and replaced with arbitrary
 programmable logic.
 
@@ -52,15 +52,6 @@ should consider what they expect the total cost of payment to be, and how they
 will identify who are their users. It is up to dapp developers to decide how
 they will identify who is an eligible user.
 
-## Can I use this with credit cards? <a id="can_i_use_this_with_credit_cards?"></a>
-
-An interesting use case for GSN is allowing users to pay for transactions via
-credit cards. An example way this might work would be charging a user directly
-for tokens that are then used to access services via a dapp. The tokens can be
-held in a contract representing a users balance, and when making a transaction
-using the GSN their token balance can be decremented to cover the 'cost' of
-each transaction.
-
 ## Where is the private key? <a id="where_is_the_private_key?"></a>
 
 While relay servers pay the gas cost for transactions, this does not mean they
@@ -76,7 +67,7 @@ The [GSN Protocol](https://github.com/opengsn/gsn-protocol/blob/master/gsn-proto
 
 ## How does a contract know who the user is? <a id="how_do_i_know_who_the_user_is?"></a>
 
-The `BaseRelayRecipient` contract has a utility function called `_msgSender()`
+The `ERC2771Recipient` contract has a utility function called `_msgSender()`
 which returns the true address of the user making a contract call. The function
 `_msgSender()` should be used in place of the solidity system variable
 `msg.sender`.
@@ -86,7 +77,7 @@ present state. This means that for relayed transactions, `msg.sender` will
 return the address of the relay server signing the transaction, and not the
 user requesting the transaction. Contracts that use `msg.sender` are not
 natively compatible with the Gas Station network. It is necessary to use the
-`_msgSender()` function from the `BaseRelayRecipient` contract in the [*OpenGSN
+`_msgSender()` function from the `ERC2771Recipient` contract in the [*OpenGSN
 library*](../contracts/index.md) if your contract needs to identify the
 initiator of a GSN powered transaction.
 

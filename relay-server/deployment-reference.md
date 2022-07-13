@@ -24,13 +24,14 @@ and that it comes with "docker" pre-installed.
 1. Once you can get its public IP address, add an "A" record for that IP your DNS service.
 1. To easily SSH into the machine, add your ssh public key, to the "Settings/Metadata/SSH keys"
 
-## Install GSN Relayer
+## Install a GSN Relayer
 
 1. Checkout the code in GSN git repository, and navigate to the `dockers/relaydc` folder
 1. edit `.env` file and set the HOST value to the public DNS name of your host.
 1. edit the `config-sample/gsn-relay-config.json`:
    * Edit the `ethereumNodeUrl` to point to a valid RPC url of the network you want to use.
-   * Edit the `versionRegistry` to point to the right entry for your network from the [Deployed networks](/networks.md)
+   * Edit the `relayHubAddress` to point to the right entry for your network from the [Deployed networks](/networks.md)
+   * Edit the `managerStakeTokenAddress` to the default (wrapped eth) token of the RelayHub
    * Edit hte `ownerAddress` to your owner account, used by `relayer-register`, below.
 1. copy the files to the host:
 
@@ -51,7 +52,7 @@ and that it comes with "docker" pre-installed.
 
    Note that initial startup takes about a minute (to create a private key and register an SSL certificate)
 
-1. Check the relay is up:
+1. Check the relayer is up:
 
     ```
     curl https://HOSTNAME/gsn1/getaddr

@@ -1,10 +1,11 @@
-const { repository, description } = require('../package')
+const {repository, description} = require('../package')
+const {findFiles} = require('./findFiles')
 
 module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Documentation',
+  title: 'Documentation v3.0.0 beta.1 pre-release',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -16,9 +17,9 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/config/#head
    */
   head: [
-    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
-    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
+    ['meta', {name: 'theme-color', content: '#3eaf7c'}],
+    ['meta', {name: 'apple-mobile-web-app-capable', content: 'yes'}],
+    ['meta', {name: 'apple-mobile-web-app-status-bar-style', content: 'black'}]
   ],
 
   /**
@@ -30,6 +31,7 @@ module.exports = {
     logo: '/gsn-green-vector.svg',
     repo: 'https://github.com/opengsn/gsn',
     docsRepo: 'https://github.com/opengsn/docs',
+    docsBranch: 'version3',
     editLinks: true,
     docsDir: '.',
     editLinkText: '',
@@ -52,7 +54,7 @@ module.exports = {
         link: 'https://relays.opengsn.org/'
       }
     ],
-    sidebar:  [
+    sidebar: [
       '/',
       {
         title: 'Contracts',
@@ -81,60 +83,34 @@ module.exports = {
         ]
       },
       {
+        title: 'Code Reference',
+        collapsable: true,
+        children: findFiles('soldoc', '[.]md')
+      },
+
+      {
         title: 'Supported Networks',
         collapsable: false,
         children: [
-        {
-			title: 'Ethereum',
-			children: [
-			'/networks/ethereum/mainnet.md',
-			'/networks/ethereum/rinkeby.md',
-			'/networks/ethereum/kovan.md',
-			'/networks/ethereum/ropsten.md'
-			]
-		},
-		{
-			title: 'Ethereum Classic',
-			children: [
-			'/networks/etc/etc.md',
-			'/networks/etc/kotti.md'
-			]
-		},
-		{
-			title: 'GnosisChain (xDai)',
-			children: [
-			'/networks/xdai/xdai.md'
-			]
-		},
-		{
-			title: 'Polygon',
-			children: [
-			'/networks/polygon/polygon.md',
-			'/networks/polygon/mumbai.md'
-			]
-		},
-		{
-			title: 'Binance Smart Chain',
-			children: [
-			'/networks/bsc/bsc.md',
-			'/networks/bsc/bsct.md'
-			]
-		},
-		{
-			title: 'Optimism',
-			children: [
-			'/networks/optimism/optimism.md',
-			'/networks/optimism/optimism-kovan.md',
-			'/networks/optimism/optimism-gc.md'
-			]
-		},
-		{
-			title: 'Avalanche',
-			children: [
-			'/networks/avax/avax.md',
-      '/networks/avax/fuji.md'
-			]
-		},
+          {
+            title: 'Ethereum',
+            children: [
+              '/networks/ethereum/goerli.md',
+              '/networks/ethereum/ropsten.md',
+            ]
+          },
+          {
+            title: 'Polygon',
+            children: [
+              '/networks/polygon/mumbai.md'
+            ]
+          },
+          // {
+          //   title: 'Optimism',
+          //   children: [
+          //     'networks/optimism/kovan-optimistic.md',
+          //   ]
+          // },
         ]
       },
       {
@@ -143,7 +119,7 @@ module.exports = {
         children: [
           '/faq/general',
           '/faq/troubleshooting',
-	  '/faq/legacy'
+          '/faq/legacy'
         ]
       },
       'audits.md',
@@ -151,7 +127,7 @@ module.exports = {
   },
   markdown: {
     extendMarkdown: md => {
-      md.set({ html: true })
+      md.set({html: true})
       md.use(require('markdown-it-plantuml'))
     }
   },

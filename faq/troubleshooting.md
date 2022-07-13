@@ -13,10 +13,10 @@ are used by all other contracts, and thus the hooks below are enough to support 
 ```solidity
 pragma solidity ^0.8;
 
-import "@opengsn/contracts/src/BaseRelayRecipient.sol";
+import "@opengsn/contracts/src/ERC2771Recipient.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract MyContract is BaseRelayRecipient, ERC20 {
+contract MyContract is ERC2771Recipient, ERC20 {
 
   constructor(string memory name_, string memory symbol_, address forwarder_) 
     ERC20(name_, symbol_) {
@@ -25,19 +25,19 @@ contract MyContract is BaseRelayRecipient, ERC20 {
 
   string public override versionRecipient = "2.2.0";
 
-  function _msgSender() internal view override(Context, BaseRelayRecipient)
+  function _msgSender() internal view override(Context, ERC2771Recipient)
       returns (address sender) {
-      sender = BaseRelayRecipient._msgSender();
+      sender = ERC2771Recipient._msgSender();
   }
 
-  function _msgData() internal view override(Context, BaseRelayRecipient)
+  function _msgData() internal view override(Context, ERC2771Recipient)
       returns (bytes calldata) {
-      return BaseRelayRecipient._msgData();
+      return ERC2771Recipient._msgData();
   }
 }
 ```
 
-You can use instead OpenZeppelin's `ERC2771Context`, which is an equivalent implementation of BaseRelayRecipient.
+You can use instead OpenZeppelin's `ERC2771Context`, which is an equivalent implementation of ERC2771Recipient.
 
 ## "signature mismatch" when using Metamask with local ganache
 

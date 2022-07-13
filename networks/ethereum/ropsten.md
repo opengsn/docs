@@ -1,12 +1,12 @@
-### Ropsten Testnet
+### Network ropsten
 
-RelayHub: [0xAa3E82b4c4093b4bA13Cb5714382C99ADBf750cA](https://ropsten.etherscan.io/address/0xAa3E82b4c4093b4bA13Cb5714382C99ADBf750cA)
+RelayHub: [0xC11Cf08ED047A1D49d2BfEBa4880cEFe290e3813](https://ropsten.etherscan.io/address/0xC11Cf08ED047A1D49d2BfEBa4880cEFe290e3813)
 
-Forwarder: [0xeB230bF62267E94e657b5cbE74bdcea78EB3a5AB](https://ropsten.etherscan.io/address/0xeB230bF62267E94e657b5cbE74bdcea78EB3a5AB)
+Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://ropsten.etherscan.io/address/0x7A95fA73250dc53556d264522150A940d4C50238)
 
-VersionRegistry: [0x9e59Ea5333cD4f402dAc320a04fafA023fe3810D](https://ropsten.etherscan.io/address/0x9e59Ea5333cD4f402dAc320a04fafA023fe3810D)
+WrappedEthToken: [0x1368e39E3CB40C3dFb06d2cB8E5fca6a847D16E6](https://ropsten.etherscan.io/address/0x1368e39E3CB40C3dFb06d2cB8E5fca6a847D16E6)
 
-Accept-Everything Paymaster: [0x5fba514fC9d7215fb22ada57Cd1E20167ba8Fd32](https://ropsten.etherscan.io/address/0x5fba514fC9d7215fb22ada57Cd1E20167ba8Fd32)
+Accept-Everything Paymaster: [0x3A0b6272C2346842566Ed00773298FE3c410BfB8](https://ropsten.etherscan.io/address/0x3A0b6272C2346842566Ed00773298FE3c410BfB8)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
@@ -14,22 +14,19 @@ gsn-relay-config.json:
 {
   "baseRelayFee": 0,
   "pctRelayFee": 70,
-  "versionRegistryAddress": "0x9e59Ea5333cD4f402dAc320a04fafA023fe3810D",
+  "relayHubAddress": "0xC11Cf08ED047A1D49d2BfEBa4880cEFe290e3813",
+  "managerStakeTokenAddress": "0x1368e39E3CB40C3dFb06d2cB8E5fca6a847D16E6",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
-  "registrationBlockRate": 500000,
-  "ethereumNodeUrl": "<NODE_URL>>"
+  "ethereumNodeUrl": "<NODE_URL>"
 }
 ```
 #### Recommeneded client configuration
+(Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
-  // add the following fields to your GSNConfig:
-  const gsnConfig: Partial<GSNConfig> = {
-    relayLookupWindowBlocks: 6e5,
-    relayRegistrationLookupBlocks: 6e5,
-    pastEventsQueryMaxPageSize: Number.MAX_SAFE_INTEGER,
-  }
-  const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: gsnConfig})
+  const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
+    paymasterAddress: "0x3A0b6272C2346842566Ed00773298FE3c410BfB8"
+  }})
   await gsnProvider.init()
 ```
