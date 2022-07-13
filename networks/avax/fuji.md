@@ -1,18 +1,18 @@
-### Network fuji
+### Fuji Testnet
 
-RelayHub: [0xb8e1346CB0cf64F34698cf25702015BCB85bD535](https://fuji.etherscan.io/address/0xb8e1346CB0cf64F34698cf25702015BCB85bD535)
+RelayHub: [0x2d493cde51adc74D4494b3dC146759cF32957A23](https://testnet.snowtrace.io/address/0x2d493cde51adc74D4494b3dC146759cF32957A23)
 
-Forwarder: [0xF4074e1df418Bc25D26fFb24aEDb893F9cd085fc](https://fuji.etherscan.io/address/0xF4074e1df418Bc25D26fFb24aEDb893F9cd085fc)
+Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://testnet.snowtrace.io/address/0x7A95fA73250dc53556d264522150A940d4C50238)
 
-WrappedEthToken: [0xb4Bbb5e968e278C6541addBC24b903712746f102](https://fuji.etherscan.io/address/0xb4Bbb5e968e278C6541addBC24b903712746f102)
+WrappedEthToken: [0xb4Bbb5e968e278C6541addBC24b903712746f102](https://testnet.snowtrace.io/address/0xb4Bbb5e968e278C6541addBC24b903712746f102)
 
-Accept-Everything Paymaster: [0x5B79B2291BaF5213a34d0f16B4865408452D5385](https://fuji.etherscan.io/address/0x5B79B2291BaF5213a34d0f16B4865408452D5385)
+Accept-Everything Paymaster: [0x1e4D8ebd5071d117Bcf351E3D53E34620D3ac190](https://testnet.snowtrace.io/address/0x1e4D8ebd5071d117Bcf351E3D53E34620D3ac190)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
 ```json
 {
-  "relayHubAddress": "0xb8e1346CB0cf64F34698cf25702015BCB85bD535",
+  "relayHubAddress": "0x2d493cde51adc74D4494b3dC146759cF32957A23",
   "token": "0xb4Bbb5e968e278C6541addBC24b903712746f102",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
@@ -26,7 +26,7 @@ gsn-relay-config.json:
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
-    paymasterAddress: "0x5B79B2291BaF5213a34d0f16B4865408452D5385"
+    paymasterAddress: "0x1e4D8ebd5071d117Bcf351E3D53E34620D3ac190"
   }})
   await gsnProvider.init()
 ```
