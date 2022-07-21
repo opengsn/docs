@@ -1,4 +1,4 @@
-### Fuji Testnet
+### Network Avalanche Fuji Testnet
 
 RelayHub: [0x2d493cde51adc74D4494b3dC146759cF32957A23](https://testnet.snowtrace.io/address/0x2d493cde51adc74D4494b3dC146759cF32957A23)
 
@@ -13,12 +13,11 @@ gsn-relay-config.json:
 ```json
 {
   "relayHubAddress": "0x2d493cde51adc74D4494b3dC146759cF32957A23",
-  "token": "0xb4Bbb5e968e278C6541addBC24b903712746f102",
+  "managerStakeTokenAddress": "0xb4Bbb5e968e278C6541addBC24b903712746f102",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
-  "registrationBlockRate": 500000,
-  "ethereumNodeUrl": "<NODE_URL>>"
+  "ethereumNodeUrl": "<NODE_URL>"
 }
 ```
 
@@ -30,3 +29,4 @@ gsn-relay-config.json:
   }})
   await gsnProvider.init()
 ```
+

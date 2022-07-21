@@ -1,4 +1,4 @@
-### Network mumbai
+### Network Mumbai
 
 RelayHub: [0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681](https://mumbai.polygonscan.com/address/0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681)
 

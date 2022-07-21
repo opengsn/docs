@@ -1,4 +1,4 @@
-### Network Optimistic-Kovan
+### Network Optimism Kovan
 
 RelayHub: [0x5Aa3c9e8a62C35E656C1CC601aa91107800278FC](https://kovan-optimistic.etherscan.io/address/0x5Aa3c9e8a62C35E656C1CC601aa91107800278FC)
 
@@ -13,12 +13,11 @@ gsn-relay-config.json:
 ```json
 {
   "relayHubAddress": "0x5Aa3c9e8a62C35E656C1CC601aa91107800278FC",
-  "token": "0x0b9D225C6A347eC2D12F664b85CB11B735BFc86d",
+  "managerStakeTokenAddress": "0x0b9D225C6A347eC2D12F664b85CB11B735BFc86d",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "confirmationsNeeded": 1,
-  "registrationBlockRate": 500000,
-  "ethereumNodeUrl": "<NODE_URL>>"
+  "ethereumNodeUrl": "<NODE_URL>"
 }
 ```
 
@@ -30,3 +29,4 @@ gsn-relay-config.json:
   }})
   await gsnProvider.init()
 ```
+

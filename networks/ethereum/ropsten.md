@@ -1,4 +1,4 @@
-### Network ropsten
+### Network Ropsten
 
 RelayHub: [0xC11Cf08ED047A1D49d2BfEBa4880cEFe290e3813](https://ropsten.etherscan.io/address/0xC11Cf08ED047A1D49d2BfEBa4880cEFe290e3813)
 
@@ -20,6 +20,7 @@ gsn-relay-config.json:
   "ethereumNodeUrl": "<NODE_URL>"
 }
 ```
+
 #### Recommeneded client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
@@ -28,3 +29,4 @@ gsn-relay-config.json:
   }})
   await gsnProvider.init()
 ```
+

@@ -1,4 +1,4 @@
-### Network goerli
+### Network Görli
 
 RelayHub: [0x40bE32219F0F106067ba95145e8F2b3e7930b201](https://goerli.etherscan.io/address/0x40bE32219F0F106067ba95145e8F2b3e7930b201)
 
@@ -29,3 +29,4 @@ gsn-relay-config.json:
   }})
   await gsnProvider.init()
 ```
+

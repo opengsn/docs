@@ -112,7 +112,13 @@ module.exports = {
           {
             title: 'Optimism',
             children: [
-              'networks/optimism/kovan-optimistic.md',
+              'networks/optimism/kopt.md',
+            ]
+          },
+          {
+            title: 'Arbitrum',
+            children: [
+              'networks/arbitrum/rarb.md',
             ]
           },
           {
