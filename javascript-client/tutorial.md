@@ -266,24 +266,46 @@ Also, our sample app works directly with Metamask using `windows.ethereum`
 
 1. First add GSN to your project:
 ```
-yarn add @opengsn/provider @opengsn/contracts @opengsn/dev
+yarn add @opengsn/provider @opengsn/contracts
+```
+
+Also you will need the following dev dependencies to run your project locally:
+```
+yarn add --dev @opengsn/dev @opengsn/cli
 ```
 
 2. When you test your project locally, you usually start a local node using `hardhat node`.
-   To start a node with GSN deployed (and a relayer running), you should run:
-   ```
-   npx gsn start --withNode
-   ``` 
-   This command will start `hardhat node` in the background, and then install GSN contracts, and finally will start a local relayer service. 
-   It also deploys an "accept-everything" paymaster that can be used to pay for all transactions.
-   (note that you can also run `hardhat node` in one terminal, and `gsn start` in another)
+In order to start a Hardhat node run:
+```
+npx hardhat node
+```
 
-4. Now in the source code, we need to locate the access to `windows.ethereum`,  
+_Note that using `hardhat-deploy` plugin with the GSN is currently not supported. The GSN requires the Hardhat to run in a
+standalone process and the deployment script requires the GSN contracts making a circular dependency.
+As a workaround you can have a separate Hardhat config file for `hardhat-deploy` in a subdirectory (see step #4)._
+
+3. In order to deploy GSN contracts and start a Relay Server run:
+   ```
+   npx gsn start
+   ``` 
+   This command will install GSN contracts and start a local Relay Server.
+   It also deploys an "accept-everything" paymaster that can be used to pay for all transactions.
+
+4. Deploy your contracts. If you are using `hardhat-deploy` plugin, do:
+   ```
+   cd deployment
+   npx hardhat deploy
+   ```
+   _Make sure there is a `hardhat.config.js` file with `require('hardhat-deploy')` in the `deployment` directory._
+
+5. Now in the source code, we need to locate the access to `windows.ethereum`,
    and wrap it with a wrapper provider that will redirect transactions through GSN
 
 6. To add GSN support, you wrap it with a GSN "RelayProvider" like this:
-   ```javascript 
-   const { paymasterAddress } = GsnTestEnvironment.loadDeployment()
+   _Note that the `npx gsn start` command writes the deployment artifacts to the `build` directory._
+   Make sure to include that directory in your application build process.
+   ```javascript
+   const paymasterAddress = require('../build/gsn/Paymaster.json').address
    web3Provider = windows.ethereum
    web3provider = await RelayProvider.newProvider({
      provider: web3provider,
