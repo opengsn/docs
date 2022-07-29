@@ -135,7 +135,8 @@ module.exports = {
         children: [
           '/faq/general',
           '/faq/troubleshooting',
-          '/faq/legacy'
+          '/faq/legacy',
+          '/faq/fromV2'
         ]
       },
       'audits.md',

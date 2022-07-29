@@ -1,4 +1,4 @@
-# API Changes from GSNv2 to GSNv3
+# Migrating from GSNv2 to GSNv3
 
 This document outlines the changes to the code for applications to move from GSNv2 to GSNv3
 

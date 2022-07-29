@@ -2,30 +2,28 @@
 
 ## Introduction
 
-Users that rely on GSNv2 to access distributed applications (dapps) need to access relays through
-the Internet to get their messages to the blockchain. While any user can access any relay to 
-communicate with any dapp, it is expected that dapp developers will contribute back to GSNv2 by 
-running a relay or two. Also, if you buy and hold ether as an investment you might as well run a relay
-and earn a bit extra (see explanation)
+Users that rely on the GSN to access distributed applications (dapps) need to access relays through
+the Internet to get their messages to the blockchain. Any user can access any relay to 
+communicate with any supported dapp. If you are a dapp developer you can participate in the GSN by 
+running a relay themselves and making it a [preferred relay](../faq/general.md#do_i_have_to_run_a_relayer).
+You can run a Relay Server only to earn from relaying transaction fees.
 
-In this article you learn how to run a relayer on a cloud VM using
+This article explains how to run a relayer on a cloud VM using
 [Google Cloud Platform Compute](https://cloud.google.com/compute),
 though your can use any other hosting provider.
 
-## Relays as an investment
+## Running a Relay Server For Profit
 
-Relays get reimbursed by paymasters for the gas they spend sending transactions for 
-users, plus a transaction fee that you can configure.
+Relay Servers get reimbursed by Paymasters for the gas they spend sending transactions for 
+users, plus a transaction fee that is defined by the network.
 
-Without significant transaction volume you won't necessarily get a super
-impressive interest rate, but you will get paid to support decentralization
-while taking little to no risk. Minimal resources are required to run a relay
-server so your costs will be low.  For example, [GCP does not charge you for running a single micro
+Profits of a Relay Server vary based on transaction volume, but there is little risk involved in running a Relay Server.
+Minimal resources are required to run a Relay Server. For example, [GCP does not charge you for running a single micro
 instance](https://cloud.google.com/free/docs/gcp-free-tier#free-tier-usage-limits).
 
-When you want to get your ETH back you use the same account you used to
-register the relayer to unstake (deregister) it. After the unstake period, which
-is about a week, you can request all your locked funds.
+When you want to get your stake back you use the same account you used to
+register the relayer to unstake and deregister it. After the unstake period, which
+is about a week, you can withdraw all your locked funds.
 
 ## Directions
 
@@ -49,7 +47,7 @@ First you need to set up the virtual machine (VM) that will run the relay server
    | Firewall | Allow HTTP traffic | Selected |
 
 1. Click **Create**.
-1. Obtain a DNS entry for your service. Use your favorite DNS service, e.g. as [Namecheap](http://www.namecheap.com), [GoDaddy](http://www.godaddy.com), or even a free service,
+1. Obtain a DNS entry for a registrar service. Some major DNS services are: [Namecheap](http://www.namecheap.com), [GoDaddy](http://www.godaddy.com), or even a free service,
    such as [DuckDNS](https://www.duckdns.org)
 1. Configure the external IP of the relay in the DNS. Note: by default, public IP is "ephemeral" and might change after reboot.
    
@@ -163,48 +161,6 @@ of information, which you never want away from your control.
        --relayUrl https://<your hostname for the relay>/gsn1 \
        -m `pwd`/pass12
    ```
-   ::: tip Note
-   To avoid risking your main account, [you can create 
-   a dedicated address](https://github.com/qbzzt/etherdocs/blob/master/paper_wallet.md) and transfer 3.001 ether to it. One ether is the 
-   stake that you lose if your relay doesn't relay messages honestly, 
-   two ethers are the initial funds for the relay, and the 0.001 is for the gas 
-   needed for the registration itself. Make sure to keep the mnemonic, you need 
-   will it at some point to unstake the relayer and get back your ether 
-   (and some extra).
-   :::
-1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr . See that the relayer is now 
+
+1. Open `https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr` . See that the relayer is now 
    ready. Congratulations.
-
-
-## Unstaking
-
-Eventually you will want the ether back. To do so:
-
-1. [Go here](https://qbzzt.github.io/ethereum/gsn/unstake.html) with your wallet (for example, MetaMask) set 
-  to the account that created the relayer in the first place.
-1. Enter your `RelayManagerAddress` (from https://&lt;your&nbsp;DNS&nbsp;name&gt;/getaddr) and click **Unlock your stake**.
-1. To see the block in which you'll be able to get back your stake either open the browser's console or
-  run this command on the relay. Either way, look for `withdrawBlock`.
-```bash
-docker logs default_gsn1_1 2>1 | grep withdrawBlock
-```
-1. Use https://&lt;network&nbsp;name&gt;.etherscan.io to see the latest block, wait until it is past the withdrawal block.
-1. Go back to [the unstake page](https://qbzzt.github.io/ethereum/gsn/unstake.html) and enter 
-  the `RelayManagerAddress` again.
-1. Click **Withdraw previously unlocked stake**.
-
-
-
-
-
-## Conclusion
-
-In this article you learned how to create a GSNv2 relay and connect it to the network. The more relays
-are available, the better the performance for users who rely on GSNv2 to access dapps without spending
-ether.
-
-
-----------------------------------------------
-
-Original version of this tutorial by Ori Pomerantz qbzzt1@gmail.com
-
