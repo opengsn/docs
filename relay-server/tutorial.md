@@ -92,14 +92,22 @@ _The `docker-compose.yml` file must be placed at the home folder. The `gsn-relay
 1. Press Ctrl-O and then Enter to save the modified file.
 1. Press Ctrl-X to exit.
 1. Edit `config/gsn-relay-config.json` to specify:
+
    | Parameter | Value |
    | --------- | ----- |
-   | url | Your Relay Server URL exactly as it is accessed by GSN Clients |
    | relayHubAddress | The address for the RelayHub on the network you are using. [See this list](/networks/addresses.md). |
    | managerStakeTokenAddress | The address for the ERC-20 token used for stake on the network you are using. [See this list](/networks.md). |
    | ownerAddress | The owner account that will be used by relayer-register, below |
    | ethereumNodeUrl | The URL to a node on the network you wish to use. If you do not know what to put here, get a [free Infura account](https://infura.io), create a project, and look at **KEYS > ENDPOINTS** for your network. Use the endpoint that starts with https:// |
-1. Download and run the docker images 
+
+1. Put the following values in a `.env` file:
+
+   | Variable    | Example value | Comment |
+   |-------------|-------------------| ------- |
+   | HOST        | my.hostname.com   | Your Relay Server URL exactly as it is accessed by GSN Clients |
+   | HTTPS_STAGE | production        | Remove to create a "staging" certificate. Note that "production" certificate generation is rate-limited. |
+
+2. Download and run the docker images
    ```bash
    docker-compose up
    ```
