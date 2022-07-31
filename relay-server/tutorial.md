@@ -82,13 +82,7 @@ _The `docker-compose.yml` file must be placed at the home folder. The `gsn-relay
    mkdir config
    curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/config-sample/gsn-relay-config.json > config/gsn-relay-config.json
    ```
-1. Edit `docker-compose.yml`:
 
-1. In `docker-compose.yml`, specify:
-   | Parameter | Value          |
-   | --------- | -------------- |
-   | HOST      | &lt;Your host name> |
-   | HTTP_STAGE | production |
 1. Press Ctrl-O and then Enter to save the modified file.
 1. Press Ctrl-X to exit.
 1. Edit `config/gsn-relay-config.json` to specify:
@@ -102,12 +96,12 @@ _The `docker-compose.yml` file must be placed at the home folder. The `gsn-relay
 
 1. Put the following values in a `.env` file:
 
-   | Variable    | Example value | Comment |
-   |-------------|-------------------| ------- |
-   | HOST        | my.hostname.com   | Your Relay Server URL exactly as it is accessed by GSN Clients |
-   | HTTPS_STAGE | production        | Remove to create a "staging" certificate. Note that "production" certificate generation is rate-limited. |
+   | Variable      | Example value     | Comment |
+   |---------------|-------------------| ------- |
+   | HOST          | my.hostname.com   | Your Relay Server URL exactly as it is accessed by GSN Clients |
+   | DEFAULT_EMAIL | me@hostname.com   | Your e-mail for LetsEncrypt to send SSL alerts to |
 
-2. Download and run the docker images
+1. Download and run the docker images
    ```bash
    docker-compose up
    ```
