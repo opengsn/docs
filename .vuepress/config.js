@@ -82,7 +82,6 @@ module.exports = {
         title: 'Relay Server',
         collapsable: false,
         children: [
-          '/relay-server/deployment-reference',
           '/relay-server/tutorial',
         ]
       },
