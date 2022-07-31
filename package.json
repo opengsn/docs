@@ -27,6 +27,6 @@
     "make-soldoc": "cd gsn/packages/contracts && ../../../node_modules/.bin/solidity-docgen --solc-module solc-0.8 --output=../../../soldoc/contracts --input=./src --exclude=./src/test,./src/forwarder/test --templates=.",
     "make-jsdoc": "jsdoc -c jsdoc.json gsn/packages/common/src/ConfigResponse.ts gsn/packages/relay/src/ServerConfigParams.ts --destination .vuepress/public/jsdoc",
     "vuepress-build": "vuepress build .",
-    "build": "yarn clone-gsn && yarn make-soldoc && make-jsdoc && yarn vuepress-build"
+    "build": "yarn clone-gsn && yarn make-soldoc && yarn make-jsdoc && yarn vuepress-build"
   }
 }
