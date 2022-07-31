@@ -4,3 +4,4 @@ node_modules
 /.vuepress/dist/
 /soldoc/contracts/
 /gsn/
+/.vuepress/public/jsdoc

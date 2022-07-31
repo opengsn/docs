@@ -139,6 +139,7 @@ module.exports = {
           '/faq/fromV2'
         ]
       },
+      'jsdoc-iframe.md',
       'audits.md',
     ],
   },
