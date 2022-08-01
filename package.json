@@ -23,7 +23,7 @@
   },
   "scripts": {
     "serve": "vuepress dev .",
-    "clear-gsn": "rm -rf gsn soldoc",
+    "clear-gsn": "rm -rf gsn soldoc .vuepress/public/jsdoc",
     "clone-gsn": "git clone --depth 1 https://github.com/opengsn/gsn",
     "make-soldoc": "cd gsn/packages/contracts && ../../../node_modules/.bin/solidity-docgen --solc-module solc-0.8 --output=../../../soldoc/contracts --input=./src --exclude=./src/test,./src/forwarder/test --templates=.",
     "make-jsdoc": "jsdoc -c jsdoc.json gsn/packages/common/src/ConfigResponse.ts gsn/packages/relay/src/ServerConfigParams.ts --destination .vuepress/public/jsdoc",
