@@ -5,3 +5,4 @@ node_modules
 /soldoc/contracts/
 /gsn/
 /.vuepress/public/jsdoc
+/tmp.*
