@@ -12,6 +12,7 @@
     "@vuepress/plugin-medium-zoom": "^1.7.1",
     "hardhat": "^2.8.3",
     "markdown-it-plantuml": "^1.4.1",
+    "mustache": "^4.2.0",
     "solc-0.8": "npm:solc@0.8.11",
     "solidity-docgen": "^0.5.16",
     "vuepress": "^1.5.3"
@@ -19,6 +20,7 @@
   "scripts": {
     "serve": "vuepress dev .",
     "make-soldoc": "rm -rf gsn soldoc/contracts; git clone --depth 1 https://github.com/opengsn/gsn && cd gsn/packages/contracts && ../../../node_modules/.bin/solidity-docgen --solc-module solc-0.8 --output=../../../soldoc/contracts --input=./src --exclude=./src/test,./src/forwarder/test --templates=.",
+    "update-networks": "./scripts/run-net-templ.sh",
     "vuepress-build": "vuepress build .",
     "build": "yarn make-soldoc && yarn vuepress-build"
   }

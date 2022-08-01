@@ -16,7 +16,6 @@ gsn-relay-config.json:
   "managerStakeTokenAddress": "0x4C6cc053d802fF96952c825CB4c490c4A5E59f88",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
-  "confirmationsNeeded": 1,
   "ethereumNodeUrl": "<NODE_URL>"
 }
 ```
