@@ -82,7 +82,6 @@ module.exports = {
         title: 'Relay Server',
         collapsable: false,
         children: [
-          '/relay-server/deployment-reference',
           '/relay-server/tutorial',
         ]
       },
@@ -135,7 +134,8 @@ module.exports = {
         children: [
           '/faq/general',
           '/faq/troubleshooting',
-          '/faq/legacy'
+          '/faq/legacy',
+          '/faq/fromV2'
         ]
       },
       'audits.md',
