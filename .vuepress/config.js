@@ -138,6 +138,14 @@ module.exports = {
           '/faq/fromV2'
         ]
       },
+      {
+        title: 'JSDoc',
+        collapsable: false,
+        children: [
+          '/jsdoc/jsdoc-client',
+          '/jsdoc/jsdoc-server'
+        ]
+      },
       'audits.md',
     ],
   },

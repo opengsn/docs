@@ -15,13 +15,20 @@
     "mustache": "^4.2.0",
     "solc-0.8": "npm:solc@0.8.11",
     "solidity-docgen": "^0.5.16",
+    "jsdoc": "^3.6.11",
+    "better-docs":  "^2.7.2",
+    "vue": "2.6.12",
+    "vue-template-compiler": "2.6.12",
     "vuepress": "^1.5.3"
   },
   "scripts": {
     "serve": "vuepress dev .",
-    "make-soldoc": "rm -rf gsn soldoc/contracts; git clone --depth 1 https://github.com/opengsn/gsn && cd gsn/packages/contracts && ../../../node_modules/.bin/solidity-docgen --solc-module solc-0.8 --output=../../../soldoc/contracts --input=./src --exclude=./src/test,./src/forwarder/test --templates=.",
+    "clear-gsn": "rm -rf gsn soldoc .vuepress/public/jsdoc",
+    "clone-gsn": "git clone --depth 1 https://github.com/opengsn/gsn",
+    "make-soldoc": "cd gsn/packages/contracts && ../../../node_modules/.bin/solidity-docgen --solc-module solc-0.8 --output=../../../soldoc/contracts --input=./src --exclude=./src/test,./src/forwarder/test --templates=.",
+    "make-jsdoc": "jsdoc -c jsdoc.json gsn/packages/common/src/ConfigResponse.ts gsn/packages/relay/src/ServerConfigParams.ts --destination .vuepress/public/jsdoc",
     "update-networks": "./scripts/run-net-templ.sh",
     "vuepress-build": "vuepress build .",
-    "build": "yarn make-soldoc && yarn vuepress-build"
+    "build": "yarn clear-gsn && yarn clone-gsn && yarn make-soldoc && yarn make-jsdoc && yarn update-networks && yarn vuepress-build"
   }
 }
