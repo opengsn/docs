@@ -29,6 +29,6 @@
     "make-jsdoc": "jsdoc -c jsdoc.json gsn/packages/common/src/ConfigResponse.ts gsn/packages/relay/src/ServerConfigParams.ts --destination .vuepress/public/jsdoc",
     "update-networks": "./scripts/run-net-templ.sh",
     "vuepress-build": "vuepress build .",
-    "build": "yarn clone-gsn && yarn make-soldoc && yarn make-jsdoc && yarn update-networks && yarn vuepress-build"
+    "build": "yarn clear-gsn && yarn clone-gsn && yarn make-soldoc && yarn make-jsdoc && yarn update-networks && yarn vuepress-build"
   }
 }
