@@ -1,5 +1,7 @@
 ### Network Ropsten
 
+<!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
+
 RelayHub: [0xC11Cf08ED047A1D49d2BfEBa4880cEFe290e3813](https://ropsten.etherscan.io/address/0xC11Cf08ED047A1D49d2BfEBa4880cEFe290e3813)
 
 Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://ropsten.etherscan.io/address/0x7A95fA73250dc53556d264522150A940d4C50238)

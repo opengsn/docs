@@ -12,6 +12,8 @@ else
 cat <<'EOF' > $outfile
 ### Network {{title}}
 
+<!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
+
 RelayHub: [{{contracts.RelayHub.address}}{{contracts.ArbRelayHub.address}}]({{{explorer}}}/address/{{contracts.RelayHub.address}}{{contracts.ArbRelayHub.address}})
 
 Forwarder: [{{contracts.Forwarder.address}}]({{{explorer}}}/address/{{contracts.Forwarder.address}})

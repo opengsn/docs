@@ -1,5 +1,7 @@
 ### Network Avalanche Fuji Testnet
 
+<!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
+
 RelayHub: [0x2d493cde51adc74D4494b3dC146759cF32957A23](https://testnet.snowtrace.io/address/0x2d493cde51adc74D4494b3dC146759cF32957A23)
 
 Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://testnet.snowtrace.io/address/0x7A95fA73250dc53556d264522150A940d4C50238)

@@ -1,5 +1,7 @@
 ### Network Görli
 
+<!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
+
 RelayHub: [0x40bE32219F0F106067ba95145e8F2b3e7930b201](https://goerli.etherscan.io/address/0x40bE32219F0F106067ba95145e8F2b3e7930b201)
 
 Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://goerli.etherscan.io/address/0x7A95fA73250dc53556d264522150A940d4C50238)

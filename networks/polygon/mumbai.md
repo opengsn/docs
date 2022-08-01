@@ -1,5 +1,7 @@
 ### Network Mumbai
 
+<!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
+
 RelayHub: [0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681](https://mumbai.polygonscan.com/address/0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681)
 
 Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://mumbai.polygonscan.com/address/0x7A95fA73250dc53556d264522150A940d4C50238)

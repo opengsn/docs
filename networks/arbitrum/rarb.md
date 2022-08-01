@@ -1,5 +1,7 @@
 ### Network Arbitrum Rinkeby
 
+<!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
+
 RelayHub: [0x9E0F60f978dA992b86fDdF1f158f9A381308A47E](https://testnet.arbiscan.io/address/0x9E0F60f978dA992b86fDdF1f158f9A381308A47E)
 
 Forwarder: [0x344f43702786Ac2bF3972f0925e5BB8E9d7a9E64](https://testnet.arbiscan.io/address/0x344f43702786Ac2bF3972f0925e5BB8E9d7a9E64)
