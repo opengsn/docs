@@ -16,8 +16,6 @@ RelayHub: [{{contracts.RelayHub.address}}{{contracts.ArbRelayHub.address}}]({{{e
 
 Forwarder: [{{contracts.Forwarder.address}}]({{{explorer}}}/address/{{contracts.Forwarder.address}})
 
-WrappedEthToken: [{{contracts.WrappedEthToken.address}}]({{{explorer}}}/address/{{contracts.WrappedEthToken.address}})
-
 Accept-Everything Paymaster: [{{contracts.TestPaymasterEverythingAccepted.address}}]({{{explorer}}}/address/{{contracts.TestPaymasterEverythingAccepted.address}})
 
 #### Recommeneded Server configuration
@@ -31,6 +29,14 @@ gsn-relay-config.json:
   "ethereumNodeUrl": "<NODE_URL>"
 }
 ```
+
+
+#### List of supported stake ERC-20 tokens and minimal stakes:
+
+| Token Name  | Value    | Address                                                                                                                       |
+|-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
+| Wrapped Eth |  0.5 wETH | [{{contracts.WrappedEthToken.address}}]({{{explorer}}}/address/{{contracts.WrappedEthToken.address}}) |
+
 
 #### Recommeneded client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
