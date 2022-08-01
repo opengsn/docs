@@ -56,4 +56,7 @@ individual Ethers.js contract or signer via GSN. (This feature is experimental).
 Now all smart contracts of the GSN, including Paymasters, implement ERC-165 preventing dapp developers and
 Relay Server operators from making mistakes in configuration.
 
-10. Multiple bug fixes and minor improvements
+9. For better L2 rollups and sidechains support, the GSN has switched time-related parameters from block-number-based
+to time-based ones.
+
+10. Multiple bug fixes and minor improvements.
