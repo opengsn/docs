@@ -138,7 +138,14 @@ module.exports = {
           '/faq/fromV2'
         ]
       },
-      'jsdoc-iframe.md',
+      {
+        title: 'JSDoc',
+        collapsable: false,
+        children: [
+          '/jsdoc/jsdoc-client',
+          '/jsdoc/jsdoc-server'
+        ]
+      },
       'audits.md',
     ],
   },
