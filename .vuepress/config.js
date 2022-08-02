@@ -5,7 +5,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Documentation v3.0.0 beta.1 pre-release',
+  title: 'v3.0.0 beta.1 pre-release',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -40,6 +40,10 @@ module.exports = {
       {
         text: 'OpenGSN.org',
         link: 'https://opengsn.org'
+      },
+      {
+        text: 'Latest Stable (2.2.5)',
+        link: 'https://docs-v2.opengsn.org'
       },
       {
         text: 'Forum',
@@ -78,7 +82,6 @@ module.exports = {
         title: 'Relay Server',
         collapsable: false,
         children: [
-          '/relay-server/deployment-reference',
           '/relay-server/tutorial',
         ]
       },
@@ -105,12 +108,24 @@ module.exports = {
               '/networks/polygon/mumbai.md'
             ]
           },
-          // {
-          //   title: 'Optimism',
-          //   children: [
-          //     'networks/optimism/kovan-optimistic.md',
-          //   ]
-          // },
+          {
+            title: 'Optimism',
+            children: [
+              'networks/optimism/kopt.md',
+            ]
+          },
+          {
+            title: 'Arbitrum',
+            children: [
+              'networks/arbitrum/rarb.md',
+            ]
+          },
+          {
+            title: 'Avalanche',
+            children: [
+              'networks/avax/fuji.md',
+            ]
+          },
         ]
       },
       {
@@ -119,7 +134,16 @@ module.exports = {
         children: [
           '/faq/general',
           '/faq/troubleshooting',
-          '/faq/legacy'
+          '/faq/legacy',
+          '/faq/fromV2'
+        ]
+      },
+      {
+        title: 'JSDoc',
+        collapsable: false,
+        children: [
+          '/jsdoc/jsdoc-client',
+          '/jsdoc/jsdoc-server'
         ]
       },
       'audits.md',

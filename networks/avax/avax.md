@@ -10,8 +10,6 @@ Paymaster: [0x10E207898E76137bb27b31609a275b0635080632](https://snowtrace.io/add
 gsn-relay-config.json:
 ```json
 {
-  "baseRelayFee": 0,
-  "pctRelayFee": 70,
   "relayHubAddress": "0xafAFDac90164e4b2D4e39a1ac3e9dBC635dbbEA5",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,

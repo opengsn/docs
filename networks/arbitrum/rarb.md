@@ -1,19 +1,19 @@
-### Network Mumbai
+### Network Arbitrum Rinkeby
 
 <!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
 
-RelayHub: [0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681](https://mumbai.polygonscan.com/address/0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681)
+RelayHub: [0x9E0F60f978dA992b86fDdF1f158f9A381308A47E](https://testnet.arbiscan.io/address/0x9E0F60f978dA992b86fDdF1f158f9A381308A47E)
 
-Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://mumbai.polygonscan.com/address/0x7A95fA73250dc53556d264522150A940d4C50238)
+Forwarder: [0x344f43702786Ac2bF3972f0925e5BB8E9d7a9E64](https://testnet.arbiscan.io/address/0x344f43702786Ac2bF3972f0925e5BB8E9d7a9E64)
 
-Accept-Everything Paymaster: [0x327BBd6BAc3236BCAcDE0D0f4FCD08b3eDfFbc06](https://mumbai.polygonscan.com/address/0x327BBd6BAc3236BCAcDE0D0f4FCD08b3eDfFbc06)
+Accept-Everything Paymaster: [0x6E8DA173c946FC75AD73F46c104001aF3Ee8B0da](https://testnet.arbiscan.io/address/0x6E8DA173c946FC75AD73F46c104001aF3Ee8B0da)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
 ```json
 {
-  "relayHubAddress": "0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681",
-  "managerStakeTokenAddress": "0xBA03B53D826207c39453653f655d147d4BCBA7B4",
+  "relayHubAddress": "",
+  "managerStakeTokenAddress": "0x4C6cc053d802fF96952c825CB4c490c4A5E59f88",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,14 +25,14 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [0xBA03B53D826207c39453653f655d147d4BCBA7B4](https://mumbai.polygonscan.com/address/0xBA03B53D826207c39453653f655d147d4BCBA7B4) |
+| Wrapped Eth |  0.5 wETH | [0x4C6cc053d802fF96952c825CB4c490c4A5E59f88](https://testnet.arbiscan.io/address/0x4C6cc053d802fF96952c825CB4c490c4A5E59f88) |
 
 
 #### Recommeneded client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
-    paymasterAddress: "0x327BBd6BAc3236BCAcDE0D0f4FCD08b3eDfFbc06"
+    paymasterAddress: "0x6E8DA173c946FC75AD73F46c104001aF3Ee8B0da"
   }})
   await gsnProvider.init()
 ```

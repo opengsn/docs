@@ -1,0 +1,55 @@
+#(template for genearing network pages.
+#use "run-templ" to generate network files
+
+{{#.}}
+
+outfile=`find . -name {{name}}.md`
+if [ -z "$outfile" -o ! -r "$outfile" ]; then
+#ignore ganache and hardhat networks:
+echo {{chainId}} | grep -q 1337 || echo WARNING: not found {{chainId}} {{name}}.md 1>&2
+else
+
+cat <<'EOF' > $outfile
+### Network {{title}}
+
+<!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
+
+RelayHub: [{{contracts.RelayHub.address}}{{contracts.ArbRelayHub.address}}]({{{explorer}}}/address/{{contracts.RelayHub.address}}{{contracts.ArbRelayHub.address}})
+
+Forwarder: [{{contracts.Forwarder.address}}]({{{explorer}}}/address/{{contracts.Forwarder.address}})
+
+Accept-Everything Paymaster: [{{contracts.TestPaymasterEverythingAccepted.address}}]({{{explorer}}}/address/{{contracts.TestPaymasterEverythingAccepted.address}})
+
+#### Recommeneded Server configuration
+gsn-relay-config.json:
+```json
+{
+  "relayHubAddress": "{{contracts.RelayHub.address}}",
+  "managerStakeTokenAddress": "{{contracts.WrappedEthToken.address}}",
+  "ownerAddress": "<OWNER_ADDRESS>",
+  "gasPriceFactor": 1,
+  "ethereumNodeUrl": "<NODE_URL>"
+}
+```
+
+
+#### List of supported stake ERC-20 tokens and minimal stakes:
+
+| Token Name  | Value    | Address                                                                                                                       |
+|-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
+| Wrapped Eth |  0.5 wETH | [{{contracts.WrappedEthToken.address}}]({{{explorer}}}/address/{{contracts.WrappedEthToken.address}}) |
+
+
+#### Recommeneded client configuration
+(Note that on non-testnet networks, you'll need a "real" paymaster)
+```js
+  const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
+    paymasterAddress: "{{contracts.TestPaymasterEverythingAccepted.address}}"
+  }})
+  await gsnProvider.init()
+```
+
+EOF
+fi
+{{/.}}
+

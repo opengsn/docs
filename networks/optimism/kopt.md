@@ -1,19 +1,19 @@
-### Network Mumbai
+### Network Optimism Kovan
 
 <!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
 
-RelayHub: [0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681](https://mumbai.polygonscan.com/address/0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681)
+RelayHub: [0x5Aa3c9e8a62C35E656C1CC601aa91107800278FC](https://kovan-optimistic.etherscan.io/address/0x5Aa3c9e8a62C35E656C1CC601aa91107800278FC)
 
-Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://mumbai.polygonscan.com/address/0x7A95fA73250dc53556d264522150A940d4C50238)
+Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://kovan-optimistic.etherscan.io/address/0x7A95fA73250dc53556d264522150A940d4C50238)
 
-Accept-Everything Paymaster: [0x327BBd6BAc3236BCAcDE0D0f4FCD08b3eDfFbc06](https://mumbai.polygonscan.com/address/0x327BBd6BAc3236BCAcDE0D0f4FCD08b3eDfFbc06)
+Accept-Everything Paymaster: [0x624171537211A95E9C5d9C58E04668328a6a95cE](https://kovan-optimistic.etherscan.io/address/0x624171537211A95E9C5d9C58E04668328a6a95cE)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
 ```json
 {
-  "relayHubAddress": "0x3a1Df71d11774F25B9d8a35DF4aF1918bff41681",
-  "managerStakeTokenAddress": "0xBA03B53D826207c39453653f655d147d4BCBA7B4",
+  "relayHubAddress": "0x5Aa3c9e8a62C35E656C1CC601aa91107800278FC",
+  "managerStakeTokenAddress": "0x0b9D225C6A347eC2D12F664b85CB11B735BFc86d",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,14 +25,14 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [0xBA03B53D826207c39453653f655d147d4BCBA7B4](https://mumbai.polygonscan.com/address/0xBA03B53D826207c39453653f655d147d4BCBA7B4) |
+| Wrapped Eth |  0.5 wETH | [0x0b9D225C6A347eC2D12F664b85CB11B735BFc86d](https://kovan-optimistic.etherscan.io/address/0x0b9D225C6A347eC2D12F664b85CB11B735BFc86d) |
 
 
 #### Recommeneded client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
-    paymasterAddress: "0x327BBd6BAc3236BCAcDE0D0f4FCD08b3eDfFbc06"
+    paymasterAddress: "0x624171537211A95E9C5d9C58E04668328a6a95cE"
   }})
   await gsnProvider.init()
 ```

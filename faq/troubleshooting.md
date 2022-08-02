@@ -31,7 +31,7 @@ contract MyContract is ERC2771Recipient, ERC20 {
   }
 
   function _msgData() internal view override(Context, ERC2771Recipient)
-      returns (bytes memory) {
+      returns (bytes calldata) {
       return ERC2771Recipient._msgData();
   }
 }

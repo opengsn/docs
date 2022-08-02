@@ -1,6 +1,6 @@
 # The Big Picture
 
-## Should dapp developers run their own relay server? <a id="do_i_have_to_run_a_relayer?"></a>
+## Should dapp developers run their own relay server? <a id="do_i_have_to_run_a_relayer"></a>
 
 Running a relay server is highly recommended for most use cases. It will
 usually save money for dapps to run their own relays and configure them as the
