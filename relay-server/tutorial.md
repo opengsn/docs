@@ -77,12 +77,10 @@ If you don't have this permission restriction, you can also download the script 
 _The `docker-compose.yml` file must be placed at the home folder. The `gsn-relay-config.json` must be placed inside a `config` folder._
 
    ```bash
-   TODO TODO: remove relaydc, publish dc.yaml!!!
    curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/docker-compose.yml > docker-compose.yml
    mkdir config
    curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/config-sample/gsn-relay-config.json > config/gsn-relay-config.json
    ```
-
 1. Press Ctrl-O and then Enter to save the modified file.
 1. Press Ctrl-X to exit.
 1. Edit `config/gsn-relay-config.json` to specify:
@@ -114,7 +112,7 @@ _The `docker-compose.yml` file must be placed at the home folder. The `gsn-relay
    ```
    [services.d](https-portal_1  | ) done.
    ```
-1. Browse to https://&lt;your&nbsp;DNS&nbsp;name&gt;/getaddr . 
+1. Browse to `https://<your-DNS-name>/getaddr/`
    You should receive a JSON file with addresses and status. 
    The `ready` setting should be `false`, because it isn't registered with 
    the relay hub yet.
@@ -131,8 +129,8 @@ We need to register the relayer with the Relay Hub. This step has several purpos
 
 * Stake Ether or any supported ERC-20 token on the relay's honesty, so relays won't try to abuse the 
   system (for example by submitting invalid messages)
-* Put up the initial relayer budget for sending messages. The default is 2 Ether.
-* Add the relayer to the relayers list so clients will know they can 
+* Fund the relayer with the initial account balance for sending transactions. The default is 2 Ether.
+* Add the relayer to the on-chain relayers list so clients will know they can
   use it for free messages
 
 _You will need to make transactions from an account specified as `ownerAddress` in the Relay Server configuration.
