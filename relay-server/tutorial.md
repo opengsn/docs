@@ -139,7 +139,7 @@ Make sure you have this account selected in MetaMask for the following steps._
 1. Go to `https://relays.opengsn.org/` and click "Register New Relay".
 1. Enter your Relay Server URL and click "Register".
 1. Follow the steps on the Relay Registration page.
-1. Open `https://&lt;your&nbsp;DNS&nbsp;name&gt;/gsn1/getaddr` . See that the relayer is now 
+1. Open `https://<your-DNS-name>/getaddr/` . See that the relayer is now
    ready. Congratulations.
 
 ::: tip Note
