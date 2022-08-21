@@ -103,6 +103,12 @@ _The `docker-compose.yml` file must be placed at the home folder. The `gsn-relay
    ```bash
    docker-compose up
    ```
+
+   Note: if there is no 'docker-compose' alias installed on your cloud instance, run it as following:
+
+   ```bash
+   docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD:$PWD" -w="$PWD" docker/compose:1.27.3 up
+   ```
 1. To see the progress of the HTTPS server (the slowest component to set up), get the id of the "https-portal" container and run:
    ```bash
    docker ps
