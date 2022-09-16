@@ -79,7 +79,7 @@ _The `docker-compose.yml` file must be placed at the home folder. The `gsn-relay
    ```bash
    curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/docker-compose.yml > docker-compose.yml
    mkdir config
-   curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/relaydc/config-sample/gsn-relay-config.json > config/gsn-relay-config.json
+   curl https://raw.githubusercontent.com/opengsn/gsn/master/dockers/config-sample/gsn-relay-config.json > config/gsn-relay-config.json
    ```
 1. Press Ctrl-O and then Enter to save the modified file.
 1. Press Ctrl-X to exit.
