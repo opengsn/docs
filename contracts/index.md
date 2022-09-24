@@ -44,7 +44,7 @@ In order to start paying the meta-transaction fees, create a contract that inher
 
 Once the contract is deployed to your network and configured with the `RelayHub` address, you will need to maintain its balance on the `RelayHub`. Read more about it [here](../javascript-client/devops.md).
 
-* A selection of example Paymasters are available in our [gsn-paymasters repo](https://github.com/opengsn/gsn-paymasters/tree/master/contracts).
+* A selection of example Paymasters are available in our [GSN paymasters repo](https://github.com/opengsn/gsn/tree/master/packages/paymasters/contracts).
 ### Example Paymaster contract that pays for gas in ERC20 tokens <a id="token_paymaster"></a>
 
 One of the most commonly requested features in Ethereum is ability to pay gas

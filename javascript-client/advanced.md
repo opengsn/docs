@@ -74,7 +74,7 @@ It is up to you to implement safe storage of this keypair if needed. `RelayProvi
 
 The GSN protocol provides a method for a Paymaster to verify an external `approvalData` (usually a signature).
 This allows to implement off-chain approvals that are verified on-chain: for instance, you could have your users go through a captcha, and only then sign an approval for a transaction on your backend.
-You can see an example [VerifyingPaymaster](https://github.com/opengsn/gsn-paymasters/blob/master/contracts/VerifyingPaymater.sol) which can verify a signature made by an external server, using [VerifyingPaymasterUtils.ts](https://github.com/opengsn/gsn-paymasters/blob/master/src/VerifyingPaymasterUtils.ts)
+You can see an example [VerifyingPaymaster](https://github.com/opengsn/gsn/blob/master/packages/paymasters/contracts/VerifyingPaymaster.sol) which can verify a signature made by an external server, using [VerifyingPaymasterUtils.ts](https://github.com/opengsn/gsn-paymasters/blob/master/src/VerifyingPaymasterUtils.ts)
 
 
 ```javascript
