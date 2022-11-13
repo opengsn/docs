@@ -45,7 +45,7 @@ in their wallet to pay for the transactions they need.
 ### Client: signs & sends meta transaction to relay server <a id="client"></a>
 
 A meta-transaction is a fancy name for a simple idea: a relay server can send a
-user's transaction and pay themselves for the gas cost. Instead of signing an
+user's transaction and pay for the gas cost itself. Instead of signing an
 Ethereum transaction, which would require ETH for gas, a user signs a message
 containing information about a transaction they would like to execute and sends
 it to a relay server.
