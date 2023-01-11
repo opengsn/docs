@@ -1,19 +1,19 @@
-### Network Avalanche Fuji Testnet
+### Network Optimism
 
 <!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
 
-RelayHub: [0x2d493cde51adc74D4494b3dC146759cF32957A23](https://testnet.snowtrace.io/address/0x2d493cde51adc74D4494b3dC146759cF32957A23)
+RelayHub: [0xbF06d99FDE1dc4e4C24F4191Fad82F8f5524Ce62](https://optimistic.etherscan.io//address/0xbF06d99FDE1dc4e4C24F4191Fad82F8f5524Ce62)
 
-Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://testnet.snowtrace.io/address/0x7A95fA73250dc53556d264522150A940d4C50238)
+Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://optimistic.etherscan.io//address/0xB2b5841DBeF766d4b521221732F9B618fCf34A87)
 
-Accept-Everything Paymaster: [0x1e4D8ebd5071d117Bcf351E3D53E34620D3ac190](https://testnet.snowtrace.io/address/0x1e4D8ebd5071d117Bcf351E3D53E34620D3ac190)
+Accept-Everything Paymaster: [0x6E4f6878d1188d281F79a8d06e1f52A5cF80b792](https://optimistic.etherscan.io//address/0x6E4f6878d1188d281F79a8d06e1f52A5cF80b792)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
 ```json
 {
-  "relayHubAddress": "0x2d493cde51adc74D4494b3dC146759cF32957A23",
-  "managerStakeTokenAddress": "0xb4Bbb5e968e278C6541addBC24b903712746f102",
+  "relayHubAddress": "0xbF06d99FDE1dc4e4C24F4191Fad82F8f5524Ce62",
+  "managerStakeTokenAddress": "",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,14 +25,14 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [0xb4Bbb5e968e278C6541addBC24b903712746f102](https://testnet.snowtrace.io/address/0xb4Bbb5e968e278C6541addBC24b903712746f102) |
+| Wrapped Eth |  0.5 wETH | [](https://optimistic.etherscan.io//address/) |
 
 
 #### Recommeneded client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
-    paymasterAddress: "0x1e4D8ebd5071d117Bcf351E3D53E34620D3ac190"
+    paymasterAddress: "0x6E4f6878d1188d281F79a8d06e1f52A5cF80b792"
   }})
   await gsnProvider.init()
 ```

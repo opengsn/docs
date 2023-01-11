@@ -1,19 +1,19 @@
-### Network Arbitrum Rinkeby
+### Network Arbitrum
 
 <!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
 
-RelayHub: [0x9E0F60f978dA992b86fDdF1f158f9A381308A47E](https://testnet.arbiscan.io/address/0x9E0F60f978dA992b86fDdF1f158f9A381308A47E)
+RelayHub: [0xfCEE9036EDc85cD5c12A9De6b267c4672Eb4bA1B](https://arbiscan.io//address/0xfCEE9036EDc85cD5c12A9De6b267c4672Eb4bA1B)
 
-Forwarder: [0x344f43702786Ac2bF3972f0925e5BB8E9d7a9E64](https://testnet.arbiscan.io/address/0x344f43702786Ac2bF3972f0925e5BB8E9d7a9E64)
+Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://arbiscan.io//address/0xB2b5841DBeF766d4b521221732F9B618fCf34A87)
 
-Accept-Everything Paymaster: [0x6E8DA173c946FC75AD73F46c104001aF3Ee8B0da](https://testnet.arbiscan.io/address/0x6E8DA173c946FC75AD73F46c104001aF3Ee8B0da)
+Accept-Everything Paymaster: [0x9e662d0ce3Eb47761BaC126aDFb27F714d819898](https://arbiscan.io//address/0x9e662d0ce3Eb47761BaC126aDFb27F714d819898)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
 ```json
 {
-  "relayHubAddress": "",
-  "managerStakeTokenAddress": "0x4C6cc053d802fF96952c825CB4c490c4A5E59f88",
+  "relayHubAddress": "0xfCEE9036EDc85cD5c12A9De6b267c4672Eb4bA1B",
+  "managerStakeTokenAddress": "",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,14 +25,14 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [0x4C6cc053d802fF96952c825CB4c490c4A5E59f88](https://testnet.arbiscan.io/address/0x4C6cc053d802fF96952c825CB4c490c4A5E59f88) |
+| Wrapped Eth |  0.5 wETH | [](https://arbiscan.io//address/) |
 
 
 #### Recommeneded client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
-    paymasterAddress: "0x6E8DA173c946FC75AD73F46c104001aF3Ee8B0da"
+    paymasterAddress: "0x9e662d0ce3Eb47761BaC126aDFb27F714d819898"
   }})
   await gsnProvider.init()
 ```

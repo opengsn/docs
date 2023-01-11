@@ -1,19 +1,19 @@
-### Network Mumbai
+### Network BSC Testnet
 
 <!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
 
-RelayHub: [0x3232f21A6E08312654270c78A773f00dd61d60f5](https://mumbai.polygonscan.com/address/0x3232f21A6E08312654270c78A773f00dd61d60f5)
+RelayHub: [0x0F48612d2517e47D72fEc92a2fc6fd64cA6816E0](https://testnet.bscscan.com//address/0x0F48612d2517e47D72fEc92a2fc6fd64cA6816E0)
 
-Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://mumbai.polygonscan.com/address/0xB2b5841DBeF766d4b521221732F9B618fCf34A87)
+Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://testnet.bscscan.com//address/0xB2b5841DBeF766d4b521221732F9B618fCf34A87)
 
-Accept-Everything Paymaster: [0x086c11bd5A61ac480b326916656a33c474d1E4d8](https://mumbai.polygonscan.com/address/0x086c11bd5A61ac480b326916656a33c474d1E4d8)
+Accept-Everything Paymaster: [0x735719A8C5aF199ea5b93207083787a5B548C0e2](https://testnet.bscscan.com//address/0x735719A8C5aF199ea5b93207083787a5B548C0e2)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
 ```json
 {
-  "relayHubAddress": "0x3232f21A6E08312654270c78A773f00dd61d60f5",
-  "managerStakeTokenAddress": "0xBA03B53D826207c39453653f655d147d4BCBA7B4",
+  "relayHubAddress": "0x0F48612d2517e47D72fEc92a2fc6fd64cA6816E0",
+  "managerStakeTokenAddress": "",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,14 +25,14 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [0xBA03B53D826207c39453653f655d147d4BCBA7B4](https://mumbai.polygonscan.com/address/0xBA03B53D826207c39453653f655d147d4BCBA7B4) |
+| Wrapped Eth |  0.5 wETH | [](https://testnet.bscscan.com//address/) |
 
 
 #### Recommeneded client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
-    paymasterAddress: "0x086c11bd5A61ac480b326916656a33c474d1E4d8"
+    paymasterAddress: "0x735719A8C5aF199ea5b93207083787a5B548C0e2"
   }})
   await gsnProvider.init()
 ```

@@ -1,19 +1,19 @@
-### Network Ropsten
+### Network Polygon
 
 <!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
 
-RelayHub: [0xC11Cf08ED047A1D49d2BfEBa4880cEFe290e3813](https://ropsten.etherscan.io/address/0xC11Cf08ED047A1D49d2BfEBa4880cEFe290e3813)
+RelayHub: [0xfCEE9036EDc85cD5c12A9De6b267c4672Eb4bA1B](https://polygonscan.com//address/0xfCEE9036EDc85cD5c12A9De6b267c4672Eb4bA1B)
 
-Forwarder: [0x7A95fA73250dc53556d264522150A940d4C50238](https://ropsten.etherscan.io/address/0x7A95fA73250dc53556d264522150A940d4C50238)
+Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://polygonscan.com//address/0xB2b5841DBeF766d4b521221732F9B618fCf34A87)
 
-Accept-Everything Paymaster: [0x3A0b6272C2346842566Ed00773298FE3c410BfB8](https://ropsten.etherscan.io/address/0x3A0b6272C2346842566Ed00773298FE3c410BfB8)
+Accept-Everything Paymaster: [0x9e662d0ce3Eb47761BaC126aDFb27F714d819898](https://polygonscan.com//address/0x9e662d0ce3Eb47761BaC126aDFb27F714d819898)
 
 #### Recommeneded Server configuration
 gsn-relay-config.json:
 ```json
 {
-  "relayHubAddress": "0xC11Cf08ED047A1D49d2BfEBa4880cEFe290e3813",
-  "managerStakeTokenAddress": "0x1368e39E3CB40C3dFb06d2cB8E5fca6a847D16E6",
+  "relayHubAddress": "0xfCEE9036EDc85cD5c12A9De6b267c4672Eb4bA1B",
+  "managerStakeTokenAddress": "",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,14 +25,14 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [0x1368e39E3CB40C3dFb06d2cB8E5fca6a847D16E6](https://ropsten.etherscan.io/address/0x1368e39E3CB40C3dFb06d2cB8E5fca6a847D16E6) |
+| Wrapped Eth |  0.5 wETH | [](https://polygonscan.com//address/) |
 
 
 #### Recommeneded client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
-    paymasterAddress: "0x3A0b6272C2346842566Ed00773298FE3c410BfB8"
+    paymasterAddress: "0x9e662d0ce3Eb47761BaC126aDFb27F714d819898"
   }})
   await gsnProvider.init()
 ```

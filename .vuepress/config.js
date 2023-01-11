@@ -5,7 +5,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'v3.0.0 beta.1 pre-release',
+  title: 'v3.0.0-beta.3 pre-release',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -98,32 +98,46 @@ module.exports = {
           {
             title: 'Ethereum',
             children: [
-              '/networks/ethereum/goerli.md',
-              '/networks/ethereum/ropsten.md',
+              '/networks/ethereum/goerli.md'
             ]
           },
           {
             title: 'Polygon',
             children: [
-              '/networks/polygon/mumbai.md'
+              '/networks/polygon/mumbai.md',
+              '/networks/polygon/polygon.md',
             ]
           },
           {
             title: 'Optimism',
             children: [
-              'networks/optimism/kopt.md',
+              'networks/optimism/goerli-optimism.md',
+              'networks/optimism/optimism.md',
             ]
           },
           {
             title: 'Arbitrum',
             children: [
-              'networks/arbitrum/rarb.md',
+              'networks/arbitrum/goerli-arbitrum.md',
+              'networks/arbitrum/arbitrum.md',
             ]
           },
           {
             title: 'Avalanche',
             children: [
-              'networks/avax/fuji.md',
+              'networks/avax/avalanche-fuji.md',
+            ]
+          },
+          {
+            title: 'BSC',
+            children: [
+              'networks/bsc/bsc-testnet.md',
+            ]
+          },
+          {
+            title: 'Gnosis Chain',
+            children: [
+              'networks/gnosis/gnosis.md',
             ]
           },
         ]
