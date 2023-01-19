@@ -2,6 +2,9 @@
 
 
 
+## I am getting the following exception: `error:0308010C:digital envelope routines::unsupported code:ERR_OSSL_EVP_UNSUPPORTED`
+This can be resolved with `export NODE_OPTIONS=--openssl-legacy-provider`.
+
 ## My contract is using OpenZeppelin. How do I add GSN support?
 
 Here is a sample on how to use GSN with OpenZeppelin contracts.
