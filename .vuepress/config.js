@@ -31,7 +31,7 @@ module.exports = {
     logo: '/gsn-green-vector.svg',
     repo: 'https://github.com/opengsn/gsn',
     docsRepo: 'https://github.com/opengsn/docs',
-    docsBranch: 'version3',
+    docsBranch: 'master',
     editLinks: true,
     docsDir: '.',
     editLinkText: '',
