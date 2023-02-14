@@ -6,7 +6,7 @@ In order to help developers interact with the network, both locally and on real 
 
 The CLI commands are in a package `@opengsn/cli`, so you must install it separately:
 ```
-yarn add --save-dev @opengsn/cli
+yarn add --dev @opengsn/cli
 ```
 
 ### start <a id="start"></a>
@@ -24,7 +24,7 @@ Contract addresses are written into `<directory>`, which is `./build/gsn` by def
 From a test script, use
 ```js
 const { GsnTestEnvironment } = require( '@opengsn/dev')
-const { paymasterAddress, forwarderAddress } = GsnTestEnvironment.loadDeployments()
+const { paymasterAddress, forwarderAddress } = GsnTestEnvironment.loadDeployment()
 ```
 
 To load the deployed addresses into a test application.
