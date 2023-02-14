@@ -28,11 +28,6 @@ To start GSN on local ganache, run the command:
 npx gsn start
 ```
 
-You can also run a process with both Hardhat node and GSN instance running in background by executing a command:
-```bash
-npx run-with-gsn 'ls'
-```
-
 ### Add GSN to your contract <a id='add-to-contract'></a>
 When receiving a native transaction, a contract accesses the `msg.sender` in order to recognize the caller.
 When receiving meta (relayed) transactions, the sender is different, so you must inherit
