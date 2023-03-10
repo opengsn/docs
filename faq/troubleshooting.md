@@ -1,6 +1,20 @@
 # Troubleshooting
 
 
+## What is the relationship between the GSN and ERC-4337 projects?
+
+We believe that the GSN has by now successfully solved the meta-transactions and gas abstraction problems in the Ethereum ecosystem, taking it from hackathon ideas to a public infrastructure project with many years of production experience and track record.
+
+Our team has applied this experience to solve some of the most challenging problems in Ethereum, including but not limited to Account Abstraction, Gas Abstraction, Signature Aggregation, Transaction Batching, Transaction Scheduling and MEV Adoption.
+All this work is coming together under the ERC-4337 (https://eips.ethereum.org/EIPS/eip-4337). You can read the documentation (https://eip4337.com/en/latest/), read some blog posts here(https://hackmd.io/@erc4337/) or see the code for yourself (https://github.com/eth-infinitism/account-abstraction/).
+
+
+It is important to note that the GSN library is intended for dapp developers who want to sponsor transactions for existing Ethereum users here and now.
+It works with existing wallets like MetaMask and existing Externally Owned Accounts (EOAs) and allows them to make gasless decentralized meta-transactions.
+
+ERC-4337, on the other hand, cannot support existing accounts. It's intended for "Smart Wallets" developers who will create new accounts for their users. ERC-4337 will require users to install ERC-4337 compatible wallets and use compatible dapps to take advantage of gasless features via the ERC-4337 Paymaster contracts.
+
+ERC-4337 will supersede GSN once Ethereum deprecates EOAs completely, which is not currently on the horizon.
 
 ## I am getting the following exception: `error:0308010C:digital envelope routines::unsupported code:ERR_OSSL_EVP_UNSUPPORTED`
 This can be resolved with `export NODE_OPTIONS=--openssl-legacy-provider`.
