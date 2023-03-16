@@ -8,7 +8,7 @@ Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://gnosisscan.io//a
 
 Accept-Everything Paymaster: [0xfCEE9036EDc85cD5c12A9De6b267c4672Eb4bA1B](https://gnosisscan.io//address/0xfCEE9036EDc85cD5c12A9De6b267c4672Eb4bA1B)
 
-#### Recommeneded Server configuration
+#### Recommended Server configuration
 gsn-relay-config.json:
 ```json
 {
@@ -28,7 +28,7 @@ gsn-relay-config.json:
 | Wrapped Eth |  0.5 wETH | [](https://gnosisscan.io//address/) |
 
 
-#### Recommeneded client configuration
+#### Recommended client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {

@@ -1,19 +1,17 @@
-### Network Optimism
+### Ethereum Mainnet Network
 
 <!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
 
-RelayHub: [0xbF06d99FDE1dc4e4C24F4191Fad82F8f5524Ce62](https://optimistic.etherscan.io//address/0xbF06d99FDE1dc4e4C24F4191Fad82F8f5524Ce62)
+RelayHub: [0x8f812FAE28a3Aa634d97659091D6540FABD234F5](https://etherscan.io/address/0x8f812FAE28a3Aa634d97659091D6540FABD234F5)
 
-Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://optimistic.etherscan.io//address/0xB2b5841DBeF766d4b521221732F9B618fCf34A87)
-
-Accept-Everything Paymaster: [0x6E4f6878d1188d281F79a8d06e1f52A5cF80b792](https://optimistic.etherscan.io//address/0x6E4f6878d1188d281F79a8d06e1f52A5cF80b792)
+Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://etherscan.io/address/0xB2b5841DBeF766d4b521221732F9B618fCf34A87)
 
 #### Recommended Server configuration
 gsn-relay-config.json:
 ```json
 {
-  "relayHubAddress": "0xbF06d99FDE1dc4e4C24F4191Fad82F8f5524Ce62",
-  "managerStakeTokenAddress": "",
+  "relayHubAddress": "0x8f812FAE28a3Aa634d97659091D6540FABD234F5",
+  "managerStakeTokenAddress": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,14 +23,14 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [](https://optimistic.etherscan.io//address/) |
+| Wrapped Eth |  0.5 wETH | [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2](https://etherscan.io/address/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2) |
 
 
 #### Recommended client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
-    paymasterAddress: "0x6E4f6878d1188d281F79a8d06e1f52A5cF80b792"
+    paymasterAddress: "<PAYMASTER_ADDRESS>"
   }})
   await gsnProvider.init()
 ```

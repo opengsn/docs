@@ -8,7 +8,7 @@ Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://goerli-optimism.
 
 Accept-Everything Paymaster: [0x735719A8C5aF199ea5b93207083787a5B548C0e2](https://goerli-optimism.etherscan.io/address/0x735719A8C5aF199ea5b93207083787a5B548C0e2)
 
-#### Recommeneded Server configuration
+#### Recommended Server configuration
 gsn-relay-config.json:
 ```json
 {
@@ -28,7 +28,7 @@ gsn-relay-config.json:
 | Wrapped Eth |  0.5 wETH | [](https://goerli-optimism.etherscan.io/address/) |
 
 
-#### Recommeneded client configuration
+#### Recommended client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {

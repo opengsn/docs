@@ -8,7 +8,7 @@ Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://mumbai.polygonsc
 
 Accept-Everything Paymaster: [0x086c11bd5A61ac480b326916656a33c474d1E4d8](https://mumbai.polygonscan.com/address/0x086c11bd5A61ac480b326916656a33c474d1E4d8)
 
-#### Recommeneded Server configuration
+#### Recommended Server configuration
 gsn-relay-config.json:
 ```json
 {
@@ -28,7 +28,7 @@ gsn-relay-config.json:
 | Wrapped Eth |  0.5 wETH | [0xBA03B53D826207c39453653f655d147d4BCBA7B4](https://mumbai.polygonscan.com/address/0xBA03B53D826207c39453653f655d147d4BCBA7B4) |
 
 
-#### Recommeneded client configuration
+#### Recommended client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {

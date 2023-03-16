@@ -8,7 +8,7 @@ Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://polygonscan.com/
 
 Accept-Everything Paymaster: [0x9e662d0ce3Eb47761BaC126aDFb27F714d819898](https://polygonscan.com//address/0x9e662d0ce3Eb47761BaC126aDFb27F714d819898)
 
-#### Recommeneded Server configuration
+#### Recommended Server configuration
 gsn-relay-config.json:
 ```json
 {
@@ -28,7 +28,7 @@ gsn-relay-config.json:
 | Wrapped Eth |  0.5 wETH | [](https://polygonscan.com//address/) |
 
 
-#### Recommeneded client configuration
+#### Recommended client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
