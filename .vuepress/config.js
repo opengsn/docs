@@ -98,7 +98,8 @@ module.exports = {
           {
             title: 'Ethereum',
             children: [
-              '/networks/ethereum/goerli.md'
+              '/networks/ethereum/goerli.md',
+              '/networks/ethereum/mainnet.md',
             ]
           },
           {
