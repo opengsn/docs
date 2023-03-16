@@ -1,10 +1,12 @@
-### Ethereum Mainnet Network
+### Network Ethereum Mainnet
 
 <!-- DO NOT EDIT DIRECTLY THIS MD FILE. IT IS AUTO-GENERATED FROM NET.TEMPL, USING yarn update-networks" -->
 
 RelayHub: [0x8f812FAE28a3Aa634d97659091D6540FABD234F5](https://etherscan.io/address/0x8f812FAE28a3Aa634d97659091D6540FABD234F5)
 
 Forwarder: [0xB2b5841DBeF766d4b521221732F9B618fCf34A87](https://etherscan.io/address/0xB2b5841DBeF766d4b521221732F9B618fCf34A87)
+
+Accept-Everything Paymaster: [0xb536EDbF4B43FF789f9D3215d55690f4015227BA](https://etherscan.io/address/0xb536EDbF4B43FF789f9D3215d55690f4015227BA)
 
 #### Recommended Server configuration
 gsn-relay-config.json:
@@ -26,11 +28,11 @@ gsn-relay-config.json:
 | Wrapped Eth |  0.5 wETH | [0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2](https://etherscan.io/address/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2) |
 
 
-#### Recommended client configuration
+#### Recommeneded client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
-    paymasterAddress: "<PAYMASTER_ADDRESS>"
+    paymasterAddress: "0xb536EDbF4B43FF789f9D3215d55690f4015227BA"
   }})
   await gsnProvider.init()
 ```
