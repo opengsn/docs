@@ -28,7 +28,7 @@ gsn-relay-config.json:
 | Wrapped Eth |  0.5 wETH | [0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270](https://polygonscan.com//address/0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270) |
 
 
-#### Recommeneded client configuration
+#### Recommended client configuration
 (Note that on non-testnet networks, you'll need a "real" paymaster)
 ```js
   const gsnProvider = RelayProvider.newProvider({provider: web3Provider, config: {
