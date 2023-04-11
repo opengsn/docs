@@ -7,7 +7,7 @@ This can be resolved with `export NODE_OPTIONS=--openssl-legacy-provider`.
 ## My contract is using OpenZeppelin. How do I add GSN support?
 
 Here is a sample on how to use GSN with OpenZeppelin contracts.
-The `_msgData` and `_msgSender` methods methods of OpenZeppelin's `Context` base-contract
+The `_msgData` and `_msgSender` methods of OpenZeppelin's `Context` base-contract
 are used by all other contracts, and thus the hooks below are enough to support tokens, Ownable, roles, etc.
 
 (Note that OpenZeppelin's `GSNRecipient` is for GSN v1.0, and should not be used anymore)

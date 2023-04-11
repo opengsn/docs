@@ -1,7 +1,6 @@
 # Writing GSN-capable contracts
 
-The [Gas Station Network](https://www.opengsn.org) allows you to build apps where you pay for your users transactions, so they do not need to hold Ether to pay for gas, easing their onboarding process. In this guide, we will learn how to write smart contracts that can receive transactions from the GSN
-.
+The [Gas Station Network](https://www.opengsn.org) allows you to build apps where you pay for your users transactions, so they do not need to hold Ether to pay for gas, easing their onboarding process. In this guide, we will learn how to write smart contracts that can receive transactions from the GSN.
 
 If you're new to the GSN, you probably want to first take a look at the [overview of the system](../index.md) to get a clearer picture of how gasless transactions are achieved. Otherwise, strap in!
 
@@ -47,7 +46,7 @@ Once the contract is deployed to your network and configured with the `RelayHub`
 * A selection of example Paymasters are available in our [GSN paymasters repo](https://github.com/opengsn/gsn/tree/master/packages/paymasters/contracts).
 ### Example Paymaster contract that pays for gas in ERC20 tokens <a id="token_paymaster"></a>
 
-One of the most commonly requested features in Ethereum is ability to pay gas
+One of the most commonly requested features in Ethereum is the ability to pay gas
 fees in ERC20 tokens. 
 
 A reference implementation exists in the
@@ -135,7 +134,7 @@ All relayed call requests can be rejected at no cost to the recipient.
 
 This function should revert if your paymaster decides to not accept the relayed call. You can also return some arbitrary data that will be passed along to the `postRelayedCall` as an execution context.
 
-The parameter called `maxPossibleGas` defines the absolute maximum the entire opration may cost to the `Paymaster`. This is useful if the user may spend their gas allowance as part of the relayed call itself, so you can pre-lock some funds here.
+The parameter called `maxPossibleGas` defines the absolute maximum the entire operation may cost to the `Paymaster`. This is useful if the user may spend their gas allowance as part of the relayed call itself, so you can pre-lock some funds here.
 
 After a relayed call is accepted, RelayHub will give your `Paymaster` contract another opportunity to charge your user for their call, perform some bookkeeping, etc. after the actual relayed call is made. This function is aptly named `postRelayedCall`.
 
@@ -161,8 +160,8 @@ If set to `true`, this flag allows your `Paymaster` to delegate the decision of 
 
 Note that the `Paymaster` will pay in one of two scenarios:
 
-* The Recipient call is successfull
-* The Recipient call is reverted but (taken together with `preRelayedCall`) it consumed more then `acceptanceBudget` gas.
+* The Recipient call is successful
+* The Recipient call is reverted but (taken together with `preRelayedCall`) it consumed more than `acceptanceBudget` gas.
 
 Only use it if you write and audit both the `Paymaster` and `Recipient` and these two components can trust each other.
 ## Trusted Forwarder: Minimum Viable Trust <a id="trusted_forwarder"></a>
