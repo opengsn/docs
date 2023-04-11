@@ -86,6 +86,13 @@ module.exports = {
         ]
       },
       {
+        title: 'Paymasters',
+        collapsable: false,
+        children: [
+          '/paymasters/predeployed.md'
+        ]
+      },
+      {
         title: 'Code Reference',
         collapsable: true,
         children: findFiles('soldoc', '[.]md')
