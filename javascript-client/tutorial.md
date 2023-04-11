@@ -120,7 +120,7 @@ ensuring functions are only called by the relay hub, and so on.
 ::: tip Note
 This paymaster is naive because it is not a secure implementation. It can 
 be blocked by sending enough requests to drain the account.
-For more sophisticated paymasters see the [paymasters pakacage](https://github.com/opengsn/gsn/tree/master/packages/paymasters)
+For more sophisticated paymasters see the [paymasters package](https://github.com/opengsn/gsn/tree/master/packages/paymasters)
 :::
 
 ```solidity
