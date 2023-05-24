@@ -11,10 +11,12 @@ The current latest deployment is v3.0.0-beta.3
 ## Deployment addresses and configurations:
 - [Arbitrum Goerli](./arbitrum/goerli-arbitrum.md)
 - [Arbitrum](./arbitrum/arbitrum.md)
+- [Avalanche](./avax/avalanche.md)
 - [Avalanche Fuji Testnet](./avax/avalanche-fuji.md)
 - [Görli](./ethereum/goerli.md)
 - [Ethereum Mainnet](./ethereum/mainnet.md)
 - [Gnosis Chain (formerly xDAI)](./gnosis/gnosis.md)
+- [BSC Mainnet](./bsc/bsc-mainnet.md)
 - [BSC Testnet](./bsc/bsc-testnet.md)
 - [Optimism Goerli](./optimism/goerli-optimism.md)
 - [Optimism](./optimism/optimism.md)

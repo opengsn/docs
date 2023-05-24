@@ -134,12 +134,14 @@ module.exports = {
             title: 'Avalanche',
             children: [
               'networks/avax/avalanche-fuji.md',
+              'networks/avax/avalanche.md',
             ]
           },
           {
             title: 'BSC',
             children: [
               'networks/bsc/bsc-testnet.md',
+              'networks/bsc/bsc-mainnet.md'
             ]
           },
           {
