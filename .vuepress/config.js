@@ -89,7 +89,7 @@ module.exports = {
         title: 'Paymasters',
         collapsable: false,
         children: [
-          '/paymasters/predeployed.md'
+          '/paymasters/predeployed'
         ]
       },
       {
