@@ -39,6 +39,36 @@ contract MyContract is BaseRelayRecipient, ERC20 {
 
 You can use instead OpenZeppelin's `ERC2771Context`, which is an equivalent implementation of BaseRelayRecipient.
 
+## My project is built using Ethers.js v6, and I am getting an exception `ethereum.request is not a function` when trying to create a `BrowserProvider` that wraps the GSN `RelayProvider`
+
+Note: Native support for Ethers.js is added GSN v3 starting with build `3.0.0-beta.8`.
+
+The Ethers.js v6 expects the external provider passed in the constructor of the `BrowserProvider` to be EIP-1193
+compatible, but GSN v2 provider does not implement `request()` function.
+
+In most cases all issues can be solved by adding the `request()` function to the GSN RelayProvider instance at runtime:
+
+```typescript
+import { JsonRpcResponse } from 'web3-core-helpers'
+import { BrowserProvider } from 'ethers'
+
+/* ******* */
+
+// @ts-ignore
+gsnProvider.request = function (payload: any) {
+  return new Promise((resolve, reject) => {
+    gsnProvider.send(payload, function (error: Error | null, result?: JsonRpcResponse) {
+      if (error) {
+        reject(error)
+      } else {
+        resolve(result?.result)
+      }
+    })
+  })
+}
+const provider = new BrowserProvider(gsnProvider as any)
+```
+
 ## "signature mismatch" when using Metamask with local ganache
 
 
