@@ -13,7 +13,7 @@ gsn-relay-config.json:
 ```json
 {
   "relayHubAddress": "0xBfCB3c7FF9B3DE0e0F673818309BfB73ec27bB9F",
-  "managerStakeTokenAddress": "",
+  "managerStakeTokenAddress": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,7 +25,7 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [](https://bscscan.com//address/) |
+| Wrapped Eth |  0.5 wETH | [0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c](https://bscscan.com//address/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c) |
 
 
 #### Recommended client configuration

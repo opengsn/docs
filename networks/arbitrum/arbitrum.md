@@ -13,7 +13,7 @@ gsn-relay-config.json:
 ```json
 {
   "relayHubAddress": "0xfCEE9036EDc85cD5c12A9De6b267c4672Eb4bA1B",
-  "managerStakeTokenAddress": "",
+  "managerStakeTokenAddress": "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,7 +25,7 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [](https://arbiscan.io//address/) |
+| Wrapped Eth |  0.5 wETH | [0x82aF49447D8a07e3bd95BD0d56f35241523fBab1](https://arbiscan.io//address/0x82aF49447D8a07e3bd95BD0d56f35241523fBab1) |
 
 
 #### Recommended client configuration

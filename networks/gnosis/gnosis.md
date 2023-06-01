@@ -13,7 +13,7 @@ gsn-relay-config.json:
 ```json
 {
   "relayHubAddress": "0xFD81BeBA349d6a1ffaFb47db59E785c69479ab47",
-  "managerStakeTokenAddress": "",
+  "managerStakeTokenAddress": "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,7 +25,7 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [](https://gnosisscan.io//address/) |
+| Wrapped Eth |  0.5 wETH | [0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d](https://gnosisscan.io//address/0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d) |
 
 
 #### Recommended client configuration

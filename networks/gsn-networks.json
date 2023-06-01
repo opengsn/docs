@@ -127,7 +127,7 @@
         "TestPaymasterEverythingAccepted": {
           "address": "0x735719A8C5aF199ea5b93207083787a5B548C0e2"
         },
-        "TestWrappedNativeToken": {
+        "WrappedEthToken": {
           "address": "0x1980A588fA420E874fC5fB1e0E68FBE39c34672f"
         }
       }
@@ -159,7 +159,7 @@
         "TestPaymasterEverythingAccepted": {
           "address": "0x9dC769B8cBD07131227b0815BEd3526b1f8ACD52"
         },
-        "TestWrappedNativeToken": {
+        "WrappedEthToken": {
           "address": "0x1980A588fA420E874fC5fB1e0E68FBE39c34672f"
         }
       }
@@ -191,7 +191,7 @@
         "TestPaymasterEverythingAccepted": {
           "address": "0x735719A8C5aF199ea5b93207083787a5B548C0e2"
         },
-        "TestWrappedNativeToken": {
+        "WrappedEthToken": {
           "address": "0x1980A588fA420E874fC5fB1e0E68FBE39c34672f"
         }
       }
@@ -223,7 +223,7 @@
         "TestPaymasterEverythingAccepted": {
           "address": "0x735719A8C5aF199ea5b93207083787a5B548C0e2"
         },
-        "TestWrappedNativeToken": {
+        "WrappedEthToken": {
           "address": "0x1980A588fA420E874fC5fB1e0E68FBE39c34672f"
         }
       }
@@ -254,6 +254,9 @@
         },
         "TestPaymasterEverythingAccepted": {
           "address": "0xfCEE9036EDc85cD5c12A9De6b267c4672Eb4bA1B"
+        },
+        "WrappedEthToken": {
+          "address": "0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d"
         }
       }
     }
@@ -315,6 +318,9 @@
         },
         "TestPaymasterEverythingAccepted": {
           "address": "0x6E4f6878d1188d281F79a8d06e1f52A5cF80b792"
+        },
+        "WrappedEthToken": {
+          "address": "0x4200000000000000000000000000000000000006"
         }
       }
     }
@@ -344,6 +350,9 @@
         },
         "TestPaymasterEverythingAccepted": {
           "address": "0x9e662d0ce3Eb47761BaC126aDFb27F714d819898"
+        },
+        "WrappedEthToken": {
+          "address": "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1"
         }
       }
     }
@@ -373,6 +382,9 @@
         },
         "TestPaymasterEverythingAccepted": {
           "address": "0xb0BF015AF20944f3646950DEC3C78603a117c4c0"
+        },
+        "WrappedEthToken": {
+          "address": "0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB"
         }
       }
     }
@@ -402,6 +414,9 @@
         },
         "TestPaymasterEverythingAccepted": {
           "address": "0x4F74dB5803d2F6C8246262F1e724d51Cb9537c7A"
+        },
+        "WrappedEthToken": {
+          "address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
         }
       }
     }

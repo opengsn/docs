@@ -13,7 +13,7 @@ gsn-relay-config.json:
 ```json
 {
   "relayHubAddress": "0xbF06d99FDE1dc4e4C24F4191Fad82F8f5524Ce62",
-  "managerStakeTokenAddress": "",
+  "managerStakeTokenAddress": "0x4200000000000000000000000000000000000006",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,7 +25,7 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [](https://optimistic.etherscan.io//address/) |
+| Wrapped Eth |  0.5 wETH | [0x4200000000000000000000000000000000000006](https://optimistic.etherscan.io//address/0x4200000000000000000000000000000000000006) |
 
 
 #### Recommended client configuration

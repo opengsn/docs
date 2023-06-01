@@ -13,7 +13,7 @@ gsn-relay-config.json:
 ```json
 {
   "relayHubAddress": "0xD2Cf68e21cc3Afe7F2B36B68A8C5b8FaD1b36CDE",
-  "managerStakeTokenAddress": "",
+  "managerStakeTokenAddress": "0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
@@ -25,7 +25,7 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [](https://snowtrace.io//address/) |
+| Wrapped Eth |  0.5 wETH | [0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB](https://snowtrace.io//address/0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB) |
 
 
 #### Recommended client configuration
