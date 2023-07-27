@@ -13,7 +13,7 @@ gsn-relay-config.json:
 ```json
 {
   "relayHubAddress": "0x3232f21A6E08312654270c78A773f00dd61d60f5",
-  "managerStakeTokenAddress": "0xBA03B53D826207c39453653f655d147d4BCBA7B4",
+  "managerStakeTokenAddress": "0x823e81FF03470d3d705Dc5a1e5d0ae78Bbc8B139",
   "ownerAddress": "<OWNER_ADDRESS>",
   "gasPriceFactor": 1,
   "ethereumNodeUrl": "<NODE_URL>"
