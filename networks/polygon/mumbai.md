@@ -25,7 +25,7 @@ gsn-relay-config.json:
 
 | Token Name  | Value    | Address                                                                                                                       |
 |-------------|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| Wrapped Eth |  0.5 wETH | [0xBA03B53D826207c39453653f655d147d4BCBA7B4](https://mumbai.polygonscan.com/address/0xBA03B53D826207c39453653f655d147d4BCBA7B4) |
+| Wrapped Native Token |  0.1 wnTok | [0x823e81FF03470d3d705Dc5a1e5d0ae78Bbc8B139](https://mumbai.polygonscan.com/token/0x823e81ff03470d3d705dc5a1e5d0ae78bbc8b139) |
 
 
 #### Recommended client configuration
