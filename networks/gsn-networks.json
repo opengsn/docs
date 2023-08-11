@@ -92,11 +92,8 @@
         "TestPaymasterEverythingAccepted": {
           "address": "0x086c11bd5A61ac480b326916656a33c474d1E4d8"
         },
-        "TestWrappedNativeToken": {
-          "address": "0x823e81FF03470d3d705Dc5a1e5d0ae78Bbc8B139"
-        },
         "WrappedEthToken": {
-          "address": "0xBA03B53D826207c39453653f655d147d4BCBA7B4"
+          "address": "0x823e81FF03470d3d705Dc5a1e5d0ae78Bbc8B139"
         }
       }
     }
