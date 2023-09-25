@@ -64,7 +64,8 @@ module.exports = {
         title: 'Contracts',
         collapsable: false,
         children: [
-          '/contracts/'
+          '/contracts/',
+          '/contracts/custom-deployment'
         ]
       },
       {
